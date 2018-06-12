@@ -1,2 +1,1 @@
-# VisualisationData
-A repository of public JSON data for Imperial Visualisations
+This repository should be used for developing visualizations for the aeronautics department at imperial.
