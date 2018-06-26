@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Imperial Visualisations</title>
+    <link rel="icon" href="https://www.imperial.ac.uk/T4Assets/favicon-196x196.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+    <style type="text/css">
+        /* css here */
+    </style>
+</head>
+
+<body>
+<!-- *main heading of the page* -->
+<h1>Dynamic system</h1>
+<div class="container">
+    <div class="row">
+        <!-- *Animation and trail of the MSD system* -->
+        <div class="seven columns">
+            <!-- <div id='graph' style="width:450px; height:450px;"></div> -->
+            <p>
+                <br>
+                <br>
+                <img src="assets/q1.jpg" alt="Dynamic system" width="400">
+            </p>
+            <br>
+            &emsp; &emsp; &emsp; &emsp;
+            <button id="playPauseButton">Start</button>
+            &emsp; &emsp;
+            <button id="resetButton">Reset</button>
+        </div>
+
+        <!-- *user inputs page* -->
+        <div class="five columns">
+            <abbr title="The parameters of dynamic system"><h5>Parameters</h5></abbr>
+            <div class="row">
+                <div class="six columns">
+                    <label class="label">m</label>
+                    <input type="number" placeholder="mass" style="width: 11em" id="m" onchange="calu_resp()">
+                </div>
+
+                <div class="six columns">
+                    <label class="label">I</label>
+                    <input type="number" placeholder="moment of inertia" style="width: 11em" id="I" onchange="calu_resp()">
+                </div>
+
+                <div class="row">
+
+                    <div class="six columns">
+                        <label class="label">k</label>
+                        <input type="number" placeholder="spring stiffness" style="width: 11em" id="k" onchange="calu_resp()">
+                    </div>
+
+                    <div class="six columns">
+                        <label class="label">k<sub>&theta;</sub></label>
+                        <input type="number" placeholder="spring stiffness" style="width: 11em" id="k_theta" onchange="calu_resp()">
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+
+                    <div class="six columns">
+                        <label class="label">L</label>
+                        <input type="number" placeholder="length" style="width: 11em" id="L" onchange="calu_resp()">
+                    </div>
+                </div>
+
+                <div class="twelve columns">
+                    <br>
+                    <abbr title="Combination of mode shapes give system response"><h5>Mode Shapes</h5></abbr>
+                    <p>
+                        <a href="#" style="font-size:large">Mode 1</a>
+                        &nbsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                        <a href="#" style="font-size:large">Mode 2</a>
+                    </p>
+                    <input type="range" min="0" max="100" value="50" id="mode1" onchange="calu_resp()">
+                    <output id="sliderVal"></output>
+                </div>
+
+                <div class="twelve columns">
+                    <p>
+                    <h5>Equation of motions</h5>
+                    $$\begin{bmatrix}m & 0\\0 & I\end{bmatrix} \begin{bmatrix} \ddot{r} \\ \ddot{&theta;} \end{bmatrix}
+                    + \begin{bmatrix}c & 0\\0 & 0\end{bmatrix} \begin{bmatrix} \dot{r} \\ \dot{&theta;} \end{bmatrix}
+                    + \begin{bmatrix}k & -kl\\-kl & k_&theta;+kl^2\end{bmatrix} \begin{bmatrix}r\\&theta;\end{bmatrix}
+                    = \begin{bmatrix}R\\&Theta;\end{bmatrix}
+                    $$
+                    <a href="http://localhost:63342/Dynamic%20system/styles/q1_equM.html?_ijt=aj8i4b9uk787fppc2r4dr98rav" target="_blank">
+                        Show solutions
+                    </a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="twelve colummns">
+        <div id="plot_r" style="width: 100vh;height: 100vh;"></div>
+    </div>
+</div>
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script src=https://code.jquery.com/jquery-latest.min.js></script>
+<script src=https://cdn.plot.ly/plotly-latest.min.js></script>
+<script src="scripts/graphics.js"></script>
+</body>
+
+<br>
+<!-- *function to get slider value* -->
+</html>
