@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Mode Shapes</title>
+    <link rel="stylesheet" href="https://manglekuo.com/i-v/styles.css?v=2">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+<h1>Mode Shapes</h1>
+    <div class="container">
+        <ul class="tab-nav">
+                    <li><a class="button " href="#basis">Simulated Data</a></li>
+                    <li><a class="button active" href="#area">Measured Data</a></li>
+                </ul>
+       
+        <div class="row">
+
+         <div class = "active "id = "area">
+
+            <!-- Graph -->
+            <div class="six columns">
+                
+                <div class="tab-content">
+                    <div class="tab-pane">
+                        <h6>Import the acquired data in the following cells:</h6>
+                        <form>
+                            Frequency = <input type="number" name="frequency"><br>
+                            Amplitude = <input type="number" name="amplitude"><br>
+                            Phase angle = <input type="number" name="phase"><br>
+                        </form>
+                        <h6>Data Points used to calculate the natural frequency and damping ratio:</h6>
+                        <table style="width:100%">
+                            <tr>
+                                <th>Point</th>
+                                <th>&omega;</th> 
+                                <th>&theta;</th>
+                            </tr>
+                            <tr>
+                                <td><input type="number" name="Point A"></td>
+                                <td></td> 
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="number" name="Point B"></td>
+                                <td></td> 
+                                <td></td>
+                            </tr>
+                        </table>
+                        <h6>The natural frequency and damping ratio are:</h6>
+                            <p> &omega;<sub>u</sub> = </p>
+                            <p> &xi; = </p>    
+                    </div>
+
+                    <div class="six columns">
+                        <!--Main Options-->
+                        
+
+                        <div class="tab-content">
+                            
+
+                            <div class="tab-pane" >
+                                <form>
+                                R<sub>0</sub> = <input type="number" name="force"><br>
+                                k = <input type="number" name="spring constant"><br>
+                                c = <input type="number" name="damping ratio"><br>
+                                m = <input type="number" name="mass"><br>
+                                </form>             
+                            </div>
+
+                        </div>
+                    </div>
+                    
+
+                </div>
+            </div>
+        </div>
+            <div id = "basis">   
+
+                    <div class="six columns">
+                        <!--Main Options-->
+                        
+
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane" >
+                                        <h6>Import the acquired data in the following cells:</h6>
+                                        <form>
+                                            Frequency = <input type="number" name="frequency"><br>
+                                            Amplitude = <input type="number" name="amplitude"><br>
+                                            Phase angle = <input type="number" name="phase"><br>
+                                        </form>
+                                        <h6>Data Points used to calculate the natural frequency and damping ratio:</h6>
+                                        <table style="width:100%">
+                                            <tr>
+                                                <th>Point</th>
+                                                <th>&omega;</th> 
+                                                <th>&theta;</th>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="number" name="Point A"></td>
+                                                <td></td> 
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="number" name="Point B"></td>
+                                                <td></td> 
+                                                <td></td>
+                                            </tr>
+                                        </table>
+                                        <h6>The natural frequency and damping ratio are:</h6>
+                                            <p> &omega;<sub>u</sub> = </p>
+                                            <p> &xi; = </p>
+                                         
+                               </div>
+                               
+                            </div>
+                             <div class="tab-content">
+                            
+
+                            <div class="tab-pane">
+                                <form>
+                                R<sub>0</sub> = <input type="number" name="force"><br>
+                                k = <input type="number" name="spring constant"><br>
+                                c = <input type="number" name="damping ratio"><br>
+                                m = <input type="number" name="mass"><br>
+                                </form>             
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src=script/data.js></script>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Undamped Frequency and Damping Ratio</title>
+    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>Undamped Frequency and  Damping Ratio</h1>
+        <div class="row">
+                <div class="four columns">
+                
+
+                    <div id='graph1' style="width:450px; height:450px;"></div>
+                </div>
+                <div class="four columns">
+                    <div id='graph2' style="width:450px; height:450px;"></div>
+                </div>
+                <div class="four columns">
+                    <div id='graph3' style="width:450px; height:450px;"></div>
+<!-- size of the inbut boxes 142px-->
+            </div>
+
+
+        </div>       
+        <div class="row">
+            <!-- Graph -->
+
+            <!--Bottons-->
+            <div class="five columns">
+                <!--Main Options-->
+                <ul class="tab-nav">
+                    <li><a class="button active" href="#simulated" id="simulatedButton">Simulated Data</a></li>
+                    <li><a class="button" href="#measured" id ="measuredButton">Measured Data</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane" id ="measured">
+                        <h6>Import the acquired data in the following cells:</h6>
+                        <form>
+                            Frequency = <input type="number" id="frequency"><br>
+                            Amplitude = <input type="number" id="amplitude"><br>
+                            Phase angle = <input type="number" id="phase"><br>
+                            Load Amplitude Factor = <input type="number" id="load"><br>
+                            <input type="button" onclick="initPlot()" value="submit"> 
+                        </form>
+                        <h6>Data Points used to calculate the natural frequency and damping ratio:</h6>
+                        <table style="width:100%">
+                            <tr>
+                                <th>Point</th>
+                                <th>&omega;</th> 
+                                <th>&theta;</th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="Point A" onchange="findRes()"></td>
+                                <td><p id="omega1"></p></td> 
+                                <td><p id="theta1"></p></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="Point B"onchange="findRes()"></td>
+                                <td><p id="omega2"></p></td> 
+                                <td><p id="theta2"></p></td>
+                            </tr>
+                        </table>
+                        <h6>The natural frequency and damping ratio are:</h6>
+                            <p> &omega;<sub>u</sub> = <span id="omegau"></span> </p>
+                            <p> &xi; = <span id="xi"></span></p>
+                         
+                    </div>
+
+                    <div class="tab-pane active" id = "simulated">
+                        <form>
+                        R<sub>0</sub> = <input type="number" min="0" step="0.5" id="force" onchange="initPlot()" placeholder="Applied Force"><br>
+                        k = <input type="number" min="0" step="0.5" onchange="initPlot()" id="spring" placeholder="Spring Stiffness"><br>
+                        c = <input type="number" min="0" step="0.1" onchange="initPlot()" id="damping" placeholder="Damping Ratio"><br>
+                        m = <input type="number"  min="0" step="0.5" onchange="initPlot()" id="mass" placeholder="Mass"><br>
+                        <!--<input type="button" onclick="initPlot()" value="submit"> -->
+                        </form>             
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src=script/backdata.js></script>
+    <script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
+</body>
+
+</html>
