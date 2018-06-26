@@ -1,0 +1,154 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <title>Mass spring damper system</title>
+    <link rel="stylesheet"  href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+
+    <style>
+
+
+    </style>
+</head>
+
+<body>
+
+<div class="container" style=" width: 100%" >
+    <h1>Mass spring damper system</h1>
+    <div class="row" style=" width:100%">
+        <!-- Animation and trail of the MSD system -->
+        <div class="six columns">
+            <div id="render" >
+            </div>
+            <div id='graph' style="width:450px; height:450px;"></div>
+            <button id="playPauseButton">Start</button>
+            <button id="resetButton">Reset</button>
+
+        </div>
+
+        <!--Buttons-->
+        <div class="six columns">
+            <!--Main Options --- TABS section -->
+            <ul class="tab-nav">
+                <li><a class="button active" href="#FreeVib">Free Vibrations</a></li>  <!-- without forcing function -->
+                <li><a class="button" href="#ForcedVib">Periodic Load</a></li>   <!-- with forcing function -->
+                <li><a class="button" href="#TransVib">Transient Load</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane" id ="ForcedVib" style=" width:600px">  <!-- Second Tab -->
+                    <!-- <em><a class="showHideButton" name=" Parameters" id="ShowParamForced" for="#ParamForced">Show Parameters </a></em> -->
+                    <div class="spoiler">
+                        <input onclick="showSpoiler(this);" value="Parameters"
+                               type="button">
+                        <div id="ParamForced" class="inner" style="display: none;">
+
+                            <form>  <!-- Creates the fields for the user input parameters -->
+                                R<sub>0</sub> <input type="number" id="force" onchange="AmpPhaNyq()"  style="width: 140px" placeholder="Forcing function">
+                                <!-- &omega; = <input type="number" id="frequency" onchange="AmpPhaNyq()" placeholder="Frequency"> <br> -->
+                                k = <input type="number" id="spring forced" onchange="AmpPhaNyq()" style="width: 140px" placeholder="Stiffness spring">
+                                c = <input type="number" id="damping forced" onchange="AmpPhaNyq()"  style="width: 110px" placeholder="Damping"> <br>
+                                m = <input type="number" id="mass forced" onchange="AmpPhaNyq()"  style="width: 75px" placeholder="Mass">
+                                r<sub>0</sub>= <input type="number" id="initial displacement forced" onchange="AmpPhaNyq()"  style="width: 158px" placeholder="Initial displacement">
+                                v<sub>0</sub>= <input type="number" id="initial velocity forced" onchange="AmpPhaNyq()" style="width: 131px" placeholder="Initial velocity">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="spoiler">
+                        <input onclick="showSpoiler(this);" value="Show Acceleration, Velocity, Displacement"
+                               type="button">
+                        <div id="AcceVeloDispForced" class="inner" style="display: none;">
+                            <!-- PLOT Acceleration/Velo/disp vs time -->
+                            <div id="graph6" style="width:600px ; height:400px;"> </div>
+
+                        </div>
+
+                    </div>
+                    <div class="spoiler">
+                        <input onclick="showSpoiler(this);" value="Show Energy variation"
+                               type="button">
+                        <div id="EnergyForced" class="inner" style="display: none;">
+                            energy plot
+                            <!-- PLOT -->
+                        </div>
+
+                    </div>
+                    <div class="spoiler">
+                        <input onclick="showSpoiler(this);" value="Show Amplitude, Phase, Nyquist"
+                               type="button">
+                        <div id="AmpPhaNyq" class="inner" style="display: none;">
+                            <div id="AmpPhaseNyq">
+                                <div id="graph2" style="width:400px ; height:400px;"> </div>
+                                <div id="graph3" style="width:400px ; height:400px;"> </div>
+                                <div id="graph4" style="width:400px ; height:400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane active" id ="FreeVib"> <!-- First Tab-->
+                    <div class="spoiler">
+                        <input onclick="showSpoiler(this);" value="Parameters"
+                               type="button">
+                        <div id="ParamFree" class="inner" style="display: none;">
+                            <form> <!-- Creates the fields for the user input parameters -->
+                                k = <input type="number" id="spring" onchange="AVD_graph()"   style="width: 140px" placeholder="Stiffness spring">
+                                c = <input type="number" id="damping"  onchange="AVD_graph()" style="width: 110px" placeholder="Damping">
+                                m = <input type="number" id="mass"   onchange="AVD_graph()"  style="width: 90px"placeholder="Mass"> <br>
+                                r<sub>0</sub>= <input type="number" id="initial displacement" onchange="AVD_graph()"  style="width: 158px" placeholder="Initial displacement">
+                                v<sub>0</sub>= <input type="number" id="initial velocity" onchange="AVD_graph()" style="width: 131px" placeholder="Initial velocity">
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="spoiler">
+                        <input onclick="showSpoiler(this);" value="Show Acceleration, Velocity, Displacement"
+                               type="button">
+                        <div id="AcceVeloDisp" class="inner" style="display: none;">
+                            <!-- PLOT Acceleration/Velo/disp vs time -->
+                            <div id="graph1" style="width:600px ; height:400px;">
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="spoiler">
+                        <input onclick="showSpoiler(this);" value="Show Energy variation"
+                               type="button">
+                        <div id="Energy" class="inner" style="display: none;">
+                            <div id="graph5" style="width:600px ; height:400px;">
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane" id ="TransVib">  <!-- Third Tab -->
+
+                    <div class="spoiler">
+                        <input onclick="showSpoiler(this);" value="Parameters"
+                               type="button">
+                        <div id="ParamTrans" class="inner" style="display: none;">
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.12.0/matter.js"></script>
+<script src=https://cdn.plot.ly/plotly-latest.min.js></script>
+<script src=data.js></script>   <!-- Imports a JS file to manage the tabs (will be deleted) -->
+<script src="graphs.js"> </script>
+<script src="Free_Vibrations.js" ></script>
+<script src="animation_msd.js" ></script>
+</body>
+
+</html>

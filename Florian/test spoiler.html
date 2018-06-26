@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="spoiler"><br>
+<input onclick="showSpoiler(this);" value="Parameters"
+ type="button">
+<div class="inner" style="display: none;"><a>This
+is a
+spoiler!</a>
+</div>
+</div>
+</body>
+<script type="text/javascript">
+function showSpoiler(obj)
+{
+var inner = obj.parentNode.getElementsByTagName("div")[0];
+if (inner.style.display == "none")
+inner.style.display = "";
+else
+inner.style.display = "none";
+}
+</script>
+</html>
