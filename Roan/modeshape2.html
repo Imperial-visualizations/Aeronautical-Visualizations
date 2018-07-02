@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Mode Shapes</title>
+    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://www.numericjs.com/lib/numeric-1.2.6.js"></script>
+</head>
+
+<body>
+    <div class="rightnav">&#9654;</div>
+    <div class="leftnav">&#9664;</div>
+    <div class="container">
+        <h1>Mode Shapes - Simulated Data</h1>
+        <div class="row"></div>
+        <div class="six columns">
+            <h4>3D Simultaion</h4>
+            <form>
+                            Mode Shape = <input type="number" id="frequency" min="1", max="9", step="1" value="1" style="width:80px";><br>
+                            <input type="button" value="Point Mass" style="width:150px"> <input type="button" value="Lumped Mass" style="width:150px"> </br>
+                            <input type="button" value="Start" style="width:150px"> <input type="button" value="Stop" style="width:150px"> 
+
+            </form>
+        </div>
+        <div class="six columns">
+            <h4>2D Simultaion</h4>
+            Mode Shape = <input type="number" id="frequency" min="1", max="9", step="1" value="1" style="width:80px";><br>
+                            <input type="button" value="Point Mass" style="width:150px"> <input type="button" value="Lumped Mass" style="width:150px"> </br>
+                            <input type="button" value="Start" style="width:150px" onclick="twoDshape()"> <input type="button" value="Stop" style="width:150px">
+        </div>
+    </div>
+    <script src=script/modeshape.js></script>
+    <script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
+</body>
+
+</html>
