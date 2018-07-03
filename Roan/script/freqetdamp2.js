@@ -120,13 +120,13 @@ function initPlot() {
           vAmplNorm[i]= vAmpl[i]/Math.max(...vAmpl);
           aAmplNorm[i]= aAmpl[i]/Math.max(...aAmpl);
 
-          dInNorm[i]= dIn[i]/Math.max(...dIn.map(Math.abs));
-          vInNorm[i]= vIn[i]/Math.max(...vOut.map(Math.abs));
-          aInNorm[i]= aIn[i]/Math.max(...aIn.map(Math.abs));
+          dInNorm[i]= (dIn[i]/Math.max(...dOut.map(Math.abs)))*2;
+          vInNorm[i]= (vIn[i]/Math.max(...vIn.map(Math.abs)))*2;
+          aInNorm[i]= (aIn[i]/Math.max(...aOut.map(Math.abs)))*2;
 
-          dOutNorm[i]= dOut[i]/Math.max(...dIn.map(Math.abs));
-          vOutNorm[i]= vOut[i]/Math.max(...vOut.map(Math.abs));
-          aOutNorm[i]= aOut[i]/Math.max(...aIn.map(Math.abs));
+          dOutNorm[i]= (dOut[i]/Math.max(...dOut.map(Math.abs)))*2;
+          vOutNorm[i]= (vOut[i]/Math.max(...vIn.map(Math.abs)))*2;
+          aOutNorm[i]= (aOut[i]/Math.max(...aOut.map(Math.abs)))*2;
 
           /* dPhase[i]= (dPhase[i]-Math.min(...dPhase))/(Math.max(...dPhase)-Math.min(...dPhase));
            vPhase[i]= (vPhase[i]-Math.min(...vPhase))/(Math.max(...vPhase)-Math.min(...vPhase));
@@ -346,6 +346,9 @@ xaxis:{}
                               legend: {x: 50, y: 10, orientation: "h"
                               },
                               showlegend: false,
+                               xaxis: { },
+                              yaxis: {scaleanchor: "x",},
+
 
                               font: {
                                   family: "Fira Sans", size:12
@@ -581,7 +584,7 @@ function findRes(){
 
             document.getElementById('omegau').innerHTML= wu.toFixed(2) ;
             document.getElementById('xi').innerHTML= xi.toFixed(5) ;
-            document.getElementById('coverm').innerHTML=coverm.toFixed(5);
+            document.getElementById('coverm').innerHTML=coverm.toFixed(2);
             document.getElementById('koverm').innerHTML=koverm.toFixed(2);
 
 
