@@ -317,6 +317,8 @@ xaxis:{}
                               legend: {x: 50, y: 10, orientation: "h"
                               },
                               showlegend: false,
+                              xaxis: { },
+                              yaxis: {scaleanchor: "x",},
 
                               font: {
                                   family: "Fira Sans", size:12

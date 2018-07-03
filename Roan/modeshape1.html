@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Mode Shapes</title>
+    
+    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+</head>
+
+<body>
+    <div class="rightnav">&#9654;</div>
+    <div class="container">
+        <h1>Mode Shapes - Simulated Data</h1>
+        <div class="row">
+            <h4>Undamped natural frequencies and mode shapes</h4>
+            <p align="justify">The equation of motion for a structure with n degrees of freedom with no damping and under free vibrations can be written in matrix form as:</p>
+            $$ \mathbf{M}\ddot{\mathbf{r}}(t)+\mathbf{Kr}(t)=0 $$
+            <p>where $ \mathbf{r}(t)$ is the vector of displacements, $\mathbf{M}$ is the mass matrix, $\mathbf{K}$ is the stiffness matrix and $t$ is time.</p>
+            <p>We assume the following solution, where $\overline{\varphi}$ is a vector is unknown constant amplitude and $\omega_u$ is a natural frequency of the structure:</p>
+            $$ \mathbf{r}(t)=\overline{\varphi}cos \omega_u t$$
+            <p align="justify">Calculating the second derivative of the previous equation and replacing in in the equation of motion leads to the eigenvalue problem:</p>
+            $$ \left( \mathbf{K}-\omega_u^2\mathbf{M} \right) \overline{\varphi}=0
+            $$
+            <p>Thus, for a non-zero vector $\overline{\varphi}$, the following has to be true:</p>
+            $$ 
+               \left| \mathbf{K}-\omega_u^2\mathbf{M} \right| = 0
+            $$
+
+            <p>This leads to $n$ solutions for $\omega_u$, the eigenvalues, and $n$ corresponding eigenvectors. For the purpose of this laboratory, these have been normalised with respect to the maximum component of each vector. These are the $\textit{mode shapes}$.</p>
+
+        </div>
+
+    </div> 
+    <script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>      
+</body>
+
+</html>

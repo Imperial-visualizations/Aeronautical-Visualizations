@@ -3,85 +3,73 @@
 
 <head>
     <title>Undamped Frequency and Damping Ratio</title>
+    
     <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
 </head>
 
 <body>
     <div class="rightnav">&#9654;</div>
     <div class="container">
-        <h1>Undamped Frequency and  Damping Ratio</h1>
+        <h1>Undamped Frequency and Damping Ratio</h1>
+
         <div class="row">
-                <div class="four columns">
-                
+            <h4>Solution for a one degree of freedom system under periodic loading</h4>
+            <p>Consider a one degree of freedom damped system under harmonic load with magnitude $R_0$:</p>
+            $$ m\ddot{r}(t)+c\dot{r}(t)+kr(t)=R_0cos\omega t $$
+            <p>Assuming a steady state solution and differentiating once for velocity and twice for acceleration, we obtain:</p>
+            $$ 
+                \begin{cases}
+                    r=r_ccos\omega t +r_ssin\omega t & \\
+                    \dot{r}(t)=-r_c\omega sin\omega t +r_s\omega cos\omega t &\\
+                    \dot{r}(t)=-r_c\omega^2 cos\omega t -r_s\omega^2 sin\omega t & 
+                \end{cases}
+            $$
+            <p align="justify">The terms that multiply by $cos\omega t$ are in phase with the load (since the load was assumed to be $R_0cos\omega t$ ), and the terms that multiply by $sin\omega t$ are out of phase with the load. Therefore, the in-phase (subscript $x$) and out of phase (subscript $y$) terms of the displacement, velocity and acceleration are, respectively:</p>
+            $$ 
+                \begin{cases}
+                    r_x= r_c &\\
+                    r_y= r_s & 
+                \end{cases}
+                \begin{cases}
+                    \dot{r}_x=\omega r_s &\\
+                    \dot{r}_y=-\omega r_c & 
+                \end{cases}
+                \begin{cases}
+                    \ddot{r}_x=-\omega^2 r_c &\\
+                    \ddot{r}_y=-\omega^2 r_s & 
+                \end{cases}
+            $$
+            <p>Furthermore, the magnitude and phase, with respect to the load, of the displacement, velocity and acceleration are:</p>
+            $$ 
+                \begin{cases}
+                    ||r||= \sqrt{r_x^2+r_y^2} &\\
+                    tan\theta_r= \frac{r_y}{r_x} & 
+                \end{cases}
+                \begin{cases}
+                    ||\dot{r}||= \sqrt{\dot{r}_x^2+\dot{r}_y^2} &\\
+                    tan\theta_\dot{r}= \frac{\dot{r}_y}{\dot{r}_x} & 
+                \end{cases}
+                \begin{cases}
+                    ||\ddot{r}|= \sqrt{\ddot{r}_x^2+\ddot{r}_y^2} &\\
+                    tan\theta_\ddot{r}= \frac{\ddot{r}_y}{\ddot{r}_x} & 
+                \end{cases}
+            $$
 
-                    <div id='graph1' style="width:300px; height:300px;"></div>
-                </div>
-                <div class="four columns">
-                    <div id='graph2' style="width:300px; height:300px;"></div>
-                </div>
-                <div class="four columns">
-                    <div id='graph3' style="width:420px; height:300px;"></div>
-<!-- size of the inbut boxes 142px-->
-            </div>
-
-
-        </div>       
-        <div class="row">
-        		<div class="five columns offset-by-one column">
-                    <!--<form>
-                        R<sub>0</sub> = <input type="number" min="0" step="0.5" id="force" onchange="initPlot()" placeholder="Applied Force"><br>
-                        k = <input type="number" min="0" step="0.5" onchange="initPlot()" id="spring" placeholder="Spring Stiffness"><br>
-                    </form> -->
-
-                    <label class="ForceTitle">Applied Force:&nbsp;
-                            <span id="ForceDisplay">1</span>
-                    </label>
-                    <label class="slider">
-                        <input class="inputs" type="range" id="Force" min="0" max="10" step = "0.5" value="1"/>
-                        <span class="sliderMin">0</span><span class="sliderMax">10</span>
-                    </label>
-                    
-
-                    <label class = "SpringTitle">Spring Constant:&nbsp;
-                            <span id="SpringDisplay">2</span>
-                    </label>
-                    <label class="slider">
-                        <input class="inputs" type="range" id="Spring" min="0" max="5" step = "0.25" value="2"/>
-                        <span class="sliderMin">0</span><span class="sliderMax">5</span>
-                    </label>
-                </div>
-        
-                <div class="five columns offset-by-one column">
-                	<!--<form>
-                        c = <input type="number" min="0" step="0.1" onchange="initPlot()" id="damping" placeholder="Damping Ratio"><br>
-                        m = <input type="number"  min="0" step="0.5" onchange="initPlot()" id="mass" placeholder="Mass"><br>
-                        <input type="button" onclick="initPlot()" value="submit">
-                    </form> -->
-                    <label class="DampingTitle">Damping Constant:&nbsp;
-                        <span id="DampingDisplay">0.1</span>
-                    </label>
-                    <label class="slider">
-                        <input class="inputs" type="range" id="Damping" min="0" max="1" step = "0.05" value="0.1"/>
-                        <span class="sliderMin">0</span><span class="sliderMax">1</span>
-                    </label> 
-
-                    <label class="MassTitle">Mass:&nbsp;
-                        <span id="MassDisplay">1</span>
-                    </label>
-                    <label class="slider">
-                        <input class="inputs" type="range" id="Mass" min="0" max="2" step = "0.1" value="1"/>
-                        <span class="sliderMin">0</span><span class="sliderMax">2</span>
-                    </label>             
-                </div>
-
-                </div>
-            </div>
         </div>
-    <script src=script/freqetdamp1.js></script>
-    <script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
+
+    </div> 
+    <script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>      
 </body>
 
 </html>

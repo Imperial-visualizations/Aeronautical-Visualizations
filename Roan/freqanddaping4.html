@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Undamped Frequency and Damping Ratio</title>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <div class="rightnav">&#9654;</div>
+    <div class="leftnav">&#9664;</div>
+    <div class="container">
+        <h1>Undamped Frequency and  Damping Ratio</h1>
+
+        <div class="row">
+            <h4>Obtaining the undamped natural frequency and the damping ratio</h4>
+            <p>Using the definition of $tan\theta_\dot{r}$ obtained previously, the expressions for $r_c$ and $r_s$, and remembering that $\omega_u^2=\frac{k}{m}$:</p>
+
+            $$tan\theta_\dot{r}=\frac{\omega^2-\omega_u^2}{\omega \frac{c}{m}}$$
+            <p>Solving for $\frac{c}{m}$:</p>
+            $$ \frac{c}{m}=\frac{\omega^2-\omega_u^2}{\omega tan\theta_\dot{r}}$$
+            
+            <p align="justify">Since $\frac{c}{m}$ is the same for all data points (obtained for different values of $\omega$), any two data points can be selected to give an equation in which $\frac{c}{m}$ can be canceled. Choosing data points A and B such that they are the two closest points to the natural frequency, i.e. the two points closer to $tan\theta_\dot{r}$. We could have picked any other pair of points, but selecting two points close to the natural frequency minimises the undesirable effect of other resonant modes of the structure. Writing the previous equation for points A and B  and solving for the natural frequency $\omega_u$ leads to:</p>
+            $$\omega_u=\frac{\omega_A^2\omega_B tan\theta_{\dot{r}_B}-\omega_B^2\omega_A tan\theta_{\dot{r}_A}}{\omega_B tan\theta_{\dot{r}_B}-\omega_A tan\theta_{\dot{r}_A}} $$
+            <p> Proceeding similarly to before, for a pair of points $A$ and $B$ the damping ratio can be obtained:</p>
+
+            $$\xi=\frac{\alpha}{\omega_u} \hspace{0.75cm} where \hspace{0.75cm} 2\alpha=\frac{c}{m}=\frac{\omega_B^2-\omega_A^2}{\omega_B tan\theta_{\dot{r}_B}-\omega_A tan\theta_{\dot{r}_A}}$$
+        </div>
+
+    </div> 
+
+    <script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>      
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Undamped Frequency and Damping Ratio</title>
+    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+</head>
+
+<body>
+    <div class="leftnav">&#9664;</div>
+    <div class="container">
+        <h1>Undamped Frequency and  Damping Ratio</h1>
+        <div class="row">
+                <div class="four columns">
+                
+
+                    <div id='graph1' style="width:300px; height:300px;"></div>
+                </div>
+                <div class="four columns">
+                    <div id='graph2' style="width:300px; height:300px;"></div>
+                </div>
+                <div class="four columns">
+                    <div id='graph3' style="width:420px; height:300px;"></div>
+<!-- size of the inbut boxes 142px-->
+            </div>
+
+
+        </div>       
+        <div class="row">
+            <!-- Graph -->
+
+            <!--Bottons-->
+            <div class="four columns">
+                    <h6>Import the acquired data in the following cells:</h6>
+                        <form>
+                            Frequency = <input type="number" id="frequency" style="width:120px";><br>
+                            Amplitude = <input type="number" id="amplitude" style="width:120px"><br>
+                            Phase angle = <input type="number" id="phase" style="width:120px"><br>
+                            Load Amplitude Factor = <input type="number" id="load" style="width:120px"><br>
+                            <input type="button" onclick="initPlot()" value="submit"> 
+                        </form>
+            </div>
+            <div class="four columns offset-by-one column">
+                <h6>Data Points used to calculate the natural frequency and damping ratio:</h6>
+                        <table style="width:100%">
+                            <tr>
+                                <th>Point</th>
+                                <th>$\omega$</th> 
+                                <th>$\theta$</th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" style="width:100px" id="Point A" onchange="findRes()"></td>
+                                <td><p id="omega1"></p></td> 
+                                <td><p id="theta1"></p></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" style="width:100px" id="Point B"onchange="findRes()"></td>
+                                <td><p id="omega2"></p></td> 
+                                <td><p id="theta2"></p></td>
+                            </tr>
+                        </table>
+            </div>
+            <div class="two columns offset-by-one column">
+                        <h6>The values of interest are:</h6>
+                            <p> $ \omega_u = $<span id="omegau"></span> </p>
+                            <p> $ \xi = $<span id="xi"></span></p>
+                            <p> $ \frac{k}{m} = \sqrt{\omega_u} = $<span id="koverm"></span></p>
+                            <p> $ \frac{c}{m} = 2\xi\omega_u = $<span id="coverm"></span></p>
+                         
+                    </div>
+
+            </div>
+        </div>
+    <script src=script/freqetdamp2.js></script>
+    <script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
+</body>
+
+</html>
