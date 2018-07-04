@@ -27,9 +27,10 @@
         <div class="six columns">
             <h4>2D Simulation</h4>
             <form>          Mode Shape = <input type="number" id="frequency" min="1", max="9", step="1" value="1" style="width:80px";><br>
-                            <input type="button" value="Point Mass" style="width:150px"> <input type="button" value="Lumped Mass" style="width:150px"> </br>
-                            <input type="button" value="Start" style="width:150px" onclick="twoDshape()"> <input type="button" value="Stop" style="width:150px">
+                            <!--<input type="button" value="Point Mass" style="width:150px"> <input type="button" value="Lumped Mass" style="width:150px"> </br>
+                            <input type="button" class="start button" href="start" value="Start" style="width:150px"> <input type="button" class="pause button" href="pause" value="Pause" style="width:150px">-->
                         </form>
+                         <div class="start button" id="start">Start</div>
                         <div id='graphAircraft'></div>
         </div>
     </div>

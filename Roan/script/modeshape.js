@@ -7,49 +7,110 @@ const K=[[1,2], [2,1]];
 //position vector
 y=[0,-0.508, -1.016, -1.524, -2.032, -1.016*(Math.sin(Math.PI/6)+1), -1.016*(Math.sin(Math.PI/6)/2+1),-1.016*(Math.sin(Math.PI/6)/2+1),-1.016*(Math.sin(Math.PI/6)+1)];
 x=[0,0,0,0,0, -1.016*Math.cos(Math.PI/6), -1.016*Math.cos(Math.PI/6)/2, 1.016*Math.cos(Math.PI/6)/2, 1.016*Math.cos(Math.PI/6)]
-
-var traceAircraft = {
-              x: x, 
-              y: y, 
+z=[0,0,0,0,0]
+xi=[0.051, -0.054, -0.15, -0.353, -0.639];
+var traceAircraftV = {
+              //x: [x[0],x[1],x[2],x[3],x[4]], 
+              x: [y[0],y[1],y[2],y[3],y[4]],
+              y: z, 
               type: 'scatter',
-              mode: 'markers',
               marker: {
                       color: 'rgb(139, 0, 0)',
                       size: 10,
                       }
                             
             };
+/*var traceAircraftH = {
+              x: [x[5],x[6],x[2],x[7],x[8]], 
+              y: [y[5],y[6],y[2],y[7],y[8]], 
+              type: 'scatter',
+              marker: {
+                      color: 'rgb(99, 45, 122)',
+                      size: 10,
+                      }
+                            
+            };*/
 var layout = {
     xaxis: { },
     yaxis: {
       scaleanchor: "x",
-    }
+    },
+    showlegend:false
 }
-            var dataAircraft = [traceAircraft];
+            var dataAircraft = [traceAircraftV/*, traceAircraftH*/];
             Plotly.plot('graphAircraft', dataAircraft, layout);
-function twoDshape() {
-    const Minv = numeric.inv(M);
-    console.log(Minv)
 
-    B=numeric.eig(numeric.dot(Minv,K));
-    console.log(B);
-
-}
 function threeDshape(){
 };
+dt=0.0001;
+t=dt;
+n=5;
+
+ 
+$('.start.button').on('click',()=>{ 
+    $('.start.button').addClass('active');}).on('click',() =>{ 
+    $('.pause.button').removeClass('active');})
+
+$('.pause.button').on('click',()=>{ 
+    $('.pause.button').addClass('active');}).on('click',() =>{ 
+    $('.start.button').removeClass('active');})
+
+$('.start.button').on('click',begin_animation)
+//$('.pause.button').on('click', end_animation)
+let anim;
+
+function begin_animation(){
+function animate2D (){
+
+    let status = $('form input.button.active').attr('href');
+        function compute () {
+
+          for (var i = 0; i < n; i++) {
+            z[i]=xi[i]*Math.sin(108*t)
+            t=t+dt;
+          }
+        }
+
+          compute();
+
+          Plotly.animate('graphAircraft', {
+            data: [{x: [y[0],y[1],y[2],y[3],y[4]], y: z}]
+          }, {
+            transition: {
+              duration: 0
+            },
+            frame: {
+              duration: 10,
+              redraw: false
+            }
+          });
+          return;
+        }
+      if ($(this).html().toString()=="Start"){
+        anim= setInterval(animate2D,10);
+        $(this).text("Pause")
+      }else {
+            clearInterval(anim);
+            $(this).text("Start")
+        };
+
+      //else if (status==='pause'){ console.log('this part works')
+        //Plotly.animate('graphAircraft', {
+          //  data: [{x: [y[0],y[1],y[2],y[3],y[4]], y: z}]
+          //});
+      //}
 
 
-
-function main() {
-    $("input[type=range]").each(function () {
-        var displayEl;
-        $(this).on('input', function(){
-            $("#"+$(this).attr("id") + "Display").text( $(this).val());
-            
-            initPlot();
-        });
-    });
   }
+//function begin_animation(){
+  //anim= setInterval(animate2D,10);
+
+//};
+
+//function end_animation(){
+  //clearInterval(anim)
+//}
+
 
 //$(window).on('load',emptyPlot)
 //$(document).ready = main();
