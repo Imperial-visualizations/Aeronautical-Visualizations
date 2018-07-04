@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Biot Savart Law</title>
+    <link rel="icon" href="https://www.imperial.ac.uk/T4Assets/favicon-196x196.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<div class="container">
+        <h1>3D Animation test</h1>
+    <div class="row">
+        <div class="five columns">
+            <div id="interface">
+                <div id="animation-slider">
+                    <label for="animation" class="sliderTitle">Animation slider:
+                        <span id="animation-display">1</span>
+                    </label>
+                    <input type="range" id="animation" name="animation" min="1" max="10" step = "0.1" value="0">
+                    <span class="sliderMin">1</span><span class="sliderMax">10</span>
+                </div>
+
+                <div class="button" id="play">PLAY</div>
+            </div>
+        </div>
+        <div class="seven columns">
+            <div id="graph"></div>
+        </div>
+
+    </div>
+
+
+</div>
+    <script src="3dtest.js"></script>
+    <script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
+</body>
+</html>
