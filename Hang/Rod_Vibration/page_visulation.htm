@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Imperial Visualisations</title>
+    <link rel="icon" href="https://www.imperial.ac.uk/T4Assets/favicon-196x196.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src = "http://www.numericjs.com/lib/numeric-1.2.6.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+    <script src="xlsx.min.js"></script>
+  </head>
+
+  <body>
+    <div class="rightnav">&#9654;</div>
+    <div class="leftnav">&#9664;</div>
+
+    <div class="container">
+      <h1> Finite Element Analysis: Longitudinal Rod Element </h1>
+      <div class = "row"></div>
+
+      <div class = "eight columns">
+        <h4>&emsp;&emsp;&emsp; Visualisations </h4>
+        <div class = "eleven columns">
+          <div id="graphRod"></div>
+        </div>
+      </div>
+
+      <div class = "four columns">
+        <h4> &emsp; Control Panel: </h4>
+        <div id="magnitude">
+          <label for="element" class="sliderTitle">
+            Displacement Magnitude:
+            <span id="dispMag">2</span>
+          </label>
+          <input type="range" id="element" name="angle" min="1" max="5" value="2">
+          <span class="sliderMin">1</span><span class="sliderMax">5</span>
+        </div>
+
+        <div id="element-switch">
+          <div class="rows">
+            <div class="six columns">
+              <label for="interference" class="checkbox" data-title="Show Elements">
+                <input type="checkbox" id="interference" name="interference" checked="checked">
+                <span></span>
+              </label>
+            </div>
+            <div class="six columns">
+              <label for="interference" class="checkbox" data-title="Show Lines">
+                <input type="checkbox" id="interference" name="interference" checked="checked">
+                <span></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+
+
+        <form>
+          No. of Elements = <input type="number" id="frequency" min="1", max="25", step="1" value="1" style="width:80px";><br>
+        </form>
+        <form>
+          Mode shape to show= <input type="number" id="frequency" min="1", max="25", step="1" value="1" style="width:80px";><br>
+        </form>
+        <div class="start button" id="start">Start</div>
+      </div>
+      <script src = "L1Rod.js"></script>
+
+      <script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
+
+  </body>
+
+  </html>

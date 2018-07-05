@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Imperial Visualisations</title>
+
+    <link rel="icon" href="https://www.imperial.ac.uk/T4Assets/favicon-196x196.png" type="image/x-icon">
+    <!--
+    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+    -->
+    <link rel="stylesheet" href="style.css">
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/3.16.2/math.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src = "http://www.numericjs.com/lib/numeric-1.2.6.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src = "1D_rod.js"></script>
+    <script src = "control.js"></script>
+    <style>
+.slidecontainer {
+    width: 100%;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #4CAF50;
+    cursor: pointer;
+}
+</style>
+  </head>
+
+<body>
+  <h1> Finite Element: Rod Analysis </h1>
+
+    <div class = "row">
+
+      <div class = "two columns" id = list>
+        navigation </br>
+        to 1, 2 ,3D </br>
+        analysis </br>
+        with icons </br>
+
+      </div>
+<!--
+      <div class = "seven columns" id = visual>
+        &emsp; &emsp; &emsp; &emsp; visual <br>
+              <canvas id="graph" width="500" height="500"></canvas>
+              <div id="tester" style="width:600px;height:250px;"></div>
+      </div>
+-->
+
+      <div class = "seven columns">
+        &emsp; &emsp; &emsp; &emsp; Visual </br>
+
+      </br>
+    </br>
+        <div id="graph"></div>
+      </div>
+
+
+      <div class = "three columns" id = contorl>
+        Control panel <br>
+
+        <div id="panel">
+
+          <div id="element_number">
+            <label for="element" class="sliderTitle">
+              Number of elements:
+              <span id="no_of_element">2</span>
+            </label>
+            <input type="range" id="element" name="angle" min="1" max="5" value="2">
+            <span class="sliderMin">1</span><span class="sliderMax">5</span>
+          </div>
+
+          <div id="force">
+            <label for="NodalForce" class="sliderTitle">
+              Nodal force:
+              <span id="NodalForceDisplay">6</span>
+            </label>
+            <input type="range" id="NodalForceIn" name="nodalForce1" min="0" max="10" step="0.02" value="6">
+            <span class="sliderMin">0</span><span class="sliderMax">10</span>
+          </div>
+<!--
+          <div id="force2">
+            <label for="nodal-force2" class="sliderTitle">
+              Nodal force 2:
+              <span id="nodal-force-display">6</span>
+            </label>
+            <input type="range" id="refractive-index" name="refractive-index" min="0" max="10" step="0.02" value="1.5">
+            <span class="sliderMin">0</span><span class="sliderMax">10</span>
+          </div>
+-->
+          <div id="element-switch">
+            <label for="interference" class="checkbox" data-title="Show elements">
+              <input type="checkbox" id="interference" name="interference" checked="checked">
+              <span></span>
+            </label>
+          </div>
+
+          requir
+
+          <div class="slidecontainer">
+            <p>Custom range slider:</p>
+            <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+
+            <p>Custom range slider:</p>
+            <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+          </div>
+
+        </div>
+
+
+
+</body>
+
+<script src = "control.js"></script>
+
+</html>
