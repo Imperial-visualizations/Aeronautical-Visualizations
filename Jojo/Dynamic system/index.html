@@ -8,12 +8,13 @@
     <title>Imperial Visualisations</title>
     <link rel="icon" href="https://www.imperial.ac.uk/T4Assets/favicon-196x196.png" type="image/x-icon">
     <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
-    <!-- <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
-    </script> -->
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script type="text/javascript" async
-            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG">
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
     </script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style type="text/css">
+        canvas {border: 1px solid black;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,17 +24,17 @@
     <div class="row">
         <!-- *Animation and trail of the MSD system* -->
         <div class="seven columns">
-            <!-- <div id='graph' style="width:450px; height:450px;"></div> -->
-            <p>
-                <br>
-                <br>
-                <img src="assets/q1.jpg" alt="Dynamic system" width="400">
-            </p>
+            <br>
+            <br>
+            <canvas width="450" height="450">
+            </canvas>
+                <!-- <img src="assets/q1.jpg" alt="Dynamic system" width="400"> -->
+            <br>
             <br>
             &emsp; &emsp; &emsp; &emsp;
-            <button id="playPauseButton">Start</button>
+            <button id="playPauseButton" onclick="startAnime()">Start</button>
             &emsp; &emsp;
-            <button id="resetButton">Reset</button>
+            <button id="resetButton" onclick="stopAnime()">Reset</button>
         </div>
 
         <!-- *user inputs page* -->
@@ -42,29 +43,29 @@
             <div class="row">
                 <div class="three columns">
                     <label class="label">m (kg)</label>
-                    <input type="number" min=0 max=10 placeholder="mass" style="width: 6em" id="m" oninput="calcu_resp()" onchange="calcu_resp2()">
+                    <input type="number" min=0 placeholder="mass" style="width: 6em" id="m" oninput="calcu_resp()" onchange="calcu_resp2()">
                 </div>
 
                 <div class="three columns">
                     <label class="label">L (m)</label>
-                    <input type="number" min=0 max=10 placeholder="length" style="width: 6em" id="L" oninput="calcu_resp()" onchange="calcu_resp2()">
+                    <input type="number" min=0 placeholder="length" style="width: 6em" id="L" oninput="calcu_resp()" onchange="calcu_resp2()">
                 </div>
 
                 <div class="five columns">
                     <label class="label">k (N/m)</label>
-                    <input type="number" min=0 max=10 placeholder="spring stiffness" style="width: 11em" id="k" oninput="calcu_resp()" onchange="calcu_resp2()">
+                    <input type="number" min=0 placeholder="spring stiffness" style="width: 11em" id="k" oninput="calcu_resp()" onchange="calcu_resp2()">
                 </div>
             </div>
 
             <div class="row">
                 <div class="five columns">
                     <label class="label">k<sub>&theta;</sub> (N&middot;m/rad) </label>
-                    <input type="number" min=0 max=10 placeholder="spring stiffness" style="width: 11em" id="k_theta" oninput="calcu_resp()" onchange="calcu_resp2()">
+                    <input type="number" min=0 placeholder="spring stiffness" style="width: 11em" id="k_theta" oninput="calcu_resp()" onchange="calcu_resp2()">
                 </div>
 
                 <div class="five columns">
                     <label class="label">I (kg&middot;m<sup>2</sup>)</label>
-                    <input type="number" min=0 max=10 placeholder="moment of inertia" style="width: 11em" id="I" oninput="calcu_resp()" onchange="calcu_resp2()">
+                    <input type="number" min=0 placeholder="moment of inertia" style="width: 11em" id="I" oninput="calcu_resp()" onchange="calcu_resp2()">
                 </div>
             </div>
 
@@ -72,9 +73,9 @@
                 <br>
                 <abbr title="Combination of mode shapes give system response"><h4>Mode Shapes</h4></abbr>
                 <p>
-                    <a href="#" style="font-size:large">Mode 1</a>
-                    &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
-                    <a href="#" style="font-size:large">Mode 2</a>
+                    <a href="#" style="font-size:large">1<sup>st</sup> Mode</a>
+                    &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                    <a href="#" style="font-size:large">2<sup>nd</sup> Mode</a>
                 </p>
                 <input type="range" min="0" max="100" value="50" id="mode1" oninput="calcu_resp()" onmousemove="calcu_resp2()">
                 <output id="sliderVal"></output>
@@ -91,7 +92,7 @@
                             + \begin{bmatrix}k & -kl\\-kl & k_&theta;+kl^2\end{bmatrix} \begin{bmatrix}r\\&theta;\end{bmatrix}
                             = \begin{bmatrix}R\\&Theta;\end{bmatrix}
                             $$
-                            <a href="http://localhost:63342/Dynamic%20system/styles/q1_equM.html?_ijt=aj8i4b9uk787fppc2r4dr98rav" target="_blank">
+                            <a href="http://localhost:63342/Dynamic%20system/scripts/q1_equM.html?_ijt=qtfpk9uieo65ncdbc6clamc2kt" target="_blank">
                                 Show solutions
                             </a>
                         </p>
@@ -122,7 +123,8 @@
 </div>
 
 <script src=https://code.jquery.com/jquery-latest.min.js></script>
-<script src="scripts/graphics.js"></script>
+<script src="graphics.js"></script>
+<script src="canvas.js"></script>
 </body>
 
 <br>
