@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Imperial Visualisations</title>
+    <link rel="icon" href="https://www.imperial.ac.uk/T4Assets/favicon-196x196.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+    <link rel="stylesheet" href="slideShow.css">
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+<!-- *main heading of the page* -->
+
+<div class="container">
+    <h1>Dynamic system</h1>
+</div>
+
+<div class="row">
+    <!-- *Animation and trail of the MSD system* -->
+    <div class="seven columns">
+        <br>
+        <div class="row">
+            <div class="eleven columns">
+                <!-- Slideshow container -->
+                <div class="slideshow-container">
+                    <!-- Full-width images with number and caption text -->
+                    <div class="mySlides fade">
+                        <!-- <div class="numbertext">1 / 2</div> -->
+                        <div style="text-align:center;" >
+                            <canvas width="500" height="500" ></canvas>
+                        </div>
+                        <div style="text-align:center;">
+                            <button id="playPauseButton" onclick="calcu_resp(); calcu_resp2(); startAnime()">Start</button>
+                            <button id="resetButton" onclick="stopAnime()">Reset</button>
+                        </div>
+                    </div>
+
+                    <div class="mySlides fade">
+                        <!-- <div class="numbertext">2 / 2</div> -->
+                        <div id="plot_r"  style="height: 50vh; width: 80vh"></div>
+                        <div id="plot_theta" style="height: 50vh; width: 80vh;"></div>
+                    </div>
+
+                    <!-- Next and previous buttons -->
+                    &emsp;&emsp;&emsp;&emsp;
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                    <br>
+
+                    <!-- The dots/circles -->
+                    <div style="text-align:center">
+                        <span class="dot" onclick="currentSlide(1)"></span>
+                        <span class="dot" onclick="currentSlide(2)"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- *user inputs page* -->
+    <div class="five columns">
+        <abbr title="The parameters of dynamic system"><h4>Parameters</h4></abbr>
+        <div class="row">
+            <div class="row">
+                <div class="six columns">
+                    <label class="label">m :
+                        <span id="mDisplay"></span>
+                        kg
+                    </label>
+                    <input type="range" min="1" max="7" step="0.1" value="4" style="width: 17em" id="m" oninput="calcu_resp(); slider();" onmousemove="calcu_resp2()" onchange="calcu_resp2()">
+                </div>
+
+                <div class="six columns">
+                    <label class="label">L :
+                        <span id="LDisplay"></span>
+                        m
+                    </label>
+                    <input type="range" min="1" max="2" value="1.5" step="0.1" style="width: 17em" id="L" oninput="calcu_resp(); slider();" onmousemove="calcu_resp2()" onchange="calcu_resp2()">
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="six columns">
+                    <label class="label">k :
+                        <span id="kDisplay"></span>
+                        N/m
+                    </label>
+                    <input type="range" min="6" max="10" value="8" step="0.1" style="width: 17em" id="k" oninput="calcu_resp(); slider();" onmousemove="calcu_resp2()" onchange="calcu_resp2()">
+                </div>
+
+                <div class="six columns">
+                    <label class="label">k<sub>&theta;</sub> :
+                        <span id="k_thetaDisplay"></span>
+                        N&middot;m/rad
+                    </label>
+                    <input type="range" min="5" max="11" value="8" step="0.1" style="width: 17em" id="k_theta" oninput="calcu_resp(); slider();" onmousemove="calcu_resp2()" onchange="calcu_resp2()">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="six columns">
+                    <label class="label">I :
+                        <span id="IDisplay"></span>
+                        kg&middot;m<sup>2</sup>
+                    </label>
+                    <input type="range" min="6" max="7" value="6.5" step="0.1" style="width: 17em" id="I" oninput="calcu_resp(); slider();" onmousemove="calcu_resp2()" onchange="calcu_resp2()">
+                </div>
+            </div>
+
+            <div class="nine columns">
+                <br>
+                <abbr title="Combination of mode shapes give system response"><h4>Mode Shapes</h4></abbr>
+                <p>
+                <div class="nine columns">
+                    <a href="#" style="font-size:large">1<sup>st</sup> Mode</a>
+                </div>
+
+                <div class="three columns">
+                    <a href="#" style="font-size:large">2<sup>nd</sup> Mode</a>
+                    </p>
+                </div>
+
+                <input type="range" min="0" max="1" step = "0.01" value="0.5" id="mode1" oninput="calcu_resp()" onmousemove="calcu_resp2()" onchange="calcu_resp2()">
+            </div>
+
+            <div class="ten columns">
+                <br>
+                <abbr title="The combination of mode shapes give system response"><h4>Equation of motions</h4></abbr>
+                <p style="font-style: bold; font-size: medium">
+                    $$\begin{bmatrix}m & 0\\0 & I\end{bmatrix} \begin{bmatrix} \ddot{r} \\ \ddot{&theta;} \end{bmatrix}
+                    + \begin{bmatrix}c & 0\\0 & 0\end{bmatrix} \begin{bmatrix} \dot{r} \\ \dot{&theta;} \end{bmatrix}
+                    + \begin{bmatrix}k & -kl\\-kl & k_&theta;+kl^2\end{bmatrix} \begin{bmatrix}r\\&theta;\end{bmatrix}
+                    = \begin{bmatrix}R\\&Theta;\end{bmatrix}
+                    $$
+                    <a href="http://localhost:63342/Dynamic%20system/scripts/q1_equM.html?_ijt=qtfpk9uieo65ncdbc6clamc2kt" target="_blank">
+                        Show solutions
+                    </a>
+                </p>
+                <!-- <div class="spoiler">
+                    <input onclick="showSpoiler(this);" value="Equation of motions"
+                           type="button">
+                    <div class="inner" style="display: none;">
+
+                    </div>
+
+                </div> -->
+            </div>
+
+            <button id="modalBtn" onclick="openModal()">Show Guidance</button>
+
+        </div>
+    </div>
+
+    <div id="guideModal" class="modal">
+        <div class="modalContent modalContentH" id="modal_1">
+            <div class="modalHeader">
+                <span class="closeBtn closeBtnH" onclick="closeModal()">&times;</span>
+                <h5>Visualisation Guidance</h5>
+            </div>
+            <div class="modalBody">
+                <p>Hello :-)
+                    <br>
+                    This is the guidance for dynamic system visualisation.
+                </p>
+                <button class="nextBtn" onclick="nextModal(0)">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_2">
+            <span class="closeBtn" onclick="closeModal()">&times;</span>
+            <div class="modalBody">
+                <p>
+                    Slider inputs control the parameters of the dynamic system shown.
+                </p>
+                <button class="nextBtn" onclick="nextModal(1)">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_3">
+            <span class="closeBtn" onclick="closeModal()">&times;</span>
+            <div class="modalBody">
+                <p>
+                    Reset button set time to 0s and parameters to default values.
+                </p>
+                <button class="nextBtn" onclick="nextModal(2)">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_4">
+            <span class="closeBtn" onclick="closeModal()">&times;</span>
+            <div class="modalBody">
+                <p>
+
+                </p>
+                <button class="nextBtn" onclick="nextModal(2)">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src=https://code.jquery.com/jquery-latest.min.js></script>
+<script src="graphics.js"></script>
+<script src="canvas.js"></script>
+</body>
+
+<br>
+<!-- *function to get slider value* -->
+</html>

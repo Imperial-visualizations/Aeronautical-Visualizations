@@ -1,9 +1,10 @@
-/** ---------------------------------- Initial drawing ------------------------------------- **/
-/** Draw the dynamic system **/
-/* Draw the mass */
+ctx.scale(1.15, 1.15);
+
 function initPlot() {
+    /** --------------------------------- Set initial plot --------------------------------- **/
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    /* Draw the mass */
     ctx.beginPath();
     ctx.moveTo(70, 100);
     ctx.lineTo(120, 100);
@@ -33,7 +34,7 @@ function initPlot() {
     ctx.lineTo(130, 85);
     ctx.stroke();
 
-     ctx.lineWidth = 1;
+    ctx.lineWidth = 1;
 
     //text
     ctx.fillStyle = "black";
@@ -159,7 +160,7 @@ function initPlot() {
     ctx.arc(290, 363, 40, 270*Math.PI/180, 307*Math.PI/180);
     ctx.stroke();
 
-     //text
+    //text
     ctx.fillStyle = "black";
     ctx.font = "italic 15pt san-serif";
     ctx.fillText("θ, Θ", 311, 315);
@@ -223,7 +224,6 @@ function initPlot() {
     ctx.font = "italic 9pt san-serif";
     ctx.fillText("θ", 219, 362);
     ctx.stroke();
-
 }
 
 initPlot();

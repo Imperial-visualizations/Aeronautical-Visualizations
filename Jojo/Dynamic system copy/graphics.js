@@ -23,13 +23,14 @@ let theta1 = [0,0];
 let theta2 = [0,0];
 let t_init = 0;
 let t_end = 150;
-let n = 5000;
+let n = 3000;
 let interval=(t_end - t_init)/(n-1);
 let m = 0;
 let I = 0;
 let k = 0;
 let k_theta = 0;
 let l = 0;
+let i = 0;
 
 /** Functions **/
 let myReq;
@@ -65,22 +66,14 @@ function calcu_resp() {
     s22 = - d2 / e;
 
     /* Calculations of responses */
-    A1 = 100 - A2;
+    A1 = 1 - A2;
 
     //Response of DoF r
     for (i = 0; i < n; i++) {
         t[i] = t_init + i * interval;
-        r[i] = (A1 / 100) * Math.cos(omega1 * t[i]) * s11 + (A2 / 100) * Math.cos(omega2 * t[i]) * s21;
-        r1[i] = -omega1 * (A1 / 100) * Math.sin(omega1 * t[i]) * s11 - omega2 * (A2 / 100) * Math.sin(omega2 * t[i]) * s21;
-        r2[i] = -Math.pow(omega1, 2) * (A1 / 100) * Math.cos(omega1 * t[i]) * s11 - Math.pow(omega1, 2) * (A2 / 100) * Math.cos(omega2 * t[i]) * s21;
-    }
-
-    //Response of DoF theta
-    for (j = 0; j < n; j++) {
-        t[j] = t_init + j * interval;
-        theta[j] = (A1 / 100) * Math.cos(omega1 * t[j]) * s12 + (A2 / 100) * Math.cos(omega2 * t[j]) * s22;
-        theta1[j] = -omega1 * (A1 / 100) * Math.sin(omega1 * t[j]) * s12 - omega2 * (A2 / 100) * Math.sin(omega2 * t[j]) * s22;
-        theta2[j] = -Math.pow(omega1, 2) * (A1 / 100) * Math.cos(omega1 * t[j]) * s12 - Math.pow(omega1, 2) * (A2 / 100) * Math.cos(omega2 * t[j]) * s22;
+        r[i] = A1 * Math.cos(omega1 * t[i]) * s11 + A2 * Math.cos(omega2 * t[i]) * s21;
+        r1[i] = -omega1 * A1 * Math.sin(omega1 * t[i]) * s11 - omega2 * A2 * Math.sin(omega2 * t[i]) * s21;
+        r2[i] = -Math.pow(omega1, 2) * A1 * Math.cos(omega1 * t[i]) * s11 - Math.pow(omega1, 2) * A2 * Math.cos(omega2 * t[i]) * s21;
     }
 
     //Update the graph immediately after the parameters change
@@ -93,7 +86,7 @@ function calcu_resp() {
         frame: {duration: 0, redraw: false}
     });
 
-    Plotly.relayout( 'plot_r', {
+    Plotly.relayout( 'plot_r',{
         'yaxis.autorange': true
     });
 
@@ -127,15 +120,15 @@ function calcu_resp2() {
     s22 = -d2 / e;
 
     /* Calculations of responses */
-    A1 = 100 - A2;
+    A1 = 1 - A2;
 
 
     //Response of DoF theta
-    for (j = 0; j < n; j++) {
-        t[j] = t_init + j * interval;
-        theta[j] = (A1 / 100) * Math.cos(omega1 * t[j]) * s12 + (A2 / 100) * Math.cos(omega2 * t[j]) * s22;
-        theta1[j] = -omega1 * (A1 / 100) * Math.sin(omega1 * t[j]) * s12 - omega2 * (A2 / 100) * Math.sin(omega2 * t[j]) * s22;
-        theta2[j] = -Math.pow(omega1, 2) * (A1 / 100) * Math.cos(omega1 * t[j]) * s12 - Math.pow(omega1, 2) * (A2 / 100) * Math.cos(omega2 * t[j]) * s22;
+    for (i = 0; i < n; i++) {
+        t[i] = t_init + i * interval;
+        theta[i] = A1 * Math.cos(omega1 * t[i]) * s12 + A2 * Math.cos(omega2 * t[i]) * s22;
+        theta1[i] = -omega1 * A1 * Math.sin(omega1 * t[i]) * s12 - omega2 * A2 * Math.sin(omega2 * t[i]) * s22;
+        theta2[i] = -Math.pow(omega1, 2) * A1 * Math.cos(omega1 * t[i]) * s12 - Math.pow(omega1, 2) * A2 * Math.cos(omega2 * t[i]) * s22;
     }
 
     //Update the graph immediately after the parameters change
@@ -208,6 +201,8 @@ let trace_theta2 = {
 /* general layout */
 let resp_layout = {
     autosize: true,
+    legend: {x: 0, y: 6, "orientation": "h"},
+    margin: {l:100 ,r:5 ,t:50 , b:100 },
     yaxis: {nticks: 8},
     xaxis: {range: [0.01, 15],
         nticks: 8,
@@ -227,12 +222,33 @@ Plotly.newPlot('plot_theta', [trace_theta, trace_theta1, trace_theta2], resp_lay
 function showSpoiler(obj)
 {
     var inner = obj.parentNode.getElementsByTagName("div")[0];
-    if (inner.style.display == "none")
+    if (inner.style.display === "none")
         inner.style.display = "";
     else
         inner.style.display = "none";
 }
 
+
+
+/** ---------------------------------- Function to display slider value ------------------------------------- **/
+function slider() {
+    let mValue = $("#m").val();
+    $("#mDisplay").html(mValue);
+
+    let LValue = $("#L").val();
+    $("#LDisplay").html(LValue);
+
+    let kValue = $("#k").val();
+    $("#kDisplay").html(kValue);
+
+    let k_thetaValue = $("#k_theta").val();
+    $("#k_thetaDisplay").html(k_thetaValue);
+
+    let IValue = $("#I").val();
+    $("#IDisplay").html(IValue);
+}
+
+slider();
 
 
 /** ---------------------------------- Function for animations --------------------------------------- **/
@@ -265,7 +281,7 @@ function animate(){
     ctx.moveTo(120 + r[x], 125);
     ctx.lineTo(150 + r[x], 125);
     ctx.lineTo(155 + (r[x] + (theta[x]*l - r[x])/12), 140);
-    for (var i = 1; i < 11; i++){
+    for (i = 1; i < 11; i++){
         ctx.lineTo(155 + 10*i + (r[x] + (i + 1)*(theta[x]*l - r[x])/12), 125 + 15*Math.pow(-1,i))
     }
     ctx.lineTo(260 + theta[x]*l, 125);
@@ -358,6 +374,7 @@ function animate(){
     ctx.stroke();
     ctx.restore();
 
+
     x += 1;
     console.log("hello");
 
@@ -379,9 +396,109 @@ function startAnime(){
 }
 
 function stopAnime() {
+    /* Set initial plot */
     x = 0;
     cancelAnimationFrame(myReq);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     initPlot();
-    startPause.textContent = "Start"
+    startPause.textContent = "Start";
+
+    /* Set initial values */
+    document.getElementById("m").value = 4;
+    document.getElementById("I").value = 6.5;
+    document.getElementById("k").value = 8;
+    document.getElementById("k_theta").value = 8;
+    document.getElementById("L").value = 1.5;
+    document.getElementById("mode1").value = 0.5;
+}
+
+
+
+/** --------------------------- Function for slide show ---------------------------- **/
+let slideIndex = 1;
+
+// Next/previous controls
+function plusSlides(n) {
+    showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+    showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace("active", "");
+    }
+    slides[slideIndex-1].style.display = "block";
+    dots[slideIndex-1].className += " active";
+}
+
+showSlides(slideIndex);
+
+
+
+/** --------------------------- Function for modal ---------------------------- **/
+/*//Get modal element
+let modal = document.getElementById("guideModal");
+//Get open modal button
+let modalBtn = document.getElementById("modalBtn");
+//Get close modal button
+let closeBtn = document.getElementsByClassName("closeBtn");
+//Get next page button
+let nextBtn = document.getElementsByClassName("nextBtn");
+//Get modals
+let modal_1 = document.getElementById("modal_1");
+let modal_2 = document.getElementById("modal_2");
+
+
+// Listen for open click
+modalBtn.addEventListener("click", openModal);
+//Listen for close click
+closeBtn.addEventListener("click", closeModal);
+//Listen for outside click
+window.addEventListener("click", outsideClick);
+//Listen for next page click
+nextBtn.addEventListener("click", nextModal);*/
+
+//Get modal element
+let modal = document.getElementById("guideModal");
+let modalContent = document.getElementsByClassName("modalContent");
+
+//Listen for outside click
+window.addEventListener("click", outsideClick);
+
+//Function to open modal
+function openModal(){
+    modal.style.display = "block";
+    modalContent[0].style.display = "block";
+    modalContent[1].style.display = "none";
+    modalContent[2].style.display = "none";
+    modalContent[3].style.display = "none";
+}
+
+//Function to close modal
+function closeModal(){
+    modal.style.display = "none";
+}
+
+//Function to close modal if outside click
+function outsideClick(e){
+    if(e.target === modal){
+        modal.style.display = "none";
+    }
+}
+
+//Function to close current modal and open next modal
+function nextModal(n){
+    modalContent[n].style.display = "none";
+    modalContent[n+1].style.display = "block";
 }
