@@ -5,7 +5,7 @@ let k =0;
 let c =0 ;
 let m =0;
 let t_end =100 ;
-let t_init =0 ;
+let t_init =0;
 let v_0 =0;
 let r_0 =0;
 const n = 500 ; // number of points
@@ -30,13 +30,16 @@ let TotalE=[]; // Total energy of the system
 
 function AVD_graph() {
     // Get variables from the HTML. User input
-    k = document.getElementById("spring").value;
-    c = document.getElementById("damping").value;
-    m = document.getElementById("mass").value;
-    // Initial displacement and velocity
-    v_0 = document.getElementById("initial velocity").value;
-    r_0 = document.getElementById("initial displacement").value;
-   //  let omega = Math.sqrt(k/m);
+    k = document.getElementById("Spring").value;
+    c = document.getElementById("Damping").value;
+    m = document.getElementById("Mass").value;
+    // Initial displacement and velocity (user input as well)
+    v_0 = document.getElementById("IniDisp").value;
+    r_0 = document.getElementById("IniVelo").value;
+    //  let omega = Math.sqrt(k/m);
+
+
+    //Consider 3 cases depending on sign of the discriminant, assuming a solution of the form r*e^(a t) and solving ODE
     if (Math.pow(c, 2) < 4 * k * m) {  // lightly damped damping
 
         for (i = 0; i < n; i++) { //setup loop, starts at t=0, until last time,
@@ -75,15 +78,19 @@ function AVD_graph() {
             a[i] = r_0 * Math.pow(p0, 2) * Math.exp(p0 * t[i]);
         }
     }
-// Energy calculations
-    for(i=0; i<n; i++) {
+// Energy calculations (
+    KS[0]=0.5*k*Math.pow(r[0],2);
+    T[0]= 0.5*m*Math.pow(v[0],2);
+    D[0]= c*v[0]*r[0];
+    TotalE[0]=KS[0]+T[0]+D[0];
+    for(i=1; i<n; i++) {
         KS[i]= 0.5*k*Math.pow(r[i],2); //spring
         T[i]=0.5*m*Math.pow(v[i],2); // mass
-        D[i]=KS[0]+T[0]-KS[i]-T[i];
+        D[i]=D[i-1]+ c*v[i]*(r[i]-r[i-1]); // damper
         TotalE[i]=KS[i]+T[i]+D[i];
     }
-
-
+    console.log(TotalE);
+// defines traces (what should be plotted and how
     let trace1 = {
         x: t,
         y: r,
@@ -105,7 +112,7 @@ function AVD_graph() {
         type: 'scatter'
 
     };
-    let  layout= {
+    let  layout= { // style of the graphs
         autosize: true,
         margin:{
             l:25, r:11, b:20, t:1
@@ -117,9 +124,11 @@ function AVD_graph() {
             family: "Fira Sans", size:16
         }
     };
+    // create new plot with certain traces
+    // displayModeBar: false will hide the tool bar which would appear by default
     Plotly.newPlot('graph1', [trace1, trace2, trace3], layout, {displayModeBar:false});
 
-// Energy
+// Energy traces
     let trace13 ={
         x:t,
         y:KS,
@@ -144,7 +153,7 @@ function AVD_graph() {
         name:'Total Energy',
         type:'scatter'
     };
-
+// plot for the energy
     Plotly.newPlot('graph5', [trace13, trace14, trace15, trace16], layout, {displayModeBar:false});
 }
 
@@ -152,12 +161,10 @@ function AVD_graph() {
 // Section for the graphs on the forced vibrations side
 // define variables
 
-
 const wStart = 0.1;
 const wEnd = 3;
 const n2 =500;
 let interval2 = (wEnd - wStart)/(n2-1);
-
 let w=[];
 let alpha_2=[];
 let wc=[];
@@ -182,12 +189,13 @@ let v_forced=[]; // velocity
 let a_forced=[]; // acceleration
 let forcing=[]; // forcing function
 function AmpPhaNyq() {
-    R = document.getElementById("force").value;
-    k = document.getElementById("spring forced").value;
-    c = document.getElementById("damping forced").value;
-    m = document.getElementById("mass forced").value;
-    r_0_forced = document.getElementById("initial displacement forced").value;
-    v_0_forced = document.getElementById("initial velocity forced").value;
+    // User input from HTML
+    R = document.getElementById("Force").value;
+    k = document.getElementById("SpringForced").value;
+    c = document.getElementById("DampingForced").value;
+    m = document.getElementById("MassForced").value;
+    r_0_forced = document.getElementById("IniDispForced").value;
+    v_0_forced = document.getElementById("IniVeloForced").value;
     let omega_forced= Math.sqrt(k/m);
     for (i = 0;  i < n2; i++) {
 
@@ -256,7 +264,6 @@ function AmpPhaNyq() {
     Plotly.newPlot('graph2', data1, layout, {displayModeBar:false});
 
 // nyquist
-
     let trace7 = {
         x: din,
         y: dout,
@@ -299,7 +306,7 @@ function AmpPhaNyq() {
         type: 'scatter'
     };
     let data3 = [trace10, trace11, trace12];
-    Plotly.newPlot('graph4', data3, layout, {displayModeBar:false});
+    Plotly.animate('graph4', data3, layout, {displayModeBar:false});
 
 // Forced displacement, velocity, acceleration and forcing function
     let trace17= {
@@ -328,6 +335,6 @@ function AmpPhaNyq() {
     };
 
     let data6=[trace17, trace18, trace19, trace20];
-    Plotly.newPlot('graph6', data6, layout, {displayModeBar:false});
+    Plotly.animate('graph6', data6, layout, {displayModeBar:false});
 
 }
