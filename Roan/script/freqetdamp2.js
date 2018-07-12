@@ -398,9 +398,9 @@ function findRes(){
     document.getElementById('theta2').innerHTML= vPhase[B-1].toFixed(2) ;
 
     if(counter >0){
-      Plotly.deleteTraces(graph1, -1);
-      Plotly.deleteTraces(graph2, -1);
-      Plotly.deleteTraces(graph3, -1);
+      Plotly.deleteTraces(graph1, [-1,-2, -3,-4]);
+      Plotly.deleteTraces(graph2, [-1,-2, -3,-4]);
+      Plotly.deleteTraces(graph3, [-1,-2, -3,-4]);
     }
             var traceAB1 = {
               x: [freqList[A-1],freqList[B-1]], 
