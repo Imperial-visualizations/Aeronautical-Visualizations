@@ -14,24 +14,31 @@
     <div class="leftnav">&#9664;</div>
     <div class="container">
         <h1>Mode Shapes - Simulated Data</h1>
-        <div class="row"></div>
+        
         <div class="six columns">
             <h4>3D Simulation</h4>
-            <form>
-                            Mode Shape = <input type="number" id="frequency" min="1", max="9", step="1" value="1" style="width:80px";><br>
-                            <input type="button" value="Point Mass" style="width:150px"> <input type="button" value="Lumped Mass" style="width:150px"> </br>
-                            <input type="button" value="Start" style="width:150px"> <input type="button" value="Stop" style="width:150px"> 
+            <div class="row">
+            <div class= "five columns">
+                    <form>
+                                    Mode Shape = <input type="number" id="mode3" min="1", max="9", step="1" value="1" style="width:80px";>
 
-            </form>
+                    </form>
+            </div>
+            <div class="three columns"> <form> <input type="button" class="button" value="Start" id="start"></form></div>
+            </div>
+            <div class="row">
+                        <div id='aircraft3D'></div>
+            </div>
         </div>
+
         <div class="six columns">
             <h4>2D Simulation</h4>
-            <form>          Mode Shape = <input type="number" id="frequency" min="1", max="9", step="1" value="1" style="width:80px";><br>
-                            <!--<input type="button" value="Point Mass" style="width:150px"> <input type="button" value="Lumped Mass" style="width:150px"> </br>
-                            <input type="button" class="start button" href="start" value="Start" style="width:150px"> <input type="button" class="pause button" href="pause" value="Pause" style="width:150px">-->
-                        </form>
-                         <div class="start button" id="start">Start</div>
-                        <div id='graphAircraft'></div>
+            <div class="row">
+            </div>
+            <div class="row">
+                        <div id='graphAircraftV'></div>
+                        <div id='graphAircraftH'></div>
+            </div>
         </div>
     </div>
     <script src=script/modeshape.js></script>

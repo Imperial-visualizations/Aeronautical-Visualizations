@@ -27,10 +27,10 @@ var dIn = [];
 var dOut = [];
 
 
-var wStart = 0.1;
-var wEnd = 3;
-var n =500;
-var a = (wEnd - wStart)/(n-1);
+var wStartEmpty = 0.1;
+var wEndEmpty = 3;
+var nEmpty =500;
+var aEmpty = (wEndEmpty - wStartEmpty)/(nEmpty-1);
 
 var w=[];
 var alfa=[];
@@ -72,7 +72,7 @@ let ainNorm=[];
 let doutNorm=[];
 let voutNorm=[];
 let aoutNorm=[];
-
+$('input#submit').on('click', initPlot)
 function initPlot() {
         /*freq = document.getElementById("frequency").value*2*Math.PI;
         ampl = document.getElementById("amplitude").value;
@@ -253,17 +253,8 @@ function initPlot() {
     
   }
   function emptyPlot(){
-  var plt = {
-    layout:{
-autosize: true,
-width: 500,
-height: 400,
-xaxis:{}
-
-},
-}
- for (var i = 0;  i < n; i++) {
-                w[i]= wStart + i*a;
+    for (var i = 0;  i < nEmpty; i++) {
+                w[i]= wStartEmpty + i*aEmpty;
                 din[i] = 0;
                 dout[i] = 0;
                 vin[i]= 0;
@@ -395,12 +386,14 @@ xaxis:{}
 let counter = 0;
 m=0.983;
 
+$('input#PointA').on('change', findRes)
+$('input#PointB').on('change', findRes)
 function findRes(){
-    A = document.getElementById('Point A').value;
+    A = document.getElementById('PointA').value;
     document.getElementById('omega1').innerHTML= freqList[A-1].toFixed(2) ;
     document.getElementById('theta1').innerHTML= vPhase[A-1].toFixed(2) ;
 
-      B = document.getElementById('Point B').value;
+      B = document.getElementById('PointB').value;
     document.getElementById('omega2').innerHTML= freqList[B-1].toFixed(2) ;
     document.getElementById('theta2').innerHTML= vPhase[B-1].toFixed(2) ;
 
@@ -463,12 +456,14 @@ function findRes(){
             wu = Math.sqrt((Math.pow(freqList[A-1],2)*freqList[B-1]*Math.tan(vPhase[B-1])-Math.pow(freqList[B-1],2)*freqList[A-1]*Math.tan(vPhase[A-1]))/(freqList[B-1]*Math.tan(vPhase[B-1])-freqList[A-1]*Math.tan(vPhase[A-1])));
             xi = ((Math.pow(freqList[B-1],2)-Math.pow(freqList[A-1],2))/(freqList[B-1]*Math.tan(vPhase[B-1])-freqList[A-1]*Math.tan(vPhase[A-1])))/(2*wu);
             coverm=2*wu*xi;
+            m=4;
             c=coverm*m;
-            koverm=Math.sqrt(wu);
-            k=koverm*m
+            koverm=Math.pow(wu,2);
+            k=koverm*m;
+            R=Math.max(...vIn.map(Math.abs))/(4*c)
 
-            /*const wStart = 100;
-            const wEnd = 120;
+            const wStart = 105;
+            const wEnd = 115;
             const n =500;
             const a = (wEnd - wStart)/(n-1);
             for (let i = 0;  i < n; i++) {
@@ -492,42 +487,40 @@ function findRes(){
 
                 aampl[i]=Math.sqrt(Math.pow(ain[i], 2) + Math.pow(aout[i], 2));
                 phasea[i]=Math.atan2(aout[i], ain[i]);
- /*damplNorm[i]= dampl[i]/Math.max(...dAmpl);
-          vamplNorm[i]= vampl[i]/Math.max(...vAmpl);
-          aamplNorm[i]= aampl[i]/Math.max(...aAmpl);
 
-          dinNorm[i]= din[i]/Math.max(...dIn.map(Math.abs));
-          vinNorm[i]= vin[i]/Math.max(...vOut.map(Math.abs));
-          ainNorm[i]= ain[i]/Math.max(...aIn.map(Math.abs));
+                damplNorm[i]=dampl[i]/Math.max(...dampl);
+                vamplNorm[i]=vampl[i]/Math.max(...vampl);
+                aamplNorm[i]=aampl[i]/Math.max(...aampl);
 
-          doutNorm[i]= dout[i]/Math.max(...dIn.map(Math.abs));
-          voutNorm[i]= vout[i]/Math.max(...vOut.map(Math.abs));
-          aoutNorm[i]= aout[i]/Math.max(...aIn.map(Math.abs));
-
-
+                dinNorm[i]=din[i]/Math.max(...dout.map(Math.abs))*2;
+                doutNorm[i]=dout[i]/Math.max(...dout.map(Math.abs))*2;
+                      
+                vinNorm[i]=vin[i]/Math.max(...vin.map(Math.abs))*2;
+                voutNorm[i]=vout[i]/Math.max(...vin.map(Math.abs))*2;
+                      
+                ainNorm[i]=ain[i]/Math.max(...aout.map(Math.abs))*2;
+                aoutNorm[i]=aout[i]/Math.max(...aout.map(Math.abs))*2;
             }
 
          
 
-            console.log(Math.max(...dIn.map(Math.abs)));
-
             var trace1fit = {
               x: w,
-              y: dampl, 
+              y: damplNorm, 
               name: 'Displacement',
               type: 'scatter',
               mode: "lines",
             };
             var trace2fit = {
               x: w, 
-              y: vampl, 
+              y: vamplNorm, 
               name: 'Velocity',
               type: 'scatter',
               mode: 'lines',
             };
             var trace3fit = {
               x: w, 
-              y: aampl, 
+              y: aamplNorm, 
               name: 'Acceleration',
               type: 'scatter',
               mode: 'lines',
@@ -536,20 +529,20 @@ function findRes(){
             Plotly.plot('graph1', data1fit );
   
             var trace4fit = {
-              x: din,
-              y: dout, 
+              x: dinNorm,
+              y: doutNorm, 
               name: 'Displacement',
               type: 'scatter'
             };
             var trace5fit = {
-              x: vin, 
-              y: vout, 
+              x: vinNorm, 
+              y: voutNorm, 
               name: 'Velocity',
               type: 'scatter'
             };
             var trace6fit = {
-              x: ain, 
-              y: aout, 
+              x: ainNorm, 
+              y: aoutNorm, 
               name: 'Acceleration',
               type: 'scatter'
             };
@@ -576,7 +569,7 @@ function findRes(){
               type: 'scatter'
             };
             var data3fit = [trace7fit, trace8fit, trace9fit];
-            Plotly.plot('graph3', data3fit);*/
+            Plotly.plot('graph3', data3fit);
             
 
 

@@ -1,23 +1,27 @@
-var R
-var k
-var c
-var m
-var A;
-var B;
+let R
+let k
+let c
+let m
+let A;
+let B;
 
-var load;
-var freq
-var angle
-var ampl
-var freqList=[];
-var angleList=[];
-var amplList=[];
-var loadList= [];
+const wStart = 0.1;
+const wEnd = 3;
+const n =500;
+const a = (wEnd - wStart)/(n-1);
 
-var wStart = 0.1;
-var wEnd = 3;
-var n =500;
-var a = (wEnd - wStart)/(n-1);
+let damplNorm=[]
+let vamplNorm=[]
+let aamplNorm=[];
+
+let dinNorm=[];
+let doutNorm=[];
+                
+let vinNorm=[];
+let voutNorm=[];
+                
+let ainNorm=[];
+let aoutNorm=[];
 
 var w=[];
 var alfa=[];
@@ -36,7 +40,7 @@ var phasev=[];
 var aampl=[];
 var phasea=[];
 
-
+// generate the data that is used to create the plots
 function initPlot() {
          R = document.getElementById("Force").value;
          k = document.getElementById("Spring").value;
@@ -66,23 +70,26 @@ function initPlot() {
                 phasea[i]=Math.atan2(aout[i], ain[i]);
 
 
+               /* damplNorm[i]=dampl[i]/Math.max(...dampl);
+                vamplNorm[i]=vampl[i]/Math.max(...vampl);
+                aamplNorm[i]=aampl[i]/Math.max(...aampl);
+
+                dinNorm[i]=din[i]/Math.max(...dout.map(Math.abs))*2;
+                doutNorm[i]=dout[i]/Math.max(...dout.map(Math.abs))*2;
+                
+                vinNorm[i]=vin[i]/Math.max(...vin.map(Math.abs))*2;
+                voutNorm[i]=vout[i]/Math.max(...vin.map(Math.abs))*2;
+                
+                ainNorm[i]=ain[i]/Math.max(...aout.map(Math.abs))*2;
+                aoutNorm[i]=aout[i]/Math.max(...aout.map(Math.abs))*2;*/
+
+
             }
 
-            /*dampl=dampl/Math.max(dampl);
-            vampl=vampl/Math.max(vampl);
-            aampl=aampl/Math.max(aampl);
+           
+            console.log(damplNorm)
 
-            din=din/Math.max(din);
-            dout=dout/Math.max(dout);
-            vin=vin/Math.max(din);
-            vout=vout/Math.max(dout);
-            ain=ain/Math.max(ain);
-            aout=aout/Math.max(aout);
-            
-            phased=phased/Math.max(dampl);
-            phasev=phasev/Math.max(vampl);
-            phasea=phasea/Math.max(aampl);*/
-
+            //first plot, amplitude vs. frequency
             var trace1 = {
               x: w,
               y: dampl, 
@@ -117,12 +124,12 @@ function initPlot() {
                 },
                 frame: {duration: 0,redraw: false}
               });
-            //document.querySelector('[data-title="Autoscale"]').click()
             Plotly.relayout( 'graph1', {
               'xaxis.autorange': true,
               'yaxis.autorange': true
             });
 
+            // second plot, in phase vs. out of phase
             var trace4 = {
               x: din,
               y: dout, 
@@ -158,7 +165,7 @@ function initPlot() {
               'yaxis.autorange': true
             });
 
-
+            // third plot, phase angle vs. frequency
             var trace7 = {
               x: w,
               y: phased, 
@@ -194,34 +201,9 @@ function initPlot() {
               'yaxis.autorange': true
             });
 }
+
+// create an empty plot that is displayed when the page is loaded. Default values are used
 function emptyPlot(){
-  var plt = {
-    layout:{
-autosize: true,
-width: 500,
-height: 400,
-xaxis:{}
-
-},
-}
- /*for (var i = 0;  i < n; i++) {
-                w[i]= wStart + i*a;
-                din[i] = 0;
-                dout[i] = 0;
-                vin[i]= 0;
-                vout[i]=0;
-                ain[i]=0;
-                aout[i]=0;
-
-                dampl[i]=0;
-                phased[i]=0;
-
-                vampl[i]=0;
-                phasev[i]=0;
-
-                aampl[i]=0;
-                phasea[i]=0;
-            }*/
         R = document.getElementById("Force").value;
         k = document.getElementById("Spring").value;
         c = document.getElementById("Damping").value;
@@ -248,11 +230,9 @@ xaxis:{}
 
                 aampl[i]=Math.sqrt(Math.pow(ain[i], 2) + Math.pow(aout[i], 2));
                 phasea[i]=Math.atan2(aout[i], ain[i]);
-
-
             }
 
-
+            // as before, first plot, amplitude vs frequency
             var trace1 = {
               x: w,
               y: dampl, 
@@ -290,6 +270,7 @@ xaxis:{}
 
             Plotly.newPlot('graph1', data1, layoutlegend1, {displayModeBar:false});
 
+            // in phase vs out of phase
             var trace4 = {
               x: din,
               y: dout, 
@@ -310,7 +291,6 @@ xaxis:{}
             };
             var data2 = [trace4, trace5, trace6];
             let  layoutlegend2= {
-                              //autosize: true,
                               margin:{
                                   l:25, r:11, b:20, t:1
                               },
@@ -327,6 +307,7 @@ xaxis:{}
                           };
             Plotly.newPlot('graph2', data2, layoutlegend2, {displayModeBar:false});
             
+            //phase vs frequency
             var trace7 = {
               x: w,
               y: phased, 
@@ -363,13 +344,11 @@ xaxis:{}
 
 };
 
-
+// function that makes the sliders nice 
 function main() {
     $("input[type=range]").each(function () {
-        var displayEl;
         $(this).on('input', function(){
             $("#"+$(this).attr("id") + "Display").text( $(this).val());
-            //$("#"+$(this).attr("id") + "DisplayA2").text( parseFloat($(this).val())*180 + $("#" + $(this).attr("id") + "DisplayA2").attr("data-unit") );
             initPlot();
         });
     });

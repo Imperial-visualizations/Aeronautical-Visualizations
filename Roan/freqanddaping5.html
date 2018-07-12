@@ -50,7 +50,7 @@
                             Amplitude = <input type="number" id="amplitude" style="width:120px"><br>
                             Phase angle = <input type="number" id="phase" style="width:120px"><br>
                             Load Amplitude Factor = <input type="number" id="load" style="width:120px"><br>
-                            <input type="button" onclick="initPlot()" value="submit"> 
+                            <input type="button" value="submit" id="submit"> 
                         </form>
             </div>
             <div class="four columns offset-by-one column">
@@ -62,12 +62,12 @@
                                 <th>$\theta$</th>
                             </tr>
                             <tr>
-                                <td><input type="text" style="width:100px" id="Point A" onchange="findRes()"></td>
+                                <td><input type="text" style="width:100px" id="PointA" ></td>
                                 <td><p id="omega1"></p></td> 
                                 <td><p id="theta1"></p></td>
                             </tr>
                             <tr>
-                                <td><input type="text" style="width:100px" id="Point B"onchange="findRes()"></td>
+                                <td><input type="text" style="width:100px" id="PointB"></td>
                                 <td><p id="omega2"></p></td> 
                                 <td><p id="theta2"></p></td>
                             </tr>
@@ -77,7 +77,7 @@
                         <h6>The values of interest are:</h6>
                             <p> $ \omega_u = $<span id="omegau"></span> </p>
                             <p> $ \xi = $<span id="xi"></span></p>
-                            <p> $ \frac{k}{m} = \sqrt{\omega_u} = $<span id="koverm"></span></p>
+                            <p> $ \frac{k}{m} = \omega_u^2 = $<span id="koverm"></span></p>
                             <p> $ \frac{c}{m} = 2\xi\omega_u = $<span id="coverm"></span></p>
                          
                     </div>
