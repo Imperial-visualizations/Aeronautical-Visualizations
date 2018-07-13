@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Imperial visualisation</title>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true
+    }
+    });</script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+
+<div class="leftnav">&#9664;</div>
+
+<div class="container">
+    <h1>Theory</h1>
+    <h3>Vibration frequency</h3>
+    <p>
+        The equation of motion for the dynamic system can be written as following, where damping is ignored for simplicity:</p>
+    $$\begin{bmatrix}m & 0\\0 & I\end{bmatrix} \begin{bmatrix} \ddot{r} \\ \ddot{&theta;} \end{bmatrix}
+    + \begin{bmatrix}k & -kl\\-kl & k_&theta;+kl^2\end{bmatrix} \begin{bmatrix}r\\&theta;\end{bmatrix}
+    = \begin{bmatrix}R\\&Theta;\end{bmatrix}
+    $$
+    </p>
+
+    <p>
+        A normal mode of an oscillating system is a pattern of motion in which all parts of the system move sinusoidally with the same frequency and with a fixed phase relation.
+        The free motion described by the normal modes takes place at the fixed vibration frequencies.
+        In order to compute the vibration frequencies for the two mode shapes in this dynamic system, responses are assumed to be periodic.
+        The displacement vector can be expressed as
+        $\begin{bmatrix}r\\&theta;\end{bmatrix} = \cos(\omega t)\cdot\begin{bmatrix}r_0\\&theta;_0\end{bmatrix}$
+        and acceleration vector is
+        $\begin{bmatrix}r\\&theta;\end{bmatrix} = -\omega^2\cdot\cos(\omega t)\cdot\begin{bmatrix}r_0\\&theta;_0\end{bmatrix}$,
+        where $r_0, \theta_0$ are constants.
+        Replacing back to equation of motions and set forces $(R, \Theta)$ to zero, a matrix can be written to describe free vibration:
+        $$ \begin{bmatrix}k-\omega^2m & -kl\\-kl & k_\theta+kl^2-\omega^2I\end{bmatrix}
+        \cdot \begin{bmatrix}r_0\\&theta;_0\end{bmatrix}
+        = 0 $$
+    </p>
+
+    <p>
+        Therefore, the vibration frequency can be found by setting the determinant of the matrix to zero:
+        $$ det\begin{bmatrix}k-\omega^2m & -kl\\-kl & k_\theta+kl^2-\omega^2I\end{bmatrix}
+        = 0 $$
+        By calculation, the vibration frequencies for two mode shapes are:
+        $$ \omega^2 = \frac{[m(k_\theta+kl^2)+kI]\pm\sqrt{[m(k_\theta+kl^2)-kI]^2+4m^2k_\theta kl^2}}{2mI}$$
+    </p>
+
+    <h3>Mode shapes</h3>
+    <h5>First mode</h5>
+    In order to compute the mode shapes, responses can be expressed in more generalised forms:
+    $$\begin{bmatrix}r\\&theta;\end{bmatrix} = A_1\cdot\cos(\omega_1t)\cdot\vec{\varphi_1} + A_2\cdot\cos(\omega_2t)\vec{\varphi_2}$$
+    $$\begin{bmatrix}\ddot{r}\\\ddot{&theta;}\end{bmatrix} = - (\omega_1)^2\cdot A_1\cdot\cos(\omega_1t)\cdot\vec{\varphi_1} - (\omega_2)^2\cdot A_2\cdot\cos(\omega_2t)\vec{\varphi_2}$$
+    Where the 
+</div>
+
+
+
+<script>console.log("aaaa");</script>
+<script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
+
+</body>
+
+</html>

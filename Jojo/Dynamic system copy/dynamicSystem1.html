@@ -8,15 +8,24 @@
     <title>Imperial Visualisations</title>
     <link rel="icon" href="https://www.imperial.ac.uk/T4Assets/favicon-196x196.png" type="image/x-icon">
     <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
-    <link rel="stylesheet" href="slideShow.css">
+    <link rel="stylesheet" href="styles/myStyleSheet.css">
     <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
     </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true
+    }
+    });</script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 
 <body>
-<!-- *main heading of the page* -->
 
+<div class="rightnav">&#9654;</div>
+
+<!-- *main heading of the page* -->
 <div class="container">
     <h1>Dynamic system</h1>
 </div>
@@ -49,14 +58,14 @@
 
                     <!-- Next and previous buttons -->
                     &emsp;&emsp;&emsp;&emsp;
-                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                    <a class="prev" onclick="plusSlides(-1); calcu_resp(); calcu_resp2();">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1); calcu_resp(); calcu_resp2();">&#10095;</a>
                     <br>
 
                     <!-- The dots/circles -->
                     <div style="text-align:center">
-                        <span class="dot" onclick="currentSlide(1)"></span>
-                        <span class="dot" onclick="currentSlide(2)"></span>
+                        <span class="dot" onclick="currentSlide(1); calcu_resp(); calcu_resp2();"></span>
+                        <span class="dot" onclick="currentSlide(2); calcu_resp(); calcu_resp2();"></span>
                     </div>
                 </div>
             </div>
@@ -134,9 +143,8 @@
             <div class="ten columns">
                 <br>
                 <abbr title="The combination of mode shapes give system response"><h4>Equation of motions</h4></abbr>
-                <p style="font-style: bold; font-size: medium">
+                <p style="font-style: bold; font-size: large">
                     $$\begin{bmatrix}m & 0\\0 & I\end{bmatrix} \begin{bmatrix} \ddot{r} \\ \ddot{&theta;} \end{bmatrix}
-                    + \begin{bmatrix}c & 0\\0 & 0\end{bmatrix} \begin{bmatrix} \dot{r} \\ \dot{&theta;} \end{bmatrix}
                     + \begin{bmatrix}k & -kl\\-kl & k_&theta;+kl^2\end{bmatrix} \begin{bmatrix}r\\&theta;\end{bmatrix}
                     = \begin{bmatrix}R\\&Theta;\end{bmatrix}
                     $$
@@ -154,7 +162,7 @@
                 </div> -->
             </div>
 
-            <button id="modalBtn" onclick="openModal()">Show Guidance</button>
+            <button id="modalBtn" onclick="openModal(); currentSlide(1)">Show Guidance</button>
 
         </div>
     </div>
@@ -188,7 +196,7 @@
             <span class="closeBtn" onclick="closeModal()">&times;</span>
             <div class="modalBody">
                 <p>
-                    Reset button set time to 0s and parameters to default values.
+                    Combination of mode shapes give system response. Drag the slider to leftmost for pure first mode response, vise versa.
                 </p>
                 <button class="nextBtn" onclick="nextModal(2)">Continue</button>
             </div>
@@ -198,19 +206,40 @@
             <span class="closeBtn" onclick="closeModal()">&times;</span>
             <div class="modalBody">
                 <p>
-
+                    Reset button set time to 0s and parameters to default values.
                 </p>
-                <button class="nextBtn" onclick="nextModal(2)">Continue</button>
+                <button class="nextBtn" onclick="nextModal(3); currentSlide(2); calcu_resp(); calcu_resp2();">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_5">
+            <span class="closeBtn" onclick="closeModal()">&times;</span>
+            <div class="modalBody">
+                <p>
+                    System responses are presented in plots. Hide and show responses by clicking legends.
+                </p>
+                <button class="nextBtn" onclick="nextModal(4); currentSlide(1);">Continue</button>
+            </div>
+        </div>
+
+         <div class="modalContent" id="modal_6">
+            <span class="closeBtn" onclick="closeModal()">&times;</span>
+            <div class="modalBody">
+                <p>
+                   Have fun!
+                </p>
             </div>
         </div>
     </div>
 </div>
 
-
+<script>console.log("Hi");</script>
 
 <script src=https://code.jquery.com/jquery-latest.min.js></script>
-<script src="graphics.js"></script>
-<script src="canvas.js"></script>
+<script src="scripts/graphics.js"></script>
+<script src="scripts/canvas.js"></script>
+<script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
+
 </body>
 
 <br>
