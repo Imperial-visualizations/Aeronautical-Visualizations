@@ -17,7 +17,7 @@ xi=[0.051, -0.054, -0.15, -0.353, -0.639, 1, 0.118, 0.118, 1]; //eigenvector
 // the measured z position, this will be later changed with the measured eigenvector
 zmes=[0, 0, 0, 0, 0, 0, 0, 0, 0]
 //the resonance frequencies, these need to be changed according to the input of the students
-w=17.33759511
+w=15;
 wex=17.33759511;
 //The -1/1 factors accountig for the back/front position of the sensor
 const fact=[1, -1, -1, -1, 1, -1, 1, 1, -1];
