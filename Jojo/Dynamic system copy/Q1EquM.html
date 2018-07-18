@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Imperial visualisation</title>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true
+    }
+    });</script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Equation of motion</h1>
+    <div class="row">
+        <div class="twelve columns">
+            <p>
+                Ignore damping in the dynamic system for simplicity, force equilibrium of mass $m$ leads to:
+                $$ m\ddot{r} + kr - kl\theta = R $$
+            </p>
+            <p>
+                Moment equilibrium of the rod around its bottom pin leads to:
+                $$ I\ddot{\theta} + (k_\theta + kl^2)\theta - klr = \Theta $$
+            </p>
+            <p>
+                In matrix form:
+                $$\begin{bmatrix}m & 0\\0 & I\end{bmatrix} \begin{bmatrix} \ddot{r} \\ \ddot{&theta;} \end{bmatrix}
+                + \begin{bmatrix}k & -kl\\-kl & k_&theta;+kl^2\end{bmatrix} \begin{bmatrix}r\\&theta;\end{bmatrix}
+                = \begin{bmatrix}R\\&Theta;\end{bmatrix}
+                $$
+            </p>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

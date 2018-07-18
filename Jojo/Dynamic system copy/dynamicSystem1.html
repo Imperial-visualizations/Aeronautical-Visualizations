@@ -52,8 +52,8 @@
 
                     <div class="mySlides fade">
                         <!-- <div class="numbertext">2 / 2</div> -->
-                        <div id="plot_r"  style="height: 50vh; width: 80vh"></div>
-                        <div id="plot_theta" style="height: 50vh; width: 80vh;"></div>
+                        <div id="plot_r"  style="height: 45vh; width: 75vh"></div>
+                        <div id="plot_theta" style="height: 45vh; width: 75vh;"></div>
                     </div>
 
                     <!-- Next and previous buttons -->
@@ -75,6 +75,7 @@
 
     <!-- *user inputs page* -->
     <div class="five columns">
+
         <abbr title="The parameters of dynamic system"><h4>Parameters</h4></abbr>
         <div class="row">
             <div class="row">
@@ -128,27 +129,28 @@
                 <br>
                 <abbr title="Combination of mode shapes give system response"><h4>Mode Shapes</h4></abbr>
                 <p>
-                <div class="nine columns">
-                    <a href="#" style="font-size:large">1<sup>st</sup> Mode</a>
+                <div class="nine columns" style="font-size: large">
+                    <label class="label">1<sup>st</sup> Mode</label>
                 </div>
 
-                <div class="three columns">
-                    <a href="#" style="font-size:large">2<sup>nd</sup> Mode</a>
-                    </p>
+                <div class="three columns" style="font-size: large">
+                    <label class="label">2<sup>st</sup> Mode</label>
                 </div>
 
                 <input type="range" min="0" max="1" step = "0.01" value="0.5" id="mode1" oninput="calcu_resp()" onmousemove="calcu_resp2()" onchange="calcu_resp2()">
+            </div>
+
+            <div class="twelve columns">
+                <br>
+                <button id="modalBtn" onclick="openModal(); currentSlide(1)">Show Guidance</button>
             </div>
 
             <div class="ten columns">
                 <br>
                 <abbr title="The combination of mode shapes give system response"><h4>Equation of motions</h4></abbr>
                 <p style="font-style: bold; font-size: large">
-                    $$\begin{bmatrix}m & 0\\0 & I\end{bmatrix} \begin{bmatrix} \ddot{r} \\ \ddot{&theta;} \end{bmatrix}
-                    + \begin{bmatrix}k & -kl\\-kl & k_&theta;+kl^2\end{bmatrix} \begin{bmatrix}r\\&theta;\end{bmatrix}
-                    = \begin{bmatrix}R\\&Theta;\end{bmatrix}
-                    $$
-                    <a href="http://localhost:63342/Dynamic%20system/scripts/q1_equM.html?_ijt=qtfpk9uieo65ncdbc6clamc2kt" target="_blank">
+                    <img src="assets/Q1EquM.png" alt="Dynamic system equation of motions">
+                    <a href="Q1EquM.html" target="_blank">
                         Show solutions
                     </a>
                 </p>
@@ -161,8 +163,6 @@
 
                 </div> -->
             </div>
-
-            <button id="modalBtn" onclick="openModal(); currentSlide(1)">Show Guidance</button>
 
         </div>
     </div>
@@ -222,22 +222,22 @@
             </div>
         </div>
 
-         <div class="modalContent" id="modal_6">
+        <div class="modalContent" id="modal_6">
             <span class="closeBtn" onclick="closeModal()">&times;</span>
             <div class="modalBody">
                 <p>
-                   Have fun!
+                    Have fun!
                 </p>
             </div>
         </div>
     </div>
 </div>
 
-<script>console.log("Hi");</script>
+<script>console.log("Hello global1");</script>
 
 <script src=https://code.jquery.com/jquery-latest.min.js></script>
-<script src="scripts/graphics.js"></script>
-<script src="scripts/canvas.js"></script>
+<script src="scripts/Q1_graphics1.js"></script>
+<script src="scripts/Q1_canvas.js"></script>
 <script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
 
 </body>

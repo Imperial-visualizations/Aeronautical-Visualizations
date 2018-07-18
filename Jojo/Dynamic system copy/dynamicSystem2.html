@@ -22,49 +22,169 @@
 
 <div class="container">
     <h1>Theory</h1>
+
+    <br>
     <h3>Vibration frequency</h3>
     <p>
-        The equation of motion for the dynamic system can be written as following, where damping is ignored for simplicity:</p>
-    $$\begin{bmatrix}m & 0\\0 & I\end{bmatrix} \begin{bmatrix} \ddot{r} \\ \ddot{&theta;} \end{bmatrix}
-    + \begin{bmatrix}k & -kl\\-kl & k_&theta;+kl^2\end{bmatrix} \begin{bmatrix}r\\&theta;\end{bmatrix}
-    = \begin{bmatrix}R\\&Theta;\end{bmatrix}
-    $$
+        The equation of motion for the dynamic system can be written as following, where damping is ignored for simplicity:
+        $$\begin{bmatrix}m & 0\\0 & I\end{bmatrix} \begin{bmatrix} \ddot{r} \\ \ddot{&theta;} \end{bmatrix}
+        + \begin{bmatrix}k & -kl\\-kl & k_&theta;+kl^2\end{bmatrix} \begin{bmatrix}r\\&theta;\end{bmatrix}
+        = \begin{bmatrix}R\\&Theta;\end{bmatrix}
+        $$
     </p>
 
     <p>
-        A normal mode of an oscillating system is a pattern of motion in which all parts of the system move sinusoidally with the same frequency and with a fixed phase relation.
-        The free motion described by the normal modes takes place at the fixed vibration frequencies.
-        In order to compute the vibration frequencies for the two mode shapes in this dynamic system, responses are assumed to be periodic.
-        The displacement vector can be expressed as
-        $\begin{bmatrix}r\\&theta;\end{bmatrix} = \cos(\omega t)\cdot\begin{bmatrix}r_0\\&theta;_0\end{bmatrix}$
-        and acceleration vector is
-        $\begin{bmatrix}r\\&theta;\end{bmatrix} = -\omega^2\cdot\cos(\omega t)\cdot\begin{bmatrix}r_0\\&theta;_0\end{bmatrix}$,
-        where $r_0, \theta_0$ are constants.
-        Replacing back to equation of motions and set forces $(R, \Theta)$ to zero, a matrix can be written to describe free vibration:
-        $$ \begin{bmatrix}k-\omega^2m & -kl\\-kl & k_\theta+kl^2-\omega^2I\end{bmatrix}
+        A normal mode of an oscillating system is a pattern of motion in which all parts of the system move sinusoidally with the same frequency.
+        In order to compute the vibration frequencies for the free motion described by two normal modes of this dynamic system,
+        responses are assumed to be periodic.
+        Thus, displacement vector and acceleration vector can be expressed as below, where $r_0$ and $\theta_0$ are constants.
+        $$\begin{bmatrix}r\\&theta;\end{bmatrix} = \cos(\omega t)\cdot\begin{bmatrix}r_0\\&theta;_0\end{bmatrix}$$
+        $$\begin{bmatrix} \ddot{r}\\ \ddot{&theta;}\end{bmatrix} = -\omega^2\cdot\cos(\omega t)\cdot\begin{bmatrix}r_0\\&theta;_0\end{bmatrix}$$
+    </p>
+
+    <p>
+        Replacing back to equation of motions and set forces $(R, \Theta)$ to zero for free vibration:
+        $$\omega^2\cdot\begin{bmatrix}r_0\\&theta;_0\end{bmatrix} \begin{bmatrix}m & 0\\0 & I\end{bmatrix}
+        = \begin{bmatrix}r_0\\&theta;_0\end{bmatrix} \begin{bmatrix}k & -kl\\-kl & k_&theta;+kl^2\end{bmatrix}
+        $$
+        This is an eigenvalue problem where $\omega^2$ is the eigenvalue and $\begin{bmatrix}r_0\\&theta;_0\end{bmatrix}$ the associated eigenvector.
+    </p>
+
+    <p>
+        Solving for eigenvalues and eigenvectors:
+        $$\begin{bmatrix}k-\omega^2m & -kl\\-kl & k_\theta+kl^2-\omega^2I\end{bmatrix}
         \cdot \begin{bmatrix}r_0\\&theta;_0\end{bmatrix}
-        = 0 $$
-    </p>
+        = 0$$
 
-    <p>
-        Therefore, the vibration frequency can be found by setting the determinant of the matrix to zero:
+        Therefore, the natural vibration frequencies can be found by setting the determinant of the matrix to zero:
         $$ det\begin{bmatrix}k-\omega^2m & -kl\\-kl & k_\theta+kl^2-\omega^2I\end{bmatrix}
         = 0 $$
-        By calculation, the vibration frequencies for two mode shapes are:
-        $$ \omega^2 = \frac{[m(k_\theta+kl^2)+kI]\pm\sqrt{[m(k_\theta+kl^2)-kI]^2+4m^2k_\theta kl^2}}{2mI}$$
+
+        By calculation, the square of vibration frequencies for two mode shapes are:
+        $$ \omega^2 = \frac{[m(k_\theta+kl^2)+kI]\pm\sqrt{[m(kl^2 - k_\theta)-kI]^2+4m^2k_\theta kl^2}}{2mI}$$
     </p>
 
+    <br>
+    <br>
+    <br>
     <h3>Mode shapes</h3>
+    <p>
+        Each eigenvalue is the square of the natural frequency of the structure,
+        the corresponding eigenvector can be treat as the displaced shape of the structure.
+        If the structure is excited at the i'th resonant frequency then its displaced shape will be the i'th mode shape.
+    </p>
+
+    <p>
+        In order to compute the mode shapes, responses can be expressed in more specific forms:
+        $$\begin{bmatrix}r\\&theta;\end{bmatrix} = \sum_{i = 0}^{n} A_i\cdot\cos(\omega_it)\cdot\vec{\varphi_i} = A_1\cdot\cos(\omega_1t)\cdot\vec{\varphi_1} + A_2\cdot\cos(\omega_2t)\cdot\vec{\varphi_2}$$
+        $$\begin{bmatrix}\ddot{r}\\\ddot{&theta;}\end{bmatrix} = - \sum_{i = 0}^{n} (\omega_i)^2\cdot A_i\cdot\cos(\omega_it)\cdot\vec{\varphi_i} = - (\omega_1)^2\cdot A_1\cdot\cos(\omega_1t)\cdot\vec{\varphi_1} - (\omega_2)^2\cdot A_2\cdot\cos(\omega_2t)\cdot\vec{\varphi_2}$$
+        Where $A_i$ are constants, $\varphi_i$ are eigenvectors of particular mode and n is the number of degree of freedoms (DoF).
+        In this case, there are two DoFs, so $n=2$ as shown above.
+    </p>
+
+    <p>
+        Compare this new responses expression to the old one, it is actually writing eigenvector
+        $\begin{bmatrix}r_0\\&theta;_0\end{bmatrix}$ as $A_i\vec{\varphi_i}$.
+        The eigenvalue problem can then be expressed as:
+        $$\begin{bmatrix}k-\omega^2m & -kl\\-kl & k_\theta+kl^2-\omega^2I\end{bmatrix}
+        \cdot A_i\cdot\vec{\varphi_i}
+        = 0$$
+        For this two DoF problem:
+        $$\begin{bmatrix}k-\omega^2m & -kl\\-kl & k_\theta+kl^2-\omega^2I\end{bmatrix}
+        \cdot (A_1\cdot\vec{\varphi_1} + A_2\cdot\vec{\varphi_2})
+        = 0$$
+
+        For DoF $i$, setting all other constants to zero except for $A_i$, obtaining $i^{th}$ mode shape.
+        Writing $\vec{\varphi_i}$ as $\begin{bmatrix}\varphi_i^1\\\varphi_i^2\end{bmatrix}$:
+        $$A_i\cdot\begin{bmatrix}k-\omega^2m & -kl\\-kl & k_\theta+kl^2-\omega^2I\end{bmatrix}
+        \cdot \begin{bmatrix}\varphi_i^1\\\varphi_i^2\end{bmatrix}
+        = 0$$
+        Hence, relation between $\varphi_i^1$ and $\varphi_i^2$ can be described by the following equations:
+        $$\begin{cases} (k-\omega^2m)\varphi_i^1 - kl\varphi_i^2 = 0\\
+        -kl\varphi_i^1 + (k_\theta+kl^2-\omega^2I)\varphi_i^2 = 0 \end{cases}$$
+        The general expression for mode shapes can be calculated by setting $\varphi_i^1 = 1$.
+        $$\vec{\varphi_i} = \begin{bmatrix} 1\\ \frac{k - (\omega_i)^2m}{kl} \end{bmatrix}$$
+    </p>
+
+    <p>
+        The combination of mode shapes give system response, so let $A_1 + A_2 = 1$.
+        Expression for system responses are as follow:
+        $$ \begin{cases}
+        \text{Displacement:}
+        \begin{bmatrix}r\\&theta;\end{bmatrix} = A_1\cdot\cos(\omega_1t)\begin{bmatrix}\varphi_1^1\\\varphi_1^2\end{bmatrix} + A_2\cdot\cos(\omega_1t)\begin{bmatrix}\varphi_2^1\\\varphi_2^2\end{bmatrix}\\
+        \text{Velocity:}
+        \begin{bmatrix}\dot{r}\\\dot{&theta;}\end{bmatrix} = - \omega_1\cdot A_1\cdot\cos(\omega_1t)\begin{bmatrix}\varphi_1^1\\\varphi_1^2\end{bmatrix} - \omega_2\cdot A_2\cdot\cos(\omega_1t)\begin{bmatrix}\varphi_2^1\\\varphi_2^2\end{bmatrix}\\
+        \text{Acceleration:}
+        \begin{bmatrix}r\\&theta;\end{bmatrix} = - (\omega_1)^2\cdot A_1\cdot\cos(\omega_1t)\begin{bmatrix}\varphi_1^1\\\varphi_1^2\end{bmatrix} - (\omega_2)^2\cdot A_2\cdot\cos(\omega_1t)\begin{bmatrix}\varphi_2^1\\\varphi_2^2\end{bmatrix}
+        \end{cases} $$
+    </p>
+
+    <br>
     <h5>First mode</h5>
-    In order to compute the mode shapes, responses can be expressed in more generalised forms:
-    $$\begin{bmatrix}r\\&theta;\end{bmatrix} = A_1\cdot\cos(\omega_1t)\cdot\vec{\varphi_1} + A_2\cdot\cos(\omega_2t)\vec{\varphi_2}$$
-    $$\begin{bmatrix}\ddot{r}\\\ddot{&theta;}\end{bmatrix} = - (\omega_1)^2\cdot A_1\cdot\cos(\omega_1t)\cdot\vec{\varphi_1} - (\omega_2)^2\cdot A_2\cdot\cos(\omega_2t)\vec{\varphi_2}$$
-    Where the 
+
+    <div class="row">
+        <div class="seven columns">
+            <p>
+                The animation on the right hand side shows the system response for the first mode shape.
+                Parameters are set to default values of $m = 4, I = 6.5, k = 8, k_\theta = 8, L = 1.5$.
+            </p>
+
+            <p>
+                Setting $A_1 = 1, A_2 = 0$, the expression of DoF r displacement for first mode is as follow:
+                $$r =  \cos(\omega_1t)\varphi_1^1$$
+                Since $\varphi_1^1 = 1$:
+                $$r =  \cos(\omega_1t)$$
+                As for DoF &theta;, first mode displacement is:
+                $$\theta =  \cos(\omega_1t)\varphi_1^2 =  \cos(\omega_1t)\frac{k - (\omega_1)^2m}{kl}$$
+            </p>
+
+            <p>
+                It can be seen that the displacements of the two DoF are opposite in direction,
+                which means that they are out of phase.
+            </p>
+        </div>
+
+        <div class="five columns">
+            <canvas width="450" height="450" style="margin-top: -60px; margin-left: 50px"></canvas>
+        </div>
+    </div>
+
+    <br>
+    <h5>Second mode</h5>
+
+    <div class="row">
+        <div class="seven columns">
+            <p>
+                The animation on the right hand side shows the system response for the second mode shape.
+                Parameters are set to default values of $m = 4, I = 6.5, k = 8, k_\theta = 8, L = 1.5$.
+            </p>
+
+            <p>
+                Setting $A_1 = 0, A_2 = 1$, the expression of DoF r displacement for second mode is as follow:
+                $$r =  \cos(\omega_2t)\varphi_2^1$$
+                Since $\varphi_2^1 = 1$:
+                $$r =  \cos(\omega_2t)$$
+                As for DoF &theta;, second mode displacement is:
+                $$\theta =  \cos(\omega_2t)\varphi_2^2 =  \cos(\omega_2t)\frac{k - (\omega_2)^2m}{kl}$$
+            </p>
+
+            <p>
+                It can be seen that the displacements of the two DoF are in same direction,
+                which means that they are in phase.
+            </p>
+        </div>
+
+        <div class="five columns">
+            <canvas width="450" height="450" style="margin-top: -60px; margin-left: 50px"></canvas>
+        </div>
+    </div>
+
 </div>
 
 
 
-<script>console.log("aaaa");</script>
+<script>console.log("Hi global2");</script>
+<script src="scripts/Q1_graphics2.js"></script>
 <script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
 
 </body>
