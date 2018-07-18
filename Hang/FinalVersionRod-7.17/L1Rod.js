@@ -5723,7 +5723,7 @@ function begin_animation(){
       yv[i] = -1;
       }
     };
-
+    dt = 0.00001 * 24/elementNumber;
     function computeNode () {
 
       for (let i = 0; i < elementNumber + 1; i++) {
