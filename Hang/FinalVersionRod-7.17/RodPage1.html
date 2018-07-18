@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Imperial visualisation</title>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+      tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+      }
+      });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+
+<div class="rightnav">&#9654;</div>
+
+<div class="container">
+    <h1>Longitudinal vibration of a rod - FEM</h1>
+    <h3>Free-Free Rod</h3>
+    <p>
+      Consider a rod element which we will use to compose the macroscopic rod later. Let's assume the rod element has cross-sectional
+      area A, length l_0, Young's Modulus E and density &rho;. Here we will consider its steady-state vibration. The analysis we are
+      going to perform is based on no boundary conditions, i.e. the rod is unconstrained at either end.
+    </p>
+
+    <p>
+      The rod is modelled by Lagrangian constant strain elements, where the distribution of displacement is linear and only happens along the rod (1D).
+      Each element consists of 2 nodes, where each of then has 1 degree of freedom.
+      As for the analysis, 1 stiffness matrix and 2 mass matrices (consistent and diagonal mass matrices) are listed below for the Lagrangian rod element:
+      <div class="row" name = "small matrics">
+        <div class = "one column">&emsp;</div>
+        <div class = "three columns">
+          $$
+          k = \frac{E A}{l_0}\begin{bmatrix}
+          1&-1 \\
+          -1&1
+          \end{bmatrix}
+          $$
+        </div>
+        <div class = "one column">&emsp;</div>
+        <div class = "three columns">
+          $$
+          m_{C} = \frac{\rho Al_0}{6}\begin{bmatrix}
+          2&1 \\
+          1&2
+          \end{bmatrix}
+          $$
+        </div>
+        <div class = "one column">&emsp;</div>
+        <div class = "three columns">
+          $$
+          m_{D} = \frac{\rho Al_0}{6}\begin{bmatrix}
+          3&0 \\
+          0&3
+          \end{bmatrix}
+          $$
+        </div>
+      </div>
+
+    <p> Assuming there are n elements inside the rod, where  n = \frac{L}{l_0} , the system now contains (n+1) DoFs, with the following assembled mass and stiffness matrices.
+        Each of them has dimensions  (n+1) by (n+1)
+        <div class="row" name = "small matrics">
+          <div class = "two columns">&emsp;</div>
+          <div class = "three columns">
+            $$\mathbf{M}_C = \left.\left(
+                        \vphantom{\begin{array}{c}1\\1\\1\\1\\1\end{array}}
+                        \smash{\underbrace{
+                            \begin{array}{ccccc}
+                                   2&1&0&\cdots &0\\
+                                   1&4&1&\cdots &0\\
+                                   0&1&4&\cdots &0\\
+                                   \vdots&&&\ddots&\\
+                                   0&0&0&\cdots &2
+                            \end{array}
+                          }_{n+1\text{ columns}}}
+                    \right)\right\}
+                    \,n+1\text{ rows}
+            $$
+          </div>
+          <div class = "three columns">&emsp;</div>
+          <div class = "three columns">
+            $$\mathbf{K} = \left.\left(
+                        \vphantom{\begin{array}{c}1\\1\\1\\1\\1\end{array}}
+                        \smash{\underbrace{
+                            \begin{array}{ccccc}
+                                   1&-1&0&\cdots &0\\
+                                   -1&2&-1&\cdots &0\\
+                                   0&-1&2&\cdots &0\\
+                                   \vdots&&&\ddots&\\
+                                   0&0&0&\cdots &1
+                            \end{array}
+                          }_{n+1\text{ columns}}}
+                    \right)\right\}
+                    \,n+1\text{ rows}
+            $$
+          </div>
+
+        </div>
+
+
+    </p>
+
+</div>
+
+<script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
+
+</body>
+
+</html>
