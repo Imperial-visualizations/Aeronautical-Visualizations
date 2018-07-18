@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Finite Element Free Vibrations</title> <!--- tab title --->
+  <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css"> <!---Cyd's stylesheet --->
+  <link rel="stylesheet" href="./styles/style.css"> <!--- Style sheet using grid css --->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> <!--- plotly  --->
+  <script src="http://www.numericjs.com/lib/numeric-1.2.6.js"></script>
+</head>
+
+  <body>
+        <div class="rightnav">&#9654;</div> <!--- Cyd's navigation bars --->
+        <div class="leftnav">&#9664;</div>
+            <div class="grid-container">
+
+              <div id="mainTitle"><h1>Finite Element Free Vibrations </h1></div> <!--- Page title--->
+              <div class="mainPlotBox">
+                <h6>Full Aircraft Plot</h6> <!--- Main plot title --->
+                <div id="fullAircraft"></div> <!--- id used in JS for the full aircraft plot --->
+              </div>
+
+              <div class="secodaryPlotBox" id="fuselageBox">
+                <h6>Fuselage Plot</h6> <!--- Fuselage plot title --->
+                <div id="fuselage"></div> <!--- id used in JS for the fuselage plot --->
+              </div>
+
+              <div class="secodaryPlotBox" id="wingBox">
+                <h6>Wing Plot</h6> <!--- Wing plot title --->
+                <div id="wing"></div> <!--- id used in JS for the wing plot --->
+              </div>
+
+              <div class="inputsBox">
+
+                <div class="startButton" id="StartBox">
+                  <form> <input type="button" class="button" value="Start" id="start"></form>
+                </div>
+
+                <div id="elemSlider"> <!--- slider for the number of elements --->
+                  <label for="nElem" class="sliderTitle"> <!--- slider title --->
+                    Number of Elemnts:
+                    <span id="elementDisplay">8</span>
+                  </label>
+                  <input type="range" id="nElem" name="elemSlider" min="0" max="7" Value="1">
+                  <span class="sliderMin">4</span><span class="sliderMax">512</span>
+                </div>
+
+                <div id="modeSlider"> <!--- slider for the modal shape --->
+                  <label for="nMode" class="sliderTitle"> <!--- slider title --->
+                    Modal Shape:
+                    <span id="modeDisplay">1</span>
+                  </label>
+                  <input type="range" id="nMode" name="modeSlider" min="1" max="8" value="1">
+                  <span class="sliderMin">1</span><span class="sliderMax" id="modeSliderMax">8</span>
+                </div>
+
+                <div id="freqDisp"> <!--- Display the frequency corresponding to the current mode shape --->
+                  Natural Frequency:
+                  <span id="natFreqDisp">1</span>
+                </div>
+
+                <div id="nodeBox"> <!--- space reserved for other stuff such as checkboxes on 3d animate and display nodes etc  --->
+                  <label for="nodeCheck" class="checkbox" data-title="Show Nodes">
+                    <input type="checkbox" id="nodeCheck" name="nodeCheckbox" checked="checked">
+                    <span></span>
+                  </label>
+                </div>
+
+                <div id="threeDbox">
+                  <label for="threeD" class="checkbox" data-title="3D">
+                    <input type="checkbox" id="threeD" name="threeDcheck" checked="checked">
+                    <span></span>
+                  </label>
+                </div>
+
+              </div>
+
+            </div>
+
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> <!--- jquery --->
+      <script src="./scripts/main.js"></script>
+      <script src="./scripts/roan.js"></script>
+  </body>
+
+</html>

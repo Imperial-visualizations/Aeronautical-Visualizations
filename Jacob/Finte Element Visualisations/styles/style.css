@@ -1,0 +1,111 @@
+.grid-container {
+  display: grid;
+  margin: auto;
+  width: 83vw;
+  height: 94vh;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr 4.8 fr 4.8fr 4.8fr 2fr 2fr 2fr;
+  grid-template-areas:
+  "mt mt mt mt mt"
+  "mp mp mp wb wb"
+  "mp mp mp wb wb"
+  "mp mp mp wb wb"
+  "mp mp mp fb fb"
+  "mp mp mp fb fb"
+  "ib ib ib fb fb";
+  row-gap: 2%;
+  column-gap: 2%;
+
+}
+
+#fullAircraft {
+  width: auto;
+  height: auto;
+}
+
+#mainTitle {
+  grid-area: mt;
+}
+
+
+.mainPlotBox {
+  grid-area: mp;
+
+}
+
+#wing .modebar{
+      display: none !important;
+}
+
+#fuselage .modebar{
+      display: none !important;
+}
+
+#wingBox {
+  grid-area: wb;
+}
+
+#fuselageBox {
+  grid-area: fb;
+}
+
+.inputsBox {
+  grid-area: ib;
+  display: grid;
+  height: auto;
+  width: auto;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-areas:
+  "start start start start"
+  "ms ms fd fd"
+  "es es nb td";
+  row-gap: 5%;
+  column-gap: 5%;
+}
+
+#elemSlider {
+  grid-area: es;
+}
+
+#modeSlider {
+  grid-area: ms;
+}
+
+#freqDisp {
+  grid-area: fd;
+  position: relative;
+  margin: auto;
+  font-weight: 600;
+
+}
+
+#freqDisp p {
+  font-weight: 500;
+  font-size: large;
+}
+
+#nodeBox {
+  grid-area: nb;
+}
+
+#threeDbox {
+  grid-area: td;
+}
+
+#Strt {
+  grid-area: start;
+  margin: auto;
+}
+
+#reset {
+  grid-area: rst;
+}
+
+#elemSlider input[type=range]::-ms-tooltip {
+    display: none;
+}
+
+#modeSlider input[type=range]::-ms-tooltip {
+    display: none;
+}
