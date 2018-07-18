@@ -4,6 +4,10 @@ let aAmpl=[],vAmpl =[],dAmpl = [];
 let aIn = [],vIn = [],dIn = [] ;
 let aOut = [],vOut = [],dOut = [];
 let aPhase = [], vPhase = [],dPhase = [];
+let lines='lines', markers='markers';
+let acc='Acceleration', vel='Velocity', disp='Displacement';
+let accFit='Acceleration Fit', velFit='Velocity Fit', dispFit='Displacement Fit'
+let cDisp = 'rgb(0, 128, 255)', cVel='rgb(255, 128, 0)', cAcc='rgb(77, 172, 0)';
 
 // these are used to generate the empty plot that appears when the page loads
 const wStartEmpty = 105;
@@ -26,63 +30,81 @@ let dinNorm=[], vinNorm=[], ainNorm=[];
 let doutNorm=[], voutNorm=[], aoutNorm=[];
 let R,k,c,m;
 
-function setTraces(w, dampl, vampl, aampl, din, dout, vin, vout, ain, aout, phased, phasev, phasea ){
+function setTraces(cDisp, Displacement, Velocity, Acceleration,mode, w, dampl, vampl, aampl, din, dout, vin, vout, ain, aout, phased, phasev, phasea ){
 
   trace1 = {
     x: w,
     y: dampl, 
-    name: 'Displacement',
+    name: Displacement,
     type: 'scatter',
+    mode: mode,
+    marker:{color: cDisp}
   };
    trace2 = {
     x: w, 
     y: vampl, 
-    name: 'Velocity',
+    name: Velocity,
     type: 'scatter',
+    mode: mode,
+    marker:{color: cVel}
   };
   trace3 = {
     x: w, 
     y: aampl, 
-    name: 'Acceleration',
+    name: Acceleration,
     type: 'scatter',
+    mode: mode,
+    marker:{color: cAcc}
   };
 
   trace4 = {
     x: din,
     y: dout, 
-    name: 'Displacement',
-    type: 'scatter'
+    name: Displacement,
+    type: 'scatter',
+    mode: mode,
+    marker:{color: cDisp}
   };
   trace5 = {
     x: vin, 
     y: vout, 
-    name: 'Velocity',
-    type: 'scatter'
+    name: Velocity,
+    type: 'scatter',
+    mode: mode,
+    marker:{color: cVel}
   };
   trace6 = {
     x: ain, 
     y: aout, 
-    name: 'Acceleration',
-    type: 'scatter'
+    name: Acceleration,
+    type: 'scatter',
+    mode: mode,
+    marker:{color: cAcc}
   };
 
   trace7 = {
     x: w,
     y: phased, 
-    name: 'Displacement',
-    type: 'scatter'
+    name: Displacement,
+    type: 'scatter',
+    mode: mode,
+    marker:{color: cDisp}
     };
   trace8 = {
     x: w, 
     y: phasev, 
-    name: 'Velocity',
-    type: 'scatter'
+    name: Velocity,
+    type: 'scatter',
+    mode: mode,
+    marker:{color: cVel}
     };
   trace9 = {
     x: w, 
     y: phasea, 
-    name: 'Acceleration',
-    type: 'scatter'
+    name: Acceleration,
+    type: 'scatter',
+    mode: mode,
+    marker:{color: cAcc}
   };
 
   data1 = [trace1, trace2, trace3];
@@ -91,23 +113,28 @@ function setTraces(w, dampl, vampl, aampl, din, dout, vin, vout, ain, aout, phas
 
   layout1= {
     autosize: true,
+    pad: 4,
     margin:{
     l:25, r:11, b:20, t:1
     },
+    xaxis:{title:'Frequency (rad/s)'},
+    yaxis:{title:'Magnitude (normalised)'},
     legend: {x: 0, y: 10, orientation: "h"},
     showlegend: false,
-    font: {family: "Fira Sans", size:16} 
+    font: {family: "Fira Sans", size:12} 
 };
 
   layout2= {
+    autosize: true,
+    pad: 4,
     margin:{
     l:25, r:11, b:20, t:1
     },
     legend: {x: 50, y: 10, orientation: "h"
     },
     showlegend: false,
-    xaxis: { },
-    yaxis: {scaleanchor: "x",},
+    xaxis: {title:'In-phase Component (normalised)'},
+    yaxis: {scaleanchor: "x",title:'Out-of-phase Component (normalised)'},
 
     font: {
     family: "Fira Sans", size:12
@@ -116,9 +143,12 @@ function setTraces(w, dampl, vampl, aampl, din, dout, vin, vout, ain, aout, phas
 
 layout3= {
     autosize: true,
+    pad: 4,
     margin:{
         l:25, r:11, b:20, t:1
     },
+    xaxis:{title:'Frequency (rad/s)'},
+    yaxis:{title:'Phase (rad)'},
     legend: {x: 50, y: 1, orientation: "v"
     },
 
@@ -165,20 +195,26 @@ function normalise(freqList, dAmplNorm, vAmplNorm, aAmplNorm, dAmpl, vAmpl, aAmp
 $('input#submit').on('click', initPlot)
 function initPlot() {
         /*freq = $("input#frequency").val();
-        $("input#frequency").val()='';
+        $("input#frequency").val('');
         
         ampl = $("input#amplitude").val();
-        $("input#amplitude").val()='';
+        $("input#amplitude").val('');
         
         angle = $("input#phase").val();
-        $("input#phase").val()='';
+        $("input#phase").val('');
         
         load = $("input#load").val();
 
-        freqList.push(freq);
-        amplList.push(ampl);
-        angleList.push(angle);
-        aPhase = angleList;*/
+        if (angle && ampl && freq){
+            freqList.push(freq);
+            amplList.push(ampl);
+            angleList.push(angle)
+            console.log(freqList);
+            console.log(amplList);
+            console.log(angleList)
+            }
+        else{alert('Input your values!')};
+            aPhase = angleList;*/
 
         load = 0.06;
         freqList = [106.81, 108.07, 108.70, 108.82, 108.95, 108.98, 109.00, 109.01, 109.04, 109.08, 109.14, 109.20, 109.33, 109.45, 109.96, 110.58, 111.21, 111.84];
@@ -187,7 +223,7 @@ function initPlot() {
         
         calulateExp();
         normalise(freqList, dAmplNorm, vAmplNorm, aAmplNorm, dAmpl, vAmpl, aAmpl,dInNorm,vInNorm,aInNorm, dIn, vIn, aIn, dOut,vOut, aOut, dOutNorm, vOutNorm, aOutNorm)
-        setTraces(freqList, dAmplNorm, vAmplNorm, aAmplNorm, dInNorm, dOutNorm, vInNorm, vOutNorm, aInNorm, aOutNorm, dPhase, vPhase, aPhase)
+        setTraces(cDisp, disp, vel, acc, markers, freqList, dAmplNorm, vAmplNorm, aAmplNorm, dInNorm, dOutNorm, vInNorm, vOutNorm, aInNorm, aOutNorm, dPhase, vPhase, aPhase)
     
         Plotly.newPlot('graph1', data1, layout1, {displayModeBar:false});
         Plotly.newPlot('graph2', data2, layout2, {displayModeBar:false});
@@ -252,7 +288,6 @@ function findRes(){
             };
             var dataAB1 = [traceAB1];
             Plotly.plot('graph1', dataAB1 );
-            console.log(freqList)
 
             var traceAB2 = {
               x: [vInNorm[A-1],vInNorm[B-1]], 
@@ -283,7 +318,6 @@ function findRes(){
             Plotly.plot('graph3', dataAB3 );
 
             counter++;
-            console.log(counter);
 
             wu = Math.sqrt((Math.pow(freqList[A-1],2)*freqList[B-1]*Math.tan(vPhase[B-1])-Math.pow(freqList[B-1],2)*freqList[A-1]*Math.tan(vPhase[A-1]))/(freqList[B-1]*Math.tan(vPhase[B-1])-freqList[A-1]*Math.tan(vPhase[A-1])));
             xi = ((Math.pow(freqList[B-1],2)-Math.pow(freqList[A-1],2))/(freqList[B-1]*Math.tan(vPhase[B-1])-freqList[A-1]*Math.tan(vPhase[A-1])))/(2*wu);
@@ -294,8 +328,9 @@ function findRes(){
             k=koverm*m;
             R=Math.max(...vIn.map(Math.abs))/(4*c)
 
-            const wStart = 105;
-            const wEnd = 115;
+            const wStart = Math.min(...freqList);
+            console.log(wStart)
+            const wEnd = Math.max(...freqList);
             const n =500;
             const a = (wEnd - wStart)/(n-1);
             for (let i = 0;  i < n; i++) {
@@ -321,7 +356,7 @@ function findRes(){
 
             }
             normalise(w, damplNorm, vamplNorm, aamplNorm, dampl, vampl, aampl,dinNorm,vinNorm,ainNorm, din, vin, ain, dout,vout, aout, doutNorm, voutNorm, aoutNorm)
-            setTraces(w, damplNorm, vamplNorm, aamplNorm, dinNorm, doutNorm, vinNorm, voutNorm, ainNorm, aoutNorm, phased, phasev, phasea )
+            setTraces(cDisp, dispFit, velFit, accFit, lines, w, damplNorm, vamplNorm, aamplNorm, dinNorm, doutNorm, vinNorm, voutNorm, ainNorm, aoutNorm, phased, phasev, phasea )
             
             Plotly.plot('graph1', data1 );
             Plotly.plot('graph2', data2 );
