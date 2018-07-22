@@ -35,11 +35,6 @@
     border-radius: 3px 0 0 3px;
 }
 
-/* On hover, add a black background color with a little bit see-through
-.prev:hover, .next:hover {
-    background-color: rgba(0,0,0,0.8);
-} */
-
 /* Caption text */
 .text {
     color: #f2f2f2;
@@ -154,17 +149,23 @@
 
 #modal_4{
     position: relative;
+    top: 530px;
+    left: 310px;
+}
+
+#modal_5{
+    position: relative;
     top: 510px;
     left: 480px;
 }
 
-#modal_5{
+#modal_6{
     position: relative;
     top: 355px;
     left: 650px;
 }
 
-#modal_6{
+#modal_7{
     margin: 20% auto;
 }
 
@@ -200,4 +201,29 @@
 @keyframes modalOpen {
     from{opacity: 0}
     to{opacity: 1}
+}
+
+/* ------------------------------------ Side nav bar--------------------------------------- */
+.sideNav {
+    width: 164px;
+    height: 50px;
+    position: fixed;
+    z-index: 1;
+    top: 300px;
+    left: 5px;
+    background-color: #003E74;
+    color: white;
+    overflow-x: hidden;
+    padding: 6px 10px;
+    border-radius: 8px 8px;
+}
+
+.sideNav:hover, .sideNav:focus{
+    cursor:pointer;
+    background-color: #006EAF;
+}
+
+.verticalText {
+	transform: rotate(90deg);
+	transform-origin: left top 0;
 }

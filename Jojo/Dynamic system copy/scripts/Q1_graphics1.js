@@ -1,11 +1,6 @@
 /** ------------------------------------- Set global variables ---------------------------------------**/
 /** Store inputs in variables **/
-let m = parseFloat(document.getElementById("m").value);
-let I = parseFloat(document.getElementById("I").value);
-let k = parseFloat(document.getElementById("k").value);
-let k_theta = parseFloat(document.getElementById("k_theta").value);
-let l = parseFloat(document.getElementById("L").value);
-let A2 = parseFloat(document.getElementById("mode1").value);
+let m, I, k, k_theta, l, A2, a, b, c, omega1, omega2, s12, s22, d1, d2, e, A1;
 
 /** Set time variable **/
 let t = [0,0];
@@ -13,25 +8,37 @@ let t_end = 150;
 let n = 3000;
 let dt = t_end/(n-1);
 
-/** Calculation of vibration frequencies **/
-let a = m * (k_theta + k * Math.pow(l, 2)) + I * k;
-let b = Math.sqrt((Math.pow(a, 2)) - 4 * m * I * k * k_theta);
-let c = 2 * m * I;
-let omega1 = Math.sqrt((a + b) / c);
-let omega2 = Math.sqrt((a - b) / c);
-
 /** Calculation of eigenvectors **/
 let s11 = 1;
 let s21 = 1;
 
-let d1 = (k - Math.pow(omega1, 2) * m);
-let d2 = (k - Math.pow(omega2, 2) * m);
-let e = -k * l;
-let s12 = - d1 / e;
-let s22 = - d2 / e;
+function calcu_resp(){
+    m = parseFloat(document.getElementById("m").value);
+    I = parseFloat(document.getElementById("I").value);
+    k = parseFloat(document.getElementById("k").value);
+    k_theta = parseFloat(document.getElementById("k_theta").value);
+    l = parseFloat(document.getElementById("L").value);
+    A2 = parseFloat(document.getElementById("mode1").value);
 
-/** Ratio of two modes **/
-let A1 = 1 - A2;
+    /** Calculation of vibration frequencies **/
+    a = m * (k_theta + k * Math.pow(l, 2)) + I * k;
+    b = Math.sqrt((Math.pow(a, 2)) - 4 * m * I * k * k_theta);
+    c = 2 * m * I;
+
+    //Note that the first mode should have smaller vibration frequency
+    omega1 = Math.sqrt((a - b) / c);
+    omega2 = Math.sqrt((a + b) / c);
+
+
+    d1 = (k - Math.pow(omega1, 2) * m);
+    d2 = (k - Math.pow(omega2, 2) * m);
+    e = -k * l;
+    s12 = - d1 / e;
+    s22 = - d2 / e;
+
+    /** Ratio of two modes **/
+    A1 = 1 - A2;
+}
 
 /** Storing variables **/
 
@@ -53,7 +60,7 @@ let startPause = document.getElementById("playPauseButton");
 
 /** -------------------------------- Plot the displacement against time -------------------------------- **/
 /** Calculation of the responses r and theta **/
-function calcu_resp() {
+function plot_resp() {
     /** Response of DoF r **/
     for (i = 0; i < n; i++) {
         t[i] = i*dt;
@@ -75,11 +82,11 @@ function calcu_resp() {
     Plotly.relayout( 'plot_r',{
         'yaxis.autorange': true
     });
-
+    console.log("aaaaaaa")
 }
 
 
-function calcu_resp2() {
+function plot_resp2() {
     /** Response of DoF theta **/
     for (i = 0; i < n; i++) {
         t[i] = i*dt;
@@ -176,9 +183,10 @@ Plotly.newPlot('plot_theta', [trace_theta, trace_theta1, trace_theta2], resp_lay
 
 /** ---------------------------------- Function to hide and display ------------------------------------- **/
 
-function showSpoiler(obj)
+function showSpoiler()
 {
-    var inner = obj.parentNode.getElementsByTagName("div")[0];
+    //var inner = obj.parentNode.getElementsByTagName("div")[0];
+    var inner =document.getElementById("spoiler1");
     if (inner.style.display === "none")
         inner.style.display = "";
     else
@@ -216,7 +224,7 @@ let x = 0;
 
 function animate(){
     /** Calculation of the responses r and theta **/
-    //Set time interval
+        //Set time interval
     let t2 = x * dt;
 
     //displacements
@@ -244,6 +252,27 @@ function animate(){
     ctx.fill();
     ctx.stroke();
 
+    //Draw the DoF r
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.moveTo(95, 75);
+    ctx.lineTo(95, 93);
+    //ctx.lineTo(90, 85);
+    ctx.stroke();
+
+    /*ctx.beginPath();
+    ctx.moveTo(95, 90);
+    ctx.lineTo(100, 85);
+    ctx.stroke();*/
+
+    ctx.lineWidth = 1;
+
+    //text
+    ctx.fillStyle = "black";
+    ctx.font = "italic 15pt san-serif";
+    ctx.fillText("r = 0", 80, 70);
+    ctx.stroke();
+
     /* Draw the linear spring */
     ctx.beginPath();
     ctx.moveTo(120 + r2, 125);
@@ -268,6 +297,21 @@ function animate(){
     ctx.fill();
     ctx.stroke();
     ctx.restore();
+
+    //Draw the DoF theta
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(290, 355);
+    ctx.lineTo(290, 315);
+    ctx.stroke();
+
+    //text
+    ctx.fillStyle = "black";
+    ctx.font = "italic 15pt san-serif";
+    ctx.fillText("θ = 0", 311, 355);
+    ctx.stroke();
+
+    ctx.lineWidth = 1;
 
     /* Draw the support of rigid rod */
     //Draw the connections (circles)
@@ -452,6 +496,19 @@ function openModal(){
     modalContent[3].style.display = "none";
     modalContent[4].style.display = "none";
     modalContent[5].style.display = "none";
+    modalContent[6].style.display = "none";
+}
+
+function scrollToTop(){
+    //Scroll to top
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
+function scrollToBottom(){
+    //Scroll to top
+    document.body.scrollTop = 1000; // For Safari
+    document.documentElement.scrollTop = 1000; // For Chrome, Firefox, IE and Opera
 }
 
 //Function to close modal
@@ -463,6 +520,7 @@ function closeModal(){
 function outsideClick(e){
     if(e.target === modal){
         modal.style.display = "none";
+        currentSlide(1);
     }
 }
 
@@ -471,3 +529,32 @@ function nextModal(n){
     modalContent[n].style.display = "none";
     modalContent[n+1].style.display = "block";
 }
+
+/** --------------------------- Function for hiding after few seconds---------------------------- **/
+/* Function to make fade out instruction tab after window load */
+//Display nav bar
+function navShow(){document.getElementById("instructions").style.left = "30px";}
+navShow();
+
+//Hide nav bar
+function navHide(){document.getElementById("instructions").style.left = "5px";
+    document.getElementById("instructions").style.transitionDuration = "1s";}
+
+/* Function to make fade out prev next tabs after window load */
+function arrowShow1(){document.getElementById("prev1").style.color = "#006EAF";}
+arrowShow1();
+
+function arrowShow2(){document.getElementById("prev2").style.color = "#006EAF";}
+arrowShow2();
+
+//Hide nav bar
+function arrowHide1(){document.getElementById("prev1").style.color = "white";}
+
+function arrowHide2(){document.getElementById("prev2").style.color = "white";}
+
+//Set timeout in milliseconds
+setTimeout(function() {
+    navHide();
+    arrowHide1();
+    arrowHide2();
+}, 3000);

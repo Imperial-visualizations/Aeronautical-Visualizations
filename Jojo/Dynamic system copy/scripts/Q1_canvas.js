@@ -52,6 +52,7 @@ function initPlot() {
     }
     ctx.lineTo(260, 125);
     ctx.lineTo(290, 125);
+
     //text
     ctx.fillStyle = "black";
     ctx.font = "italic 15pt san-serif";
@@ -71,7 +72,7 @@ function initPlot() {
     ctx.stroke();
     ctx.fillStyle = "black";
     ctx.font = "italic 15pt san-serif";
-    ctx.fillText("L", 380, 244);
+    ctx.fillText("ℓ", 380, 244);
 
     /* Draw the support of rigid rod */
     //Draw the connections (circles)

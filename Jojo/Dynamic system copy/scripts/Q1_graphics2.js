@@ -21,8 +21,8 @@ let m = 4,
     a = m * (k_theta + k * Math.pow(l, 2)) + I * k,
     b = Math.sqrt((Math.pow(a, 2)) - 4 * m * I * k * k_theta),
     c = 2 * m * I,
-    omega1 = Math.sqrt((a + b) / c),
-    omega2 = Math.sqrt((a - b) / c),
+    omega1 = Math.sqrt((a - b) / c),
+    omega2 = Math.sqrt((a + b) / c),
 
     /* Calculation of eigenvectors */
     d1 = (k - Math.pow(omega1, 2) * m),
