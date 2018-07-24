@@ -1,5 +1,6 @@
 let load,freq,angle,ampl;
 let freqList=[], angleList=[], amplList=[];
+let freqListp=[], angleListp=[], amplListp=[];
 let aAmpl=[],vAmpl =[],dAmpl = [];
 let aIn = [],vIn = [],dIn = [] ;
 let aOut = [],vOut = [],dOut = [];
@@ -7,7 +8,7 @@ let aPhase = [], vPhase = [],dPhase = [];
 let lines='lines', markers='markers';
 let acc='Acceleration', vel='Velocity', disp='Displacement';
 let accFit='Acceleration Fit', velFit='Velocity Fit', dispFit='Displacement Fit'
-let cDisp = 'rgb(0, 128, 255)', cVel='rgb(255, 128, 0)', cAcc='rgb(77, 172, 0)';
+const cDisp = 'rgb(0, 128, 255)', cVel='rgb(255, 128, 0)', cAcc='rgb(77, 172, 0)';
 
 // these are used to generate the empty plot that appears when the page loads
 const wStartEmpty = 105;
@@ -29,6 +30,24 @@ let damplNorm =[],vamplNorm =[], aamplNorm =[];
 let dinNorm=[], vinNorm=[], ainNorm=[];
 let doutNorm=[], voutNorm=[], aoutNorm=[];
 let R,k,c,m;
+
+
+$('#theory').click(function() {
+  window.open('freqanddapingtheory3.html', '_blank');
+});
+
+$('input#reset').on('click',resetValues)
+function resetValues() {
+  freqList=[];
+  amplList=[];
+  aPhase=[];
+  load=null;
+  freqListp=[]; angleListp=[]; amplListp=[];
+  $('input#PointA').val('');
+  $('input#PointB').val('');
+  $('input#load').val('');
+  emptyPlot ()
+}
 
 function setTraces(cDisp, Displacement, Velocity, Acceleration,mode, w, dampl, vampl, aampl, din, dout, vin, vout, ain, aout, phased, phasev, phasea ){
 
@@ -65,6 +84,7 @@ function setTraces(cDisp, Displacement, Velocity, Acceleration,mode, w, dampl, v
     mode: mode,
     marker:{color: cDisp}
   };
+  console.log(din);
   trace5 = {
     x: vin, 
     y: vout, 
@@ -109,13 +129,14 @@ function setTraces(cDisp, Displacement, Velocity, Acceleration,mode, w, dampl, v
 
   data1 = [trace1, trace2, trace3];
   data2 = [trace4, trace5, trace6];
+  console.log(data1)
+  console.log(data2)
   data3 = [trace7, trace8, trace9];
-
+console.log(data3)
   layout1= {
     autosize: true,
-    pad: 4,
     margin:{
-    l:25, r:11, b:20, t:1
+    l:50, r:10, b:45, t:10
     },
     xaxis:{title:'Frequency (rad/s)'},
     yaxis:{title:'Magnitude (normalised)'},
@@ -126,9 +147,8 @@ function setTraces(cDisp, Displacement, Velocity, Acceleration,mode, w, dampl, v
 
   layout2= {
     autosize: true,
-    pad: 4,
     margin:{
-    l:25, r:11, b:20, t:1
+    l:50, r:10, b:45, t:10
     },
     legend: {x: 50, y: 10, orientation: "h"
     },
@@ -143,9 +163,8 @@ function setTraces(cDisp, Displacement, Velocity, Acceleration,mode, w, dampl, v
 
 layout3= {
     autosize: true,
-    pad: 4,
     margin:{
-        l:25, r:11, b:20, t:1
+        l:50, r:10, b:45, t:10
     },
     xaxis:{title:'Frequency (rad/s)'},
     yaxis:{title:'Phase (rad)'},
@@ -158,7 +177,9 @@ layout3= {
 
 };}
 
-function calulateExp(){
+function calculateExp(){
+          aIn=[]; aOut=[]; aAmpl=[]; vAmpl=[]; vPhase=[]; vIn=[];vout=[];dAmpl=[]; dPhase=[]; dIn=[];dout=[];
+          
   for(let i=0; i< freqList.length; i++) {
           aAmpl[i] = amplList[i]/load;
           aIn[i] = aAmpl[i]*Math.cos(aPhase[i]);
@@ -194,40 +215,38 @@ function normalise(freqList, dAmplNorm, vAmplNorm, aAmplNorm, dAmpl, vAmpl, aAmp
 
 $('input#submit').on('click', initPlot)
 function initPlot() {
-        /*freq = $("input#frequency").val();
+        freq = parseFloat($("input#frequency").val());
+        ampl = parseFloat($("input#amplitude").val());
+        angle = parseFloat($("input#phase").val());
+        load = parseFloat($("input#load").val());
         $("input#frequency").val('');
-        
-        ampl = $("input#amplitude").val();
         $("input#amplitude").val('');
-        
-        angle = $("input#phase").val();
         $("input#phase").val('');
-        
-        load = $("input#load").val();
 
         if (angle && ampl && freq){
-            freqList.push(freq);
-            amplList.push(ampl);
-            angleList.push(angle)
-            console.log(freqList);
-            console.log(amplList);
-            console.log(angleList)
+            freqListp.push(freq);
+            amplListp.push(ampl);
+            angleListp.push(angle)
+            aPhase = angleListp;
+            freqList=freqListp;
+            amplList=amplListp;
             }
+        else if (!angle&& !ampl&& !freq){
+          load = 0.06;
+          freqList = [106.81, 108.07, 108.70, 108.82, 108.95, 108.98, 109.00, 109.01, 109.04, 109.08, 109.14, 109.20, 109.33, 109.45, 109.96, 110.58, 111.21, 111.84];
+          amplList = [1.558, 3.35, 7.475, 8.826, 9.333, 9.355, 9.34, 9.363, 9.26, 9.272, 9.104, 8.895, 8.257, 7.526, 5.34, 3.73, 2.842, 2.28];
+          aPhase = [-2.945,-2.7573, -2.18447, -1.8739, -1.604, -1.54, -1.502, -1.498, -1.432, -1.3908, -1.29, -1.21, -1.0363, -0.9092, -0.564, -0.346, -0.2426, -0.18];
+        }
         else{alert('Input your values!')};
-            aPhase = angleList;*/
-
-        load = 0.06;
-        freqList = [106.81, 108.07, 108.70, 108.82, 108.95, 108.98, 109.00, 109.01, 109.04, 109.08, 109.14, 109.20, 109.33, 109.45, 109.96, 110.58, 111.21, 111.84];
-        amplList = [1.558, 3.35, 7.475, 8.826, 9.333, 9.355, 9.34, 9.363, 9.26, 9.272, 9.104, 8.895, 8.257, 7.526, 5.34, 3.73, 2.842, 2.28];
-        aPhase = [-2.945,-2.7573, -2.18447, -1.8739, -1.604, -1.54, -1.502, -1.498, -1.432, -1.3908, -1.29, -1.21, -1.0363, -0.9092, -0.564, -0.346, -0.2426, -0.18];
-        
-        calulateExp();
+        calculateExp();
+             dAmplNorm=[]; vAmplNorm=[]; aAmplNorm=[]; dInNorm=[]; dOutNorm=[]; vInNorm=[]; vOutNorm=[]; aInNorm=[]; aOutNorm=[];
         normalise(freqList, dAmplNorm, vAmplNorm, aAmplNorm, dAmpl, vAmpl, aAmpl,dInNorm,vInNorm,aInNorm, dIn, vIn, aIn, dOut,vOut, aOut, dOutNorm, vOutNorm, aOutNorm)
+               console.log(vAmpl)
         setTraces(cDisp, disp, vel, acc, markers, freqList, dAmplNorm, vAmplNorm, aAmplNorm, dInNorm, dOutNorm, vInNorm, vOutNorm, aInNorm, aOutNorm, dPhase, vPhase, aPhase)
-    
         Plotly.newPlot('graph1', data1, layout1, {displayModeBar:false});
         Plotly.newPlot('graph2', data2, layout2, {displayModeBar:false});
         Plotly.newPlot('graph3', data3, layout3, {displayModeBar:false});
+        counter=0
     
   }
   function emptyPlot(){
@@ -329,7 +348,6 @@ function findRes(){
             R=Math.max(...vIn.map(Math.abs))/(4*c)
 
             const wStart = Math.min(...freqList);
-            console.log(wStart)
             const wEnd = Math.max(...freqList);
             const n =500;
             const a = (wEnd - wStart)/(n-1);
@@ -356,6 +374,7 @@ function findRes(){
 
             }
             normalise(w, damplNorm, vamplNorm, aamplNorm, dampl, vampl, aampl,dinNorm,vinNorm,ainNorm, din, vin, ain, dout,vout, aout, doutNorm, voutNorm, aoutNorm)
+     
             setTraces(cDisp, dispFit, velFit, accFit, lines, w, damplNorm, vamplNorm, aamplNorm, dinNorm, doutNorm, vinNorm, voutNorm, ainNorm, aoutNorm, phased, phasev, phasea )
             
             Plotly.plot('graph1', data1 );
@@ -367,4 +386,86 @@ function findRes(){
             $('#coverm').html(coverm.toFixed(2));
             $('#koverm').html(koverm.toFixed(2));
 }
+
+/** --------------------------- Function for modal ---------------------------- **/
+
+//Get modal element
+let modal = document.getElementById("guideModal");
+let modalContent = document.getElementsByClassName("modalContent");
+
+//Listen for outside click
+window.addEventListener("click", outsideClick);
+let j;
+//Function to open modal
+$('#modal').click(function(){
+  openModal()
+  j=0})
+$('.nextBtn').click(function(){
+  console.log(j)
+  nextModal(j);
+  j++
+
+})
+$('.closeBtn').click(closeModal)
+$('.closeBtnH').click(closeModal)
+function openModal(){
+    modal.style.display = "block";
+    modalContent[0].style.display = "block";
+    modalContent[1].style.display = "none";
+    modalContent[2].style.display = "none";
+    modalContent[3].style.display = "none";
+    modalContent[4].style.display = "none";
+    modalContent[5].style.display = "none";
+}
+
+//Function to close modal
+function closeModal(){
+    modal.style.display = "none";
+}
+
+//Function to close modal if outside click
+function outsideClick(e){
+    if(e.target === modal){
+        modal.style.display = "none";
+    }
+}
+
+//Function to close current modal and open next modal
+function nextModal(n){
+    modalContent[n].style.display = "none";
+    modalContent[n+1].style.display = "block";
+}
+function scrollToTop(){
+    //Scroll to top
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
+function scrollToBottom(){
+    //Scroll to top
+    document.body.scrollTop = 1000; // For Safari
+    document.documentElement.scrollTop = 1000; // For Chrome, Firefox, IE and Opera
+}
+
+/** --------------------------- Function for hiding after few seconds---------------------------- **/
+/* Function to make fade out instruction tab after window load */
+//Display nav bar
+function navShow(){document.getElementById("modal").style.left = "30px";}
+navShow();
+
+//Hide nav bar
+function navHide(){document.getElementById("modal").style.left = "5px";
+    document.getElementById("modal").style.transitionDuration = "1s";}
+
+//Hide nav bar
+function arrowHide1(){document.getElementById("prev1").style.color = "white";}
+
+function arrowHide2(){document.getElementById("prev2").style.color = "white";}
+
+//Set timeout in milliseconds
+setTimeout(function() {
+    navHide();
+    arrowHide1();
+    arrowHide2();
+}, 3000);
 $(window).on('load',emptyPlot)

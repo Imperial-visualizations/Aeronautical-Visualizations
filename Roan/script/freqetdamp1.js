@@ -8,7 +8,6 @@ const n =500;
 const a = (wEnd - wStart)/(n-1);
 
 let damplNorm=[],vamplNorm=[],aamplNorm=[];
-
 let dinNorm=[];
 let doutNorm=[];
                 
@@ -25,7 +24,11 @@ let ain=[],aout=[],dampl=[],phased=[],vampl=[],phasev=[],aampl=[],phasea=[];
 let trace1,trace2,trace3,trace4,trace5,trace6,trace7,trace8,trace9;
 let data1,data2,data3;
 let layout1,layout2,layout3;
+const cDisp = 'rgb(0, 128, 255)', cVel='rgb(255, 128, 0)', cAcc='rgb(77, 172, 0)';
 
+$('#theory').click(function() {
+  window.open('freqanddapingtheory1.html', '_blank');
+});
 // function animates and relayouts given new data and a plotly div
 function animate_shorthand(data,div){
   Plotly.animate(div, {
@@ -68,23 +71,7 @@ for (var i = 0;  i < n; i++) {
 
     aampl[i]=Math.sqrt(Math.pow(ain[i], 2) + Math.pow(aout[i], 2));
     phasea[i]=Math.atan2(aout[i], ain[i]);
-
-
-               /* damplNorm[i]=dampl[i]/Math.max(...dampl);
-                vamplNorm[i]=vampl[i]/Math.max(...vampl);
-                aamplNorm[i]=aampl[i]/Math.max(...aampl);
-
-                dinNorm[i]=din[i]/Math.max(...dout.map(Math.abs))*2;
-                doutNorm[i]=dout[i]/Math.max(...dout.map(Math.abs))*2;
-                
-                vinNorm[i]=vin[i]/Math.max(...vin.map(Math.abs))*2;
-                voutNorm[i]=vout[i]/Math.max(...vin.map(Math.abs))*2;
-                
-                ainNorm[i]=ain[i]/Math.max(...aout.map(Math.abs))*2;
-                aoutNorm[i]=aout[i]/Math.max(...aout.map(Math.abs))*2;*/
-
-
-            }
+    }
 };
 
 
@@ -97,6 +84,7 @@ function setTraces(){
     name: 'Displacement',
     type: 'scatter',
     mode: "lines",
+    marker: {color: cDisp}
   };
    trace2 = {
     x: w, 
@@ -104,6 +92,7 @@ function setTraces(){
     name: 'Velocity',
     type: 'scatter',
     mode: 'lines',
+    marker: {color: cVel}
   };
   trace3 = {
     x: w, 
@@ -111,6 +100,7 @@ function setTraces(){
     name: 'Acceleration',
     type: 'scatter',
     mode: 'lines',
+    marker:{color: cAcc}
   };
 
   trace4 = {
@@ -119,6 +109,7 @@ function setTraces(){
     name: 'Displacement',
     type: 'scatter',
     mode: 'lines',
+    marker:{color: cDisp}
   };
   trace5 = {
     x: vin, 
@@ -126,6 +117,7 @@ function setTraces(){
     name: 'Velocity',
     type: 'scatter',
     mode: 'lines',
+    marker:{color: cVel}
   };
   trace6 = {
     x: ain, 
@@ -133,6 +125,7 @@ function setTraces(){
     name: 'Acceleration',
     type: 'scatter',
     mode: 'lines',
+    marker:{color: cAcc}
   };
 
   trace7 = {
@@ -141,6 +134,7 @@ function setTraces(){
     name: 'Displacement',
     type: 'scatter',
     mode: 'lines',
+    marker:{color: cDisp}
     };
   trace8 = {
     x: w, 
@@ -148,6 +142,7 @@ function setTraces(){
     name: 'Velocity',
     type: 'scatter',
     mode: 'lines',
+    marker:{color: cVel}
     };
   trace9 = {
     x: w, 
@@ -155,6 +150,7 @@ function setTraces(){
     name: 'Acceleration',
     type: 'scatter',
     mode: 'lines',
+    marker:{color: cAcc}
   };
 
   
@@ -166,22 +162,24 @@ function setTraces(){
   layout1= {
     autosize: true,
     margin:{
-    l:25, r:11, b:20, t:1
+    l:50, r:10, b:45, t:10
     },
+    xaxis:{title:'Frequency (rad/s)'},
+    yaxis:{title:'Magnitude'},
     legend: {x: 0, y: 10, orientation: "h"},
     showlegend: false,
-    font: {family: "Fira Sans", size:16} 
+    font: {family: "Fira Sans", size:12} 
 };
 
   layout2= {
     margin:{
-    l:25, r:11, b:20, t:1
+    l:50, r:10, b:45, t:10
     },
     legend: {x: 50, y: 10, orientation: "h"
     },
     showlegend: false,
-    xaxis: { },
-    yaxis: {scaleanchor: "x",},
+    xaxis: {title:'In-phase Component'},
+    yaxis: {scaleanchor: "x",title:'Out-of-phase Component'},
 
     font: {
     family: "Fira Sans", size:12
@@ -191,11 +189,12 @@ function setTraces(){
 layout3= {
     autosize: true,
     margin:{
-        l:25, r:11, b:20, t:1
+        l:50, r:10, b:45, t:10
     },
     legend: {x: 50, y: 1, orientation: "v"
     },
-
+    xaxis:{title:'Frequency (rad/s)'},
+    yaxis:{title:'Phase (rad)'},
     font: {
         family: "Fira Sans", size:12
     }
@@ -252,6 +251,84 @@ function main() {
         });
     });
   }
+/** --------------------------- Function for modal ---------------------------- **/
 
+//Get modal element
+let modal = document.getElementById("guideModal");
+let modalContent = document.getElementsByClassName("modalContent");
+
+//Listen for outside click
+window.addEventListener("click", outsideClick);
+let j;
+//Function to open modal
+$('#modal').click(function(){
+  openModal()
+  j=0})
+$('.nextBtn').click(function(){
+
+  nextModal(j);
+  j++
+
+})
+$('.closeBtn').click(closeModal)
+$('.closeBtnH').click(closeModal)
+function openModal(){
+    modal.style.display = "block";
+    modalContent[0].style.display = "block";
+    modalContent[1].style.display = "none";
+    modalContent[2].style.display = "none";
+    modalContent[3].style.display = "none";
+}
+
+//Function to close modal
+function closeModal(){
+    modal.style.display = "none";
+}
+
+//Function to close modal if outside click
+function outsideClick(e){
+    if(e.target === modal){
+        modal.style.display = "none";
+    }
+}
+
+//Function to close current modal and open next modal
+function nextModal(n){
+    modalContent[n].style.display = "none";
+    modalContent[n+1].style.display = "block";
+}
+function scrollToTop(){
+    //Scroll to top
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
+function scrollToBottom(){
+    //Scroll to top
+    document.body.scrollTop = 1000; // For Safari
+    document.documentElement.scrollTop = 1000; // For Chrome, Firefox, IE and Opera
+}
+
+/** --------------------------- Function for hiding after few seconds---------------------------- **/
+/* Function to make fade out instruction tab after window load */
+//Display nav bar
+function navShow(){document.getElementById("modal").style.left = "30px";}
+navShow();
+
+//Hide nav bar
+function navHide(){document.getElementById("modal").style.left = "5px";
+    document.getElementById("modal").style.transitionDuration = "1s";}
+
+//Hide nav bar
+function arrowHide1(){document.getElementById("prev1").style.color = "white";}
+
+function arrowHide2(){document.getElementById("prev2").style.color = "white";}
+
+//Set timeout in milliseconds
+setTimeout(function() {
+    navHide();
+    arrowHide1();
+    arrowHide2();
+}, 3000);
 $(window).on('load',emptyPlot)
 $(document).ready = main();

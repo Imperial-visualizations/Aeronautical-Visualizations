@@ -4,44 +4,115 @@
 <head>
     <title>Mode Shapes</title>
     <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+    <link rel="stylesheet" href="Styles/myStyleSheet4.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="http://www.numericjs.com/lib/numeric-1.2.6.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 
 <body>
-    <div class="rightnav">&#9654;</div>
+    <div id="modal" class="sideNav verticalText" onmouseenter="navShow()"   onmouseleave="navHide()">
+        Instructions for use
+    </div>
     <div class="leftnav">&#9664;</div>
     <div class="container">
-        <h1>Mode Shapes - Simulated Data</h1>
-        
-        <div class="six columns">
-            <h4>3D Simulation</h4>
+        <h1>Mode Shapes - Experimental Data</h1>
             <div class="row">
-            <div class= "five columns">
-                    <form>
-                                    Mode Shape = <input type="number" id="mode3" min="1", max="9", step="1" value="1" style="width:80px";>
 
-                    </form>
+                            Input the resonance frequency found previously: 
+                            <input type="number" id="frequency" style="width:120px">&nbsp;(Hz) &nbsp; &nbsp; &nbsp; &nbsp;</input>
+                            <input type="button" class="button" value="Match Frequencies" id="match">
+                            <input class="center" type="button" id="theory" value="Show Theory"><br>
+                            Input the data recorded by each accelerometer, one by one: 
             </div>
-            <div class="three columns"> <form> <input type="button" class="button" value="Start" id="start"></form></div>
+            <div class="row" style="align-items: flex-start;">
+                            Amplitude = <input type="number" id="amplitude" style="width:120px">&nbsp; &nbsp; &nbsp; &nbsp;
+                            Phase angle = <input type="number" id="phase" style="width:120px">&nbsp; &nbsp; &nbsp; &nbsp;
+                            <input type="button" class="button" id="submit" value="submit" href="submit">
+                            <input type="button" class="button" id="reset" value="reset" href="reset"> 
+                            <input type="button" class="button" value="Start" id="start">
+ 
+
+                
+                        <div class="six columns" id='graphAircraftV'></div>
+                        <div class="six columns" id='graphAircraftH'></div>
             </div>
-            <div class="row">
-                        <div id='aircraft3D'></div>
+     <div id="guideModal" class="modal">
+        <div class="modalContent modalContentH" id="modal_1">
+            <div class="modalHeader">
+                <span class="closeBtn closeBtnH">&times;</span>
+                <h5>Visualisation Guidance</h5>
+            </div>
+            <div class="modalBody">
+                <p>
+                    This is the guidance for the Experimental Mode Shapes visualisation.
+                </p>
+                <button class="nextBtn">Continue</button>
             </div>
         </div>
 
-        <div class="six columns">
-            <h4>2D Simulation</h4>
-            <div class="row">
+        <div class="modalContent" id="modal_2">
+            <span class="closeBtn">&times;</span>
+            <div class="modalBody">
+                <p>
+                    Here you can import the experimental data. As it is constant, the resonance frequency is loaded only once, at the beginning. The Amplitudes and Phase Angles are loaded one by one. To record the data, press "Submit". 
+                </p>
+                <button class="nextBtn">Continue</button>
             </div>
-            <div class="row">
-                        <div id='graphAircraftV'></div>
-                        <div id='graphAircraftH'></div>
+        </div>
+
+        <div class="modalContent" id="modal_3">
+            <span class="closeBtn" >&times;</span>
+            <div class="modalBody">
+                <p>
+                    Once you have recorded the data for all nine accelerometers, anything that you input after that will not be recorded. To start over press "Reset".
+                </p>
+                <button class="nextBtn" >Continue</button>
+            </div>
+        </div>
+
+
+        <div class="modalContent" id="modal_4">
+            <span class="closeBtn" >&times;</span>
+            <div class="modalBody">
+                <p>
+                   The "Match Frequencies" and "Unmatch Frequencies" toggle button allows you to set the frequencies of the theoretical mode shape with your experimental values to be the same. This allows for a better comparison of the eigenvectors.
+                </p>
+                <button class="nextBtn">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_5">
+            <span class="closeBtn" >&times;</span>
+            <div class="modalBody">
+                <p>
+                   Click on the "Start" button to see the mode shape animate. To stop the animation just click on the "Stop" button.
+                </p>
+                <button class="nextBtn">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_6">
+            <span class="closeBtn" >&times;</span>
+            <div class="modalBody">
+                <p>
+                    Click on the "Show theory" button to see the underlying theory behind this visualisation
+                </p>
+                <button class="nextBtn">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_7">
+            <span class="closeBtn">&times;</span>
+            <div class="modalBody">
+                <p>
+                    Have fun!
+                </p>
             </div>
         </div>
     </div>
-    <script src=script/modeshape.js></script>
+    </div>
+    <script src=script/modeshapemeasure.js></script>
     <script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
 </body>
 

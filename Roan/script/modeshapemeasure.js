@@ -6,7 +6,8 @@ let amplList=[];
 
 let n=9;
 let t=0;
-const dt=0.00005;
+let dt=0.00005;
+let wt;
 
 //position vectors containing the xyz coordinates of each point mass
 y=[0,-0.508, -1.016, -1.524, -2.032, -1.016*(Math.sin(Math.PI/6)+1), -1.016*(Math.sin(Math.PI/6)/2+1),-1.016*(Math.sin(Math.PI/6)/2+1),-1.016*(Math.sin(Math.PI/6)+1)];
@@ -24,19 +25,41 @@ wex=17.33759511;
 //The -1/1 factors accountig for the back/front position of the sensor
 const fact=[1, -1, -1, -1, 1, -1, 1, 1, -1];
 
+$('#theory').click(function() {
+  window.open('modeshapetheory2.html', '_blank');
+});
+
+
+$('input#match').on('click', matchFreq)
+function matchFreq (){
+      if ($(this).val().toString()=="Match Frequencies"){
+        wt=wex;
+        $(this).val("Unmatch Frequencies")
+      }else {
+            wt=w[k];
+            $(this).val("Match Frequencies")
+        }};
+
+
+
 // function that erases the data acquired (amplitude and phase angle) on press of the "reset" button
 $('input#reset').on('click',resetValues)
 function resetValues() {
   phaseList=[];
   amplList=[]
-  wex=null;
+  wex=0;
+  z=[0, 0, 0, 0, 0, 0, 0, 0, 0]
+  clearInterval(anim)
+  generate2D()
+   if ($('input#start').val().toString()=="Pause"){
+        $('input#start').val("Start")
+      }
   document.getElementById('frequency').value = ''
 }
 
 //function that takes the values inputed by the students in the input form, on the press of the "submit" button
 $('input#submit').on('click', takeValues)
 function takeValues() {
-
         /*phase = document.getElementById("phase").value;
         ampl = document.getElementById("amplitude").value;
         document.getElementById('phase').value = ''
@@ -52,15 +75,19 @@ function takeValues() {
         phaseList=[-1.45071, -1.9997, -1.93723, -1.95051, 1.172893, 1.190894, -1.91862, -1.95301, 1.131028];
 
         if(amplList.length===9){
+          alert('You have now imported all your data, anyting that you will add will not count. Click "Reset" to start again.')
           correctAplitude();
         }
+        
       }
 for (var i = 0; i <w.length; i++) {
-  if(0.7*w[i]<=wex && 1.3*w[i]>=wex){
-    k=i;
-  }
-}
-wex=w[k];
+            if(0.7*w[i]<=wex && 1.3*w[i]>=wex){
+                k=i;
+                console.log(k)
+            }
+        }
+        console.log(w[k])
+        wt=w[k]; //store the theoretical frequency in a separate variable
 // function that calculates the corrected amplitude and then normalises it. 
 //The generate2D function is called inside so that the plots are made after the amplitude is calculated.
 function correctAplitude(){
@@ -123,25 +150,25 @@ function generate2D() {
 var layout = {
     xaxis: {
       range:[-2,0],
-      title: 'Fuselage coordinate'
+      title: 'Fuselage coordinate (m)'
     },
 
     yaxis: {
       scaleanchor: "x",
       range:[-1,1], 
-      title:'Eigenvector',
+      title:'Eigenvector (normalised)',
     }
 }
 
 var layout2 = {
     xaxis: { 
       range:[-1,1],
-      title: 'Wing coordinate'
+      title: 'Wing coordinate (m)'
     },
     yaxis: {
       scaleanchor: "x",
       range:[-1,1], 
-      title:'Eigenvector'
+      title:'Eigenvector (normalised)'
     }
 }
             // generate the plots
@@ -149,15 +176,15 @@ var layout2 = {
             Plotly.newPlot('graphAircraftH', [traceAircraftH, traceAircraftHmeasured], layout2,{displayModeBar:false});
 }
 
-let anim;
+
 // start animation on click of the start button
 $('input#start').on('click',begin_animation)
 //iteration of each of the nine points, this is the new shape, sinusoidal function scaled with the eigenvector
 function animate2D (){
+        dt=0.00005;
         function compute () {
           for (var i = 0; i < n; i++) {
-            z[i]=xi[k][i]*Math.sin(w[k]*2*Math.PI*t)
-            console.log(wex)
+            z[i]=xi[k][i]*Math.sin(wt*2*Math.PI*t)
             zmes[i]=amplList[i]*Math.sin(wex*2*Math.PI*t)
             t=t+dt;
           }
@@ -193,7 +220,6 @@ function animate2D (){
         }
 
 function begin_animation(){
-  console.log("hello")
       if ($(this).val().toString()=="Start"){
         anim= setInterval(animate2D,30);
         $(this).val("Pause")
@@ -203,3 +229,77 @@ function begin_animation(){
         };
   }
 $(window).on('load', generate2D)
+
+/** --------------------------- Function for modal ---------------------------- **/
+
+//Get modal element
+let modal = document.getElementById("guideModal");
+let modalContent = document.getElementsByClassName("modalContent");
+
+//Listen for outside click
+window.addEventListener("click", outsideClick);
+let j;
+//Function to open modal
+$('#modal').click(function(){
+  openModal()
+  j=0})
+$('.nextBtn').click(function(){
+  nextModal(j);
+  j++
+})
+$('.closeBtn').click(closeModal)
+$('.closeBtnH').click(closeModal)
+function openModal(){
+    modal.style.display = "block";
+    modalContent[0].style.display = "block";
+    modalContent[1].style.display = "none";
+    modalContent[2].style.display = "none";
+    modalContent[3].style.display = "none";
+    modalContent[4].style.display = "none";
+    modalContent[5].style.display = "none";
+    modalContent[6].style.display = "none";
+}
+
+//Function to close modal
+function closeModal(){
+    modal.style.display = "none";
+}
+
+//Function to close modal if outside click
+function outsideClick(e){
+    if(e.target === modal){
+        modal.style.display = "none";
+    }
+}
+
+//Function to close current modal and open next modal
+function nextModal(n){
+    modalContent[n].style.display = "none";
+    modalContent[n+1].style.display = "block";
+}
+function scrollToTop(){
+    //Scroll to top
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
+function scrollToBottom(){
+    //Scroll to top
+    document.body.scrollTop = 1000; // For Safari
+    document.documentElement.scrollTop = 1000; // For Chrome, Firefox, IE and Opera
+}
+/** --------------------------- Function for hiding after few seconds---------------------------- **/
+/* Function to make fade out instruction tab after window load */
+//Display nav bar
+function navShow(){document.getElementById("modal").style.left = "30px";}
+navShow();
+
+//Hide nav bar
+function navHide(){document.getElementById("modal").style.left = "5px";
+    document.getElementById("modal").style.transitionDuration = "1s";}
+//Set timeout in milliseconds
+setTimeout(function() {
+    navHide();
+    arrowHide1();
+    arrowHide2();
+}, 3000);
