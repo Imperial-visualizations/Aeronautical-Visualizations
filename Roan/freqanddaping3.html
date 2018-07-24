@@ -3,26 +3,34 @@
 
 <head>
     <title>Undamped Frequency and Damping Ratio</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+        <link rel="stylesheet" href="Styles/myStyleSheet2.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
 
 </head>
 
 <body>
-    <div class="rightnav">&#9654;</div>
-     <div class="leftnav">&#9664;</div>
+    <div class="leftnav">&#9664;</div>
+    <!-- *Instructions nav bar* -->
+<div id="modal" class="sideNav verticalText" onmouseenter="navShow()" onmouseleave="navHide()" onclick="openModal(); scrollToTop();">
+    Instructions for use
+</div>
+    
     <div class="container">
         <h1>Undamped Frequency and  Damping Ratio</h1>
         <div class="row">
-            <div class="twelve columns"> 
-                <p style="justify">This visualisation simulates the effects that changes is damping and spring constant, mass and applied force have on the dynamic response of the system. Try moving the sliders and see how these plots relate to the theoretical aspects described previously</p>
-            </div>
-        </div>       
-        <div class="row">
                 <div class="four columns">
-                
-
                     <div id='graph1' style="width:300px; height:300px;"></div>
                 </div>
                 <div class="four columns">
@@ -30,54 +38,120 @@
                 </div>
                 <div class="four columns">
                     <div id='graph3' style="width:420px; height:300px;"></div>
-            </div>
-
-
         </div>
-
-
+        </div>       
         <div class="row">
-        		<div class="five columns offset-by-one column">
-                    <label class="ForceTitle">Applied Force:&nbsp;
-                            <span id="ForceDisplay">1</span>
-                    </label>
-                    <label class="slider">
-                        <input class="inputs" type="range" id="Force" min="0" max="10" step = "0.5" value="1"/>
-                        <span class="sliderMin">0</span><span class="sliderMax">10</span>
-                    </label>
-                    
+            <div class="four columns">
+                    <h6>Import the acquired data in the following cells:</h6>
+                        <form>
+                            Frequency &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; = <input type="number" id="frequency" style="width:120px";><br>
+                            Amplitude &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;= <input type="number" id="amplitude" style="width:120px"><br>
+                            Phase angle &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;= <input type="number" id="phase" style="width:120px"><br>
+                            Load Amplitude Factor = <input type="number" id="load" style="width:120px"><br>
+                            <input type="button" value="submit" id="submit">
+                            <input type="button" id="reset" value="reset"> 
+                        </form>
+            </div>
+            <div class="three columns offset-by-one column">
+                <h6>Choose the desired data points:</h6>
+                        <table style="width:70%">
+                            <tr>
+                                <th>Point</th>
+                                <th>$\omega$</th> 
+                                <th>$\theta$</th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" style="width:80px" id="PointA" ></td>
+                                <td><p id="omega1"></p></td> 
+                                <td><p id="theta1"></p></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" style="width:80px" id="PointB"></td>
+                                <td><p id="omega2"></p></td> 
+                                <td><p id="theta2"></p></td>
+                            </tr>
+                        </table>
+            </div>
+            <div class="three columns offset-by-one column">
+                        <h6>The values of interest are:</h6>
+                            <p> $ \omega_u = $<span id="omegau"></span> $\frac{\mathrm{rad}}{\mathrm{s}}$ </p>
+                            <p> $ \xi = $<span id="xi"></span></p>
+                            <p> $ \frac{k}{m} = \omega_u^2 = $<span id="koverm"></span>$\left(\frac{\mathrm{1}}{\mathrm{s}}\right)^2$</p>
+                            <p> $ \frac{c}{m} = 2\xi\omega_u = $<span id="coverm"></span>$\frac{\mathrm{1}}{\mathrm{s}}$</p>
 
-                    <label class = "SpringTitle">Spring Constant:&nbsp;
-                            <span id="SpringDisplay">2</span>
-                    </label>
-                    <label class="slider">
-                        <input class="inputs" type="range" id="Spring" min="0" max="5" step = "0.25" value="2"/>
-                        <span class="sliderMin">0</span><span class="sliderMax">5</span>
-                    </label>
-                </div>
-        
-                <div class="five columns offset-by-one column">
-                    <label class="DampingTitle">Damping Constant:&nbsp;
-                        <span id="DampingDisplay">0.1</span>
-                    </label>
-                    <label class="slider">
-                        <input class="inputs" type="range" id="Damping" min="0" max="1" step = "0.05" value="0.1"/>
-                        <span class="sliderMin">0</span><span class="sliderMax">1</span>
-                    </label> 
-
-                    <label class="MassTitle">Mass:&nbsp;
-                        <span id="MassDisplay">1</span>
-                    </label>
-                    <label class="slider">
-                        <input class="inputs" type="range" id="Mass" min="0" max="2" step = "0.1" value="1"/>
-                        <span class="sliderMin">0</span><span class="sliderMax">2</span>
-                    </label>             
-                </div>
-
-                </div>
+                    <form>
+                        <input class="center" type="button" id="theory" value="Show Theory"></br></br>
+                    </form>
+                         
+                    </div>
+                    <div id="guideModal" class="modal">
+        <div class="modalContent modalContentH" id="modal_1">
+            <div class="modalHeader">
+                <span class="closeBtn closeBtnH">&times;</span>
+                <h5>Visualisation Guidance</h5>
+            </div>
+            <div class="modalBody">
+                <p>
+                    This is the guidance for Vibrations Laboratory, experimental data aquisition visualisation.
+                </p>
+                <button class="nextBtn">Continue</button>
             </div>
         </div>
-    <script src=script/freqetdamp1.js></script>
+
+        <div class="modalContent" id="modal_2">
+            <span class="closeBtn">&times;</span>
+            <div class="modalBody">
+                <p>The four input boxes allow you to input your data one by one, for each different measurement. You need to input the "Load Amplitude Factor" only once, at the beginning, as it remains constant.
+                </p>
+                <button class="nextBtn">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_3">
+            <span class="closeBtn" >&times;</span>
+            <div class="modalBody">
+                <p>
+                   
+                    If no data is loaded, the "Submit" button will automatically load previous experimental data, that you can use to compare yours. When you fill all the three text boxes with data (Frequency, Amplitude and Phase Angle), the measurements will simply be added and displayed on the plots as you load them.
+                </p>
+                <button class="nextBtn" >Continue</button>
+            </div>
+        </div>
+
+        <<div class="modalContent" id="modal_4">
+            <span class="closeBtn" >&times;</span>
+            <div class="modalBody">
+                <p>
+                   Use the reset buton to delete all the data that you have imported.
+                </p>
+                <button class="nextBtn" >Continue</button>
+            </div>
+        </div>
+
+
+        <div class="modalContent" id="modal_5">
+            <span class="closeBtn" >&times;</span>
+            <div class="modalBody">
+                <p>
+                   For these two input boxes, choose 2 points that you believe are best suited for finding out the required values. The relevant parameters related to these will be displayed on the right
+                </p>
+                <button class="nextBtn" >Continue</button>
+            </div>
+        </div>
+
+
+        <div class="modalContent" id="modal_6">
+            <span class="closeBtn">&times;</span>
+            <div class="modalBody">
+                <p>
+                    Have fun!
+                </p>
+            </div>
+        </div>
+    </div>
+            </div>
+        </div>
+    <script src=script/freqetdamp2.js></script>
     <script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
 </body>
 

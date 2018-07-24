@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Undamped Frequency and Damping Ratio</title>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <div class="leftnav">&#9664;</div>
+    <div class="container">
+        <h1>Undamped Frequency and  Damping Ratio</h1>
+
+        <div class="row">
+            <h4>Solution for a one degree of freedom system under periodic loading</h4>
+            <p>However $r_c$ and $r_s$ are unknown. Replacing the displacement, velocity and acceleration formulas into the equation of motion:</p>
+            $$ \begin{cases}
+                    r_c=R_0 \frac{k-\omega^2 m}{\Delta} & \\
+                    & \\
+                    r_s=R_0 \frac{\omega c}{\Delta} & 
+                \end{cases} where \hspace{0.75cm} \Delta=(k-\omega^2m)^2+(\omega c)^2
+            $$
+            <p align="justify">Using the expressions for the in phase and out of phase terms of the displacement, velocity and acceleration and replacing the expressions for $r_c$ and $r_s$, it can be verified easily that:</p>
+            $$ \begin{cases}
+                    r_x^2+\left(r_y-\frac{R_0}{2c\omega}\right)^2= \frac{1}{\omega^2}\left(\frac{R_0}{2c}\right)^2 & \\
+                    & \\
+                    \left(\dot{r}_x^2-\frac{R_0}{2c}\right)+\dot{r}_y^2=\left(\frac{R_0}{2c}\right)^2 & \\
+                    & \\
+                    \ddot{r}_x^2+\left(\ddot{r}_y+\frac{R_0\omega}{2c}\right)^2= \omega^2\left(\frac{R_0}{2c}\right)^2 & 
+                \end{cases}
+            $$
+
+        <p align="justify">Noting that $\dot{r}_x$ and $\dot{r}_y$ are functions of $\omega$, it is clear that the middle equation, correstponding to velocities, is the parametric equation of a circle (where the parameter is $\omega$, the centre of the circle is $( R_0, 0)$ and the radius is $\frac{R_0}{2c}$. This observation motivates the preferential use of the velocity response as opposed to the displacement or acceleration responses in this laboratory. Unlike the middle equation, the top and bottom equations, corresponding to displacements and accelerations, are not parametric equations for a circle because of the dependence in $\omega$. However, for low damping, the change in phase occurs for frequencies very close to the natural frequency. This implies that, for low damping, the displacement and acceleration loci can be approximated as circles with radii $\frac{R_0}{2c\omega_u}$ and $\frac{\omega_u R_0}{2c}$ respectively. These plots of in phase v.s. out of phase components of response quantities are frequently referred to as Nyquist plots.</p>
+
+        </div>
+
+    </div> 
+
+    <script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>      
+</body>
+
+</html>

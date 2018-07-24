@@ -13,6 +13,12 @@ w=[15.65, 34.45, 65.2, 106.84].map(function(x){return x*2*Math.PI})
 y3=y;
 x3=x;
 z3=z;
+
+//open theory page in new tab
+$('#theory').click(function() {
+  window.open('modeshapetheory1.html', '_blank');
+});
+
 // function that takes the mode that the student desires to animate
 $('input#mode3').on('click', getMode)
 function getMode(){
@@ -141,16 +147,18 @@ var traceAircraftH = {
                             
             };
 var layout = {
-    xaxis: { },
-    yaxis: {
+    xaxis: { range:[-2,0], title: 'Fuselage coordinate (m)'},
+    yaxis: {range:[-1,1], 
+      title:'Eigenvector (normalised)',
       scaleanchor: "x",
     },
     showlegend:false
 }
 
 var layout2 = {
-    xaxis: { },
-    yaxis: {
+    xaxis: {range:[-1,1], title: 'Wing coordinate (m)' },
+    yaxis: {range:[-1,1], 
+      title:'Eigenvector (normalised)',
       scaleanchor: "x",
     },
     showlegend:false
@@ -211,3 +219,132 @@ function begin_animation(){
         };
   }
 $(window).on('load',getMode)
+
+
+
+/** --------------------------- Function for slide show ---------------------------- **/
+let slideIndex = 1;
+
+// Next/previous controls
+function plusSlides(n) {
+    showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+    showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace("active", "");
+    }
+    slides[slideIndex-1].style.display = "block";
+    dots[slideIndex-1].className += " active";
+}
+
+showSlides(slideIndex);
+
+
+
+/** --------------------------- Function for modal ---------------------------- **/
+
+//Get modal element
+let modal = document.getElementById("guideModal");
+let modalContent = document.getElementsByClassName("modalContent");
+
+//Listen for outside click
+window.addEventListener("click", outsideClick);
+let j;
+//Function to open modal
+$('#modal').click(function(){
+  openModal()
+  j=0})
+$('.nextBtn').click(function(){
+  nextModal(j);
+  if (j===3)
+    {
+      currentSlide(2)
+    }
+  if (j===4)
+    {
+      currentSlide(1)
+    }  
+  j++
+
+})
+$('.closeBtn').click(closeModal)
+$('.closeBtnH').click(closeModal)
+function openModal(){
+    modal.style.display = "block";
+    modalContent[0].style.display = "block";
+    modalContent[1].style.display = "none";
+    modalContent[2].style.display = "none";
+    modalContent[3].style.display = "none";
+    modalContent[4].style.display = "none";
+    modalContent[5].style.display = "none";
+}
+
+//Function to close modal
+function closeModal(){
+    modal.style.display = "none";
+}
+
+//Function to close modal if outside click
+function outsideClick(e){
+    if(e.target === modal){
+        modal.style.display = "none";
+    }
+}
+
+//Function to close current modal and open next modal
+function nextModal(n){
+    modalContent[n].style.display = "none";
+    modalContent[n+1].style.display = "block";
+}
+function scrollToTop(){
+    //Scroll to top
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
+function scrollToBottom(){
+    //Scroll to top
+    document.body.scrollTop = 1000; // For Safari
+    document.documentElement.scrollTop = 1000; // For Chrome, Firefox, IE and Opera
+}
+/** --------------------------- Function for hiding after few seconds---------------------------- **/
+/* Function to make fade out instruction tab after window load */
+//Display nav bar
+function navShow(){document.getElementById("modal").style.left = "30px";}
+navShow();
+
+//Hide nav bar
+function navHide(){document.getElementById("modal").style.left = "5px";
+    document.getElementById("modal").style.transitionDuration = "1s";}
+
+/* Function to make fade out prev next tabs after window load */
+function arrowShow1(){document.getElementById("prev1").style.color = "#006EAF";}
+arrowShow1();
+
+function arrowShow2(){document.getElementById("prev2").style.color = "#006EAF";}
+arrowShow2();
+
+//Hide nav bar
+function arrowHide1(){document.getElementById("prev1").style.color = 'rgb(135,206,250)';}
+
+function arrowHide2(){document.getElementById("prev2").style.color = 'rgb(135,206,250)';}
+
+//Set timeout in milliseconds
+setTimeout(function() {
+    navHide();
+    arrowHide1();
+    arrowHide2();
+}, 3000);
