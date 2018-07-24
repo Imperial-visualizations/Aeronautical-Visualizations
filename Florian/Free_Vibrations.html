@@ -17,26 +17,37 @@
             padding: 5px;
         }
     </style>
-    <p id="HarmonicOscillator-notSupportedMessage" class="HarmonicOscillator-alert"></p>
 </head>
 
-<!--Calls function to have an initial drawing of the system upon loading of the page-->
-<body  onload="graphics.drawScene(1)">
+<!--Calls function to have an initial drawing of the system upon loading of the page
+onload="graphics.drawScene(1)"-->
+<body onload="initPlot()">
 
 <div class="container" style=" width: 100%">
     <h1 style="font-size: 30pt">Mass spring damper system</h1>
     <div class="row" style=" width:100%">
         <!-- Animation side -->
         <div class="six columns">
-            <div class="HarmonicOscillator"> <!--Calls simulation-->
-                <canvas class="HarmonicOscillator-canvas"></canvas>
+            <div style="text-align:left;" >
+                <canvas width="600" height="220" style="border:1px solid #000000;" ></canvas>
+            </div>
+            <div id="graphmoving"> </div>
+            <div>
+                <button id="playPauseButton" onclick="response_mass(); startAnime()">Start</button>
+                <button id="resetButton" onclick="stopAnime()">Reset</button>
             </div>
 
-            <div id='graphmoving' style="width:95%; height:450px; padding-left: 18px ;padding-right: 55px"></div>
-            <!--Control buttons for the animation-->
-            <button id="playButton" onclick="SimuTab()" >Start</button>
-            <button id="resetButton" onclick="window.location.reload()"  >Reset</button> <!--This button will reload the page (cheeky)-->
-            <button id="pauseButton" onclick="pause()" >pause</button>
+            <!--<div class="HarmonicOscillator"> <!--Calls simulation-->
+            <!--
+            <canvas class="HarmonicOscillator-canvas"></canvas>
+        </div>
+
+        <div id='graphmoving' style="width:95%; height:450px; padding-left: 18px ;padding-right: 55px"></div>
+        <!--Control buttons for the animation
+        <!--
+        <button id="playButton" onclick="SimuTab()" >Start</button>
+        <button id="resetButton" onclick="window.location.reload()"  >Reset</button> <!--This button will reload the page (cheeky)-->
+            <!--  <button id="pauseButton" onclick="pause()" >pause</button> -->
 
         </div>
 
@@ -45,16 +56,16 @@
             <!--Main Options --- TABS section -->
             <ul class="tab-nav">
                 <li><a class="button active" href="#FreeVib" id="free">Free Vibrations</a></li>
- <!-- without forcing function -->
+                <!-- without forcing function -->
                 <li><a class="button" href="#ForcedVib" id="periodic">Periodic Load</a></li>
-           <!-- with forcing function -->
+                <!-- with forcing function -->
                 <li><a class="button" href="#TransVib" id="trans">Transient Load</a></li> <!--Transient case-->
             </ul>
 
             <div class="tab-content">
                 <div class="tab-pane" id ="ForcedVib" style=" width:600px">  <!-- This div will manage the Second Tab -->
 
-                    <div class="spoiler"> <!--Hide/Show button, see data.js for code-->
+                    <div class="spoiler"> <!--Hide/Show button, see Supporting_functions.js for code-->
                         <input onclick="showSpoiler(this);" value="Parameters" type="button" >
                         <div id="ParamForced" class="inner" style="display: none;">
                             <!--SLIDERS -->
@@ -83,10 +94,10 @@
                                 <div class="row">
                                     <div class="six columns">
                                         <label class="InitVeloForcedTitle">Initial Velocity:&nbsp;
-                                            <span id="IniVeloForcedDisplay">1</span>
+                                            <span id="IniVeloForcedDisplay">0.8</span>
                                         </label>
                                         <label class="slider">
-                                            <input class="inputs" type="range" style="width: 17em" id="IniVeloForced" onchange="AmpPhaNyq()" min="0" max="1" step = "0.05" value="1"/>
+                                            <input class="inputs" type="range" style="width: 17em" id="IniVeloForced" onchange="AmpPhaNyq()" min="0" max="0.8" step = "0.05" value="0.8"/>
                                             <!--  <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
                                         </label>
                                     </div>
@@ -103,16 +114,16 @@
                                 <div class="row">
                                     <div class="six columns">
                                         <label class="IniDispForcedTitle">Initial displacement:&nbsp;
-                                            <span id="IniDispForcedDisplay">1</span>
+                                            <span id="IniDispForcedDisplay">0.8</span>
                                         </label>
                                         <label class="slider">
-                                            <input class="inputs" type="range" style="width: 17em" id="IniDispForced" onchange="AmpPhaNyq()" min="0" max="1" step = "0.05" value="1"/>
+                                            <input class="inputs" type="range" style="width: 17em" id="IniDispForced" onchange="AmpPhaNyq()" min="0" max="0.8" step = "0.05" value="0.8"/>
                                             <!--   <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
                                         </label>
                                     </div>
                                     <div class="six columns">
 
-                                            <!-- <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                        <!-- <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
                                         </label>
                                     </div>
                                 </div>
@@ -167,7 +178,7 @@
                                             <span id="SpringDisplay">1</span>
                                         </label>
                                         <label class="slider">
-                                            <input class="inputs" type="range" id="Spring" style="width: 17em" onchange="AVD_graph()" min="0" max="1" step = "0.05" value="1"/>
+                                            <input class="inputs" type="range" id="Spring" style="width: 17em" onchange="response_mass()" min="0" max="1" step = "0.05" value="1"/>
                                             <!--  <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
                                         </label>
 
@@ -175,7 +186,7 @@
                                             <span id="DampingDisplay">0.1</span>
                                         </label>
                                         <label class="slider">
-                                            <input class="inputs" type="range" id="Damping" style="width: 17em"  onchange="AVD_graph()" min="0" max="1" step = "0.05" value="0.1"/>
+                                            <input class="inputs" type="range" id="Damping" style="width: 17em"  onchange="response_mass()" min="0" max="1" step = "0.05" value="0.1"/>
                                             <!--   <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
                                         </label>
                                     </div>
@@ -184,7 +195,7 @@
                                             <span id="MassDisplay">1</span>
                                         </label>
                                         <label class="slider">
-                                            <input class="inputs" type="range" id="Mass" style="width: 17em"  onchange="AVD_graph()" min="0" max="1" step = "0.05" value="1"/>
+                                            <input class="inputs" type="range" id="Mass" style="width: 17em"  onchange="response_mass()" min="0" max="1" step = "0.05" value="1"/>
                                             <!--   <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
                                         </label>
 
@@ -192,7 +203,7 @@
                                             <span id="IniDispDisplay">1</span>
                                         </label>
                                         <label class="slider">
-                                            <input class="inputs" type="range" id="IniDisp" style="width: 17em" onchange="AVD_graph()" min="0" max="1" step = "0.05" value="1"/>
+                                            <input class="inputs" type="range" id="IniDisp" style="width: 17em" onchange="response_mass()" min="0" max="1" step = "0.05" value="1"/>
                                             <!--    <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
                                         </label>
                                     </div>
@@ -201,7 +212,7 @@
                                             <span id="IniVeloDisplay">1</span>
                                         </label>
                                         <label class="slider">
-                                            <input class="inputs" type="range" id="IniVelo" style="width: 17em" onchange="AVD_graph()" min="0" max="1" step = "0.05" value="1"/>
+                                            <input class="inputs" type="range" id="IniVelo" style="width: 17em" onchange="response_mass()" min="0" max="1" step = "0.05" value="1"/>
                                             <!--  <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
                                         </label>
                                     </div>
@@ -215,16 +226,14 @@
                                type="button">
                         <div id="AcceVeloDisp" class="inner" style="display: none;">
                             <!-- PLOT Acceleration/Velo/disp vs time -->
-                            <div id="AVD_free" style="width:400px ; height:200px;">
-
-                            </div>
+                            <div id="AVD_Free" style="width:40vw ; height:40vh;"></div>
                         </div>
                     </div>
                     <div class="spoiler">
                         <input onclick="showSpoiler(this);" value="Show Energy variation"
                                type="button">
                         <div id="Energy" class="inner" style="display: none;">
-                            <div id="graph5" style="width:600px ; height:400px;">
+                            <div id="Energy_Free" style="width:40vw ; height:40vh;">
                             </div>
                         </div>
                     </div>
@@ -259,12 +268,14 @@
       processEscapes: true
     }
   });
-</script>
+
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
-<script src=data.js></script>   <!-- Imports a JS file to manage the tabs (will be deleted) -->
-<script src="graphs.js"> </script>
-<script src="harmonic.js"></script>
+<script src=Supporting_functions.js></script>
+<script src= Free_Vibrations.js></script>
+
+<!--<script src="graphs.js"> </script> -->
+<!--<script src="harmonic.js"></script>  -->
 
 </body>
 </html> <!--end-->

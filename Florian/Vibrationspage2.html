@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <script src=https://cdn.plot.ly/plotly-latest.min.js></script> <!-- Imports the plot library used  -->
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <link rel="stylesheet" href="Style_guidance.css">
+    <meta charset="UTF-8">
+    <link rel="stylesheet"  href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css"> <!-- Imports a CSS stylesheet -->
+    <link rel="icon" href="https://www.imperial.ac.uk/T4Assets/favicon-196x196.png" type="image/x-icon">
+    <title>Forced Vibrations</title>
+</head>
+<body onload="initPlot_forced()">
+<div class="rightnav">&#9654;</div>
+<div class="leftnav">&#9664;</div>
+<div class="container" style=" width: 90%">
+    <h1 style="font-size: 30pt">Mass spring system under forcing</h1>
+    <div class="row" style=" width:100%">
+        <!-- Animation side -->
+        <div class="eight columns">
+            <div class="eleven columns">
+                <div class="slideshow-container">
+                    <div class="mySlides fade">
+                        <div style="text-align:left;" >
+                            <canvas width="600" height="220" style="border:1px solid #000000;" ></canvas>
+                        </div>
+                        <div id="graphmovingforced"  style="width:600px; height: 270px;"> </div>
+                        <div>
+                            <button id="playPauseButton" onclick="AmpPhaNyq(); startAnime()">Start</button>
+                            <button id="resetButton" onclick="stopAnime()">Reset</button>
+                        </div>
+                    </div>
+                    <div class="mySlides fade">
+                        <!-- <div class="numbertext">2 / 2</div> -->
+                        <div id="graph6"  style="height: 40vh; width: 75vh; "></div>
+                        <div id="Energy_Forced" style="height: 40vh; width: 75vh;"></div>
+                    </div>
+                    <div class="mySlides fade">
+                        <br>
+                        <div class="four columns">
+                            <div id="graph2"></div>
+                        </div>
+                        <div class="four columns">
+                            <div id="graph3" ></div>
+                        </div>
+                        <div class="four columns">
+                            <div id="graph4" ></div>
+                        </div>
+                    </div>
+
+                    <!-- Next and previous buttons -->
+                    <a class="prev" onclick="plusSlides(-1); AmpPhaNyq()">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1); AmpPhaNyq()">&#10095;</a>
+
+
+                    <!-- The dots/circles -->
+                    <div style="text-align:center">
+                        <span class="dot" onclick="currentSlide(1); AmpPhaNyq()"></span>
+                        <span class="dot" onclick="currentSlide(2); AmpPhaNyq()"></span>
+                        <span class="dot" onclick="currentSlide(3); AmpPhaNyq()"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="four columns" style="padding-left: 0px">
+
+            <div id ="ForcedVib" style=" width:600px">  <!-- This div will manage the Second Tab -->
+                <div class="spoiler"> <!--Hide/Show button, see Supporting_functions.js for code-->
+                    <input onclick="showSpoiler(this);" value="Parameters" type="button" >
+                    <div id="ParamForced" class="inner" style="display: none;">
+                        <!--SLIDERS -->
+                        <div class =row>
+                            <div class="row">
+                                <div class="six columns">
+                                    <label  class="label">Magnitude of the Force:&nbsp;
+                                        <span id="ForceDisplay">1</span>
+                                    </label>
+                                    <label class="slider">
+                                        <input  type="range" style="width: 17em" id="Force" onchange="AmpPhaNyq()" min="0" max="1" step = "0.05" value="1"/>
+                                        <!-- <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                    </label>
+                                </div>
+                                <div class="six columns">
+                                    <label class = "SpringForcedTitle">Spring Constant:&nbsp;
+                                        <span id="SpringForcedDisplay">1</span>
+                                        N/m
+                                    </label>
+                                    <label class="slider">
+                                        <input class="inputs" type="range" style="width: 17em" id="SpringForced" onchange="AmpPhaNyq()" min="0" max="1" step = "0.05" value="1"/>
+                                        <!-- <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="six columns">
+                                    <label class="InitVeloForcedTitle">Initial Velocity:&nbsp;
+                                        <span id="IniVeloForcedDisplay">0.8</span>
+                                        m/s
+                                    </label>
+                                    <label class="slider">
+                                        <input class="inputs" type="range" style="width: 17em" id="IniVeloForced" onchange="AmpPhaNyq()" min="0" max="0.8" step = "0.05" value="0.8"/>
+                                        <!--  <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                    </label>
+                                </div>
+                                <div class="six columns">
+                                    <label class="MassForcedTitle">Mass:&nbsp;
+                                        <span id="MassForcedDisplay">1</span>
+                                        kg
+                                    </label>
+                                    <label class="slider">
+                                        <input class="inputs" type="range" style="width: 17em" id="MassForced" onchange="AmpPhaNyq()" min="0" max="1" step = "0.05" value="1"/>
+                                        <!-- <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six columns">
+                                    <label class="IniDispForcedTitle">Initial displacement:&nbsp;
+                                        <span id="IniDispForcedDisplay">0.8</span>
+                                        m
+                                    </label>
+                                    <label class="slider">
+                                        <input class="inputs" type="range" style="width: 17em" id="IniDispForced" onchange="AmpPhaNyq()" min="0" max="0.8" step = "0.05" value="0.8"/>
+                                        <!--   <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                    </label>
+                                </div>
+
+                                <div class="six columns">
+                                    <label class="DampingForcedTitle">damping constant:&nbsp;
+                                        <span id="DampingForcedDisplay">0.1</span>
+                                        kg/s
+                                    </label>
+                                    <label class="slider">
+                                        <input class="inputs" type="range" style="width: 17em" id="DampingForced" onchange="AmpPhaNyq()" min="0" max="1" step = "0.05" value="0.1"/>
+                                        <!--   <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six columns">
+                                    <label class="OmegaForcedTitle">Frequency of loading:&nbsp;
+                                        <span id="OmegaForcedDisplay">0.5</span>
+                                        Hz
+                                    </label>
+                                    <label class="slider">
+                                        <input class="inputs" type="range" style="width: 17em" id="OmegaForced" onchange="AmpPhaNyq()" min="0" max="1" step = "0.05" value="0.5"/>
+                                        <!--   <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="modalBtn" onclick="openModal(); currentSlide(1)">Show Guidance</button> <!-- Opens the guidance windows-->
+                <a href="Theory_Forced_Vib.html" class="button" target="_blank">Show Theory</a> <!-- button to open a new tab to theory -->
+                <br>
+                <div class="four columns">
+                    <h6>The values of interest are:</h6>
+                    <p> $ \omega_u = $<span id="omegau"></span> </p>
+                    <p> $ \xi = $<span id="xi"></span></p>
+                    <p> $ \frac{k}{m} = \omega_u^2 = $<span id="koverm"></span></p>
+                    <p> $ \frac{c}{m} = 2\xi\omega_u = $<span id="coverm"></span></p>
+                    <p> $ \beta = \omega_{u}\big(1-\xi^{2}\big)^{1/2} = $ <span id="beta_html" ></span></p>
+                    <p> $ \alpha$=$\omega_{u}\xi = $ <span id="alpha_html"></span> </p>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="guideModal" class="modal">
+    <div class="modalContent modalContentH" id="modal_1">
+        <div class="modalHeader">
+            <span class="closeBtn closeBtnH" onclick="closeModal()">&times;</span>
+            <h5>Visualisation Guidance</h5>
+        </div>
+        <div class="modalBody">
+            <p>Hello there :-)
+                <br>
+                This is a guide for the forced vibrations visualisation
+            </p>
+            <button class="nextBtn" onclick="nextModal(0)">Continue</button>
+        </div>
+    </div>
+    <div class="modalContent" id="modal_2">
+        <span class="closeBtn" onclick="closeModal()">&times;</span>
+        <div class="modalBody">
+            <p>
+                The sliders control the parameters of the dynamic system shown.
+            </p>
+            <button class="nextBtn" onclick="nextModal(1)">Continue</button>
+        </div>
+    </div>
+
+    <div class="modalContent" id="modal_3">
+        <span class="closeBtn" onclick="closeModal()">&times;</span>
+        <div class="modalBody">
+            <p>
+                You can access theory by clicking the corresponding button
+            </p>
+            <button class="nextBtn" onclick="nextModal(2)">Continue</button>
+        </div>
+    </div>
+
+    <div class="modalContent" id="modal_4">
+        <span class="closeBtn" onclick="closeModal()">&times;</span>
+        <div class="modalBody">
+            <p>
+                Reset button set time to 0s and parameters to default values.
+            </p>
+            <button class="nextBtn" onclick="nextModal(3); currentSlide(2); calcu_resp(); calcu_resp2();">Continue</button>
+        </div>
+    </div>
+
+    <div class="modalContent" id="modal_5">
+        <span class="closeBtn" onclick="closeModal()">&times;</span>
+        <div class="modalBody">
+            <p>
+                System responses are presented in plots. You can switch tabs by clicking on the dots.
+                You can zoom in by clicking on the graphs and click on the legend to hide certain traces
+            </p>
+            <button class="nextBtn" onclick="nextModal(4); currentSlide(1);">Continue</button>
+        </div>
+    </div>
+
+    <div class="modalContent" id="modal_6">
+        <span class="closeBtn" onclick="closeModal()">&times;</span>
+        <div class="modalBody">
+            <p>
+                Have fun!
+            </p>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
+<script src=Supporting_functions.js></script>
+<script src="Forced_Vibrations.js"> </script>
+</body>
+</html>
+

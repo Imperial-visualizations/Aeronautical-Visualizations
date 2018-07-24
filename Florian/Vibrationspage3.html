@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transient Load</title>
+</head>
+<script src=https://cdn.plot.ly/plotly-latest.min.js></script> <!-- Imports the plot library used  -->
+
+<title>Transient load</title> <!-- Sets Title, name of the tab in browser -->
+<link rel="stylesheet"  href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css"> <!-- Imports a CSS stylesheet -->
+<link rel="icon" href="https://www.imperial.ac.uk/T4Assets/favicon-196x196.png" type="image/x-icon">
+<meta charset="UTF-8">
+<title>Transient load</title>
+</head>
+<body onload="initPlot_trans()">
+<div class="leftnav">&#9664;</div>
+<div class="container" style=" width: 90%">
+    <h1 style="font-size: 30pt">Mass spring damper system with transient loading</h1>
+    <div class="row" style=" width:100%">
+        <!-- Animation side -->
+        <div class="six columns">
+            <div style="text-align:left;" >
+                <canvas width="600" height="220" style="border:1px solid #000000;" ></canvas>
+            </div>
+            <div id="graphmoving" style="width:600px; height: 270px;"> </div>
+            <div>
+                <button id="playPauseButton" onclick="response_mass(); startAnime()">Start</button>
+                <button id="resetButton" onclick="stopAnime()">Reset</button>
+            </div>
+
+        </div>
+
+
+        <div class="six columns" style="padding-left: 20px">
+            <div id ="FreeVib"> <!-- This div will manage content of the First Tab-->
+                <div class="spoiler">
+                    <input onclick="showSpoiler(this);" value="Function applied"
+                           type="button">
+                    <div id="ParamTrans" class="inner" style="display: none;"> <!--Write maths using MathJax (in construction)-->
+                        $$
+                        0 \quad \textrm{for} \quad t \leq 0 \\
+                        $$
+                        <span style="white-space:nowrap;">
+                                <input> $$ \quad \textrm{for} \quad t \geq 0 $$
+                            </span>
+                    </div>
+                </div>
+                <div class="spoiler">
+                    <input onclick="showSpoiler(this);" value="Parameters"
+                           type="button" onclick="AVD_graph()">
+                    <div id="ParamFree" class="inner" style="display: none;">
+                        <div class="row">
+                            <div class="row">
+                                <div class="six columns">
+                                    <label class = "SpringTitle">Spring Constant:&nbsp;
+                                        <span id="SpringDisplay">1</span>
+                                    </label>
+                                    <label class="slider">
+                                        <input class="inputs" type="range" id="Spring" style="width: 17em" onchange="response_mass()" min="0" max="1" step = "0.05" value="1"/>
+                                        <!--  <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                    </label>
+
+                                    <label class="DampingTitle">Damping Constant:&nbsp;
+                                        <span id="DampingDisplay">0.1</span>
+                                    </label>
+                                    <label class="slider">
+                                        <input class="inputs" type="range" id="Damping" style="width: 17em"  onchange="response_mass()" min="0" max="1" step = "0.05" value="0.1"/>
+                                        <!--   <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                    </label>
+                                </div>
+                                <div class="six columns">
+                                    <label class="MassTitle">Mass:&nbsp;
+                                        <span id="MassDisplay">1</span>
+                                    </label>
+                                    <label class="slider">
+                                        <input class="inputs" type="range" id="Mass" style="width: 17em"  onchange="response_mass()" min="0" max="1" step = "0.05" value="1"/>
+                                        <!--   <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                    </label>
+
+                                    <label class="InitDisp">Initial displacement:&nbsp;
+                                        <span id="IniDispDisplay">1</span>
+                                    </label>
+                                    <label class="slider">
+                                        <input class="inputs" type="range" id="IniDisp" style="width: 17em" onchange="response_mass()" min="0" max="1" step = "0.05" value="1"/>
+                                        <!--    <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                    </label>
+                                </div>
+                                <div class="six columns">
+                                    <label class="InitVelo">Initial Velocity:&nbsp;
+                                        <span id="IniVeloDisplay">1</span>
+                                    </label>
+                                    <label class="slider">
+                                        <input class="inputs" type="range" id="IniVelo" style="width: 17em" onchange="response_mass()" min="0" max="1" step = "0.05" value="1"/>
+                                        <!--  <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="spoiler"> <!--Hide/Show--> <!--Onclick allows to trigger an event when user click on an element-->
+                    <input onclick="showSpoiler(this);" value="Acceleration, Velocity, Displacement"
+                           type="button">
+                    <div id="AcceVeloDisp" class="inner" style="display: none;">
+                        <!-- PLOT Acceleration/Velo/disp vs time -->
+                        <div id="AVD_Free" style="width:40vw ; height:40vh;"></div>
+                    </div>
+                </div>
+                <div class="spoiler">
+                    <input onclick="showSpoiler(this);" value="Show Energy variation"
+                           type="button">
+                    <div id="Energy" class="inner" style="display: none;">
+                        <div id="Energy_Free" style="width:40vw ; height:40vh;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
+<script src="Transient_Vibrations.js"></script>
+<script src=Supporting_functions.js></script>
+</body>
+</html>

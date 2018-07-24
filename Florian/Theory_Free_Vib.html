@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true
+    }
+    });</script>
+    <link rel="icon" href="https://www.imperial.ac.uk/T4Assets/favicon-196x196.png" type="image/x-icon">
+    <link rel="stylesheet"  href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css"> <!-- Imports a CSS stylesheet -->
+
+    <meta charset="UTF-8">
+    <title>Theory - Free Vibrations</title>
+</head>
+<body onload="initPlot()">
+<div class="container">
+    <h1>Theory - Free Vibrations</h1>
+    <div class="row">
+        <div style="text-align:center;" >
+            <canvas width="400" height="220"></canvas> <!-- Creates canvas -->
+        </div>
+    </div>
+    A single degree of freedom system has the equation of motion
+    \begin{equation}
+    M\ddot{r}+C \dot{r}+Kr=R
+    \end{equation}
+    If there is no applied force so that
+    \begin{equation}
+    R=0
+    \end{equation}
+    then the damped equation of motion is
+    \begin{equation}
+    m\ddot{r}+k\dot{r}=0
+    \end{equation}
+    This has the solution
+    \begin{equation}
+    \begin{array}{l}
+    r= r_{0}e^{pt}\\
+    \dot{r}= pr_{0}e^{pt} \\
+    \ddot{r} = p^{2}r_{0}e^{pt}
+    \end{array}
+    \end{equation}
+
+    Substituting these back into the equation of motion gives
+    \begin{equation}
+    (p^{2}m+pc+k)r_{0}e^{pt}=0
+    \end{equation}
+
+    If the amplitude of vibration is not zero then
+    \begin{equation}
+    (p^{2}m+pc+k)=0
+    \end{equation}
+    This is called the characteristic equation of the system. It has the solution
+    \begin{equation}
+    p= \frac{1}{2m} \bigg(-c \pm \sqrt[]{c^{2}-4km}\bigg )
+    \end{equation}
+    For a lightly damped system (in fact it defines a lightly damped system) then
+    \begin{equation}
+    c^{2} < 4km
+    \end{equation}
+    In this case:
+    \begin{equation}
+    p = -\frac{c}{2m} \pm i \frac{1}{2m}\sqrt[]{4km-c^{2}}= \alpha \pm \beta
+    \end{equation}
+    The response is then
+    \begin{equation}
+    r= r_{01} e^{\alpha t} e^{i \beta t} +  r_{02}e^{\alpha t}e^{-i \beta t}
+    \end{equation}
+    Where $\beta$ is called the damped natural frequency.
+    \begin{equation}
+    \beta =  \sqrt[]{\frac{k}{m}-\frac{c^{2}}{4m^{2}}}
+    \end{equation}
+
+    The equation of motion can also be written in non-dimensional form by dividing throughout by the mass.
+
+    \begin{equation}
+    \ddot{r}+\frac{c}{m}\dot{r}+\frac{k}{m}r = \frac{R}{m}
+    \end{equation}
+    or
+    \begin{equation}
+    \ddot{r}+2\omega_{u}\xi\dot{r} +\omega_{u}^{2}r=\frac{R}{m} %xi or zeta ?
+    \end{equation}
+    where
+    $\omega_{u}$= $\sqrt[]{\frac{k}{m}}$ is the undamped resonant frequency
+
+
+    $\xi$= $\frac{c}{2\omega_{u}m}$=$\frac{c}{2 \ \sqrt[]{km}}$=$\frac{c}{c_{0}}$ is the damping factor or damping ratio.
+
+
+    $c_{0}$=$2  \ \sqrt[]{km}$ is the critical damping value.
+    \begin{equation}
+    \beta= \omega_{u} \bigg( 1- \frac{c^{2}}{4km} \bigg)^{1/2} = \omega_{u}\big(1-\xi^{2}\big)^{1/2}
+    \end{equation}
+
+    and $\alpha$ is $\alpha$=$\omega_{u}\xi$
+</div>
+
+<script src= Free_Vibrations.js></script>
+</body>
+
+</html>
