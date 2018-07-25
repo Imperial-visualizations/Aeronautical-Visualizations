@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Imperial visualisation</title>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true
+    }
+    });</script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+
+<div class="rightnav">&#9654;</div>
+
+<div class="container">
+
+    <h1>Theory</h1>
+    <h3>Equations of motion</h3>
+    <div class="row">
+        <div class="twelve columns">
+            <p>
+               The stiffness matrix is:
+                $$K = \frac{2\sqrt{2}EA}{\ell}\begin{bmatrix}1 & 0\\0 & 1\end{bmatrix}$$
+            </p>
+            <p>
+                Since the engine can be represented as a point mass:
+                $$ M = m\begin{bmatrix}1 & 0\\0 & 1\end{bmatrix} $$
+            </p>
+            <p>
+                Hence the equations of equilibrium are:
+                $$m \begin{bmatrix}1 & 0\\0 & 1\end{bmatrix} \begin{bmatrix} \ddot{r_1} \\ \ddot{r_2} \end{bmatrix}
+                + \frac{2\sqrt{2}EA}{\ell} \begin{bmatrix}1 & 0\\0 & 1\end{bmatrix} \begin{bmatrix} r_1 \\ r_2 \end{bmatrix}
+                = \begin{bmatrix}R_1\\R_2\end{bmatrix}
+                $$
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>console.log("Hi global1");</script>
+<script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
+
+</body>
+
+</html>
