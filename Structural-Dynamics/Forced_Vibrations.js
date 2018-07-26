@@ -23,20 +23,38 @@ function initPlot_forced() {
     ctx.lineTo(0,160);
     ctx.stroke();
 
+// Damper
+    ctx.beginPath();
+    ctx.moveTo(10,110);
+    ctx.lineTo(150,110);
+    ctx.moveTo(150,100);
+    ctx.lineTo(150,120);
+    ctx.moveTo(150,100);
+    ctx.lineTo(170,100);
+    ctx.moveTo(150,120);
+    ctx.lineTo(170,120);
+    ctx.fillRect(152,102, 10, 16);
+    ctx.moveTo(160,110);
+    ctx.lineTo(280,110);
+    ctx.fillStyle = "black";
+    ctx.font = "italic 15pt san-serif";
+    ctx.fillText("c", 155, 90);
+    ctx.stroke();
+
     /* Draw the linear spring */
     ctx.beginPath();
-    ctx.moveTo(10, 125);
-    ctx.lineTo(100, 125);
-    ctx.lineTo(105, 135);
+    ctx.moveTo(10, 145);
+    ctx.lineTo(100, 145);
+    ctx.lineTo(105, 155);
     for (let i = 1; i < 11; i++) {
-        ctx.lineTo(105 + 5 * i, 125 + 10 * Math.pow(-1, i))
+        ctx.lineTo(105 + 5 * i, 145 + 10 * Math.pow(-1, i))
     }
-    ctx.lineTo(160, 125);
-    ctx.lineTo(280, 125);
+    ctx.lineTo(160, 145);
+    ctx.lineTo(280, 145);
     //text
     ctx.fillStyle = "black";
     ctx.font = "italic 15pt san-serif";
-    ctx.fillText("k", 125, 175);
+    ctx.fillText("k", 145, 175);
     ctx.stroke();
 
     /* Draw the mass */
@@ -183,7 +201,7 @@ function AmpPhaNyq() {
     // Energy calculations
     for (let i = 1; i < n; i++) {
         KS[0]=0.5* k *Math.pow(r_0_forced,2);
-        KE[0]=0.5* m *Math.pow(v_0_trans,2);
+        KE[0]=0.5* m *Math.pow(v_0_forced,2);
         D[0]=c*v_0_forced*r_0_forced;
         KS[i] = 0.5 * k * Math.pow(r_forced[i], 2); //strain energy of the spring
         KE[i] = 0.5 * m * Math.pow(v_forced[i], 2); // kinetic energy of the mass
@@ -453,17 +471,30 @@ function animate() {
         ctx.moveTo(10, 150);
         ctx.lineTo(0, 160);
         ctx.stroke();
-
+//damper
+        ctx.beginPath();
+        ctx.moveTo(10,110);
+        ctx.lineTo(150+r_forced[x]*0.1,110);
+        ctx.moveTo(150+r_forced[x]*0.1 ,100);
+        ctx.lineTo(150+r_forced[x]*0.1,120);
+        ctx.moveTo(150+r_forced[x]*0.1,100);
+        ctx.lineTo(170+r_forced[x]*0.1,100);
+        ctx.moveTo(150+r_forced[x]*0.1,120);
+        ctx.lineTo(170+r_forced[x]*0.1,120);
+        ctx.fillRect(152+r_forced[x]*0.15,102, 10, 16);
+        ctx.moveTo(160+r_forced[x]*0.1,110);
+        ctx.lineTo(280+r_forced[x],110);
+        ctx.stroke();
         /* Draw the linear spring */
         ctx.beginPath();
-        ctx.moveTo(10, 125);
-        ctx.lineTo(100+ r_forced[x], 125);
-        ctx.lineTo(105+ r_forced[x] -r_forced[x]/12, 135);
+        ctx.moveTo(10, 145);
+        ctx.lineTo(100+ r_forced[x], 145);
+        ctx.lineTo(105+ r_forced[x] -r_forced[x]/12, 155);
         for (let i = 1; i < 11; i++) {
-            ctx.lineTo(105 + 5 * i+ (r_forced[x] + (i + 1)*(- r_forced[x])/12), 125 + 10 * Math.pow(-1, i))
+            ctx.lineTo(105 + 5 * i+ (r_forced[x] + (i + 1)*(- r_forced[x])/12), 145 + 10 * Math.pow(-1, i))
         }
-        ctx.lineTo(185+ r_forced[x]*0.1, 125);
-        ctx.lineTo(280+ r_forced[x], 125);
+        ctx.lineTo(185+ r_forced[x]*0.1, 145);
+        ctx.lineTo(280+ r_forced[x], 145);
         ctx.stroke();
 
         /* Draw the mass */

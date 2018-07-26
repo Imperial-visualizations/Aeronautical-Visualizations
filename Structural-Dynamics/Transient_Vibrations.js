@@ -160,13 +160,8 @@ function Trans_resp() {
         v_trans[i]=Math.exp(-alpha_trans*int_trans)*v_trans[i-1]*Math.cos(beta_trans*int_trans)-(r_trans[i-1]*beta_trans+(v_trans[i-1]+alpha_trans*r_trans[i-1])/beta_trans)*Math.sin(beta_trans*int_trans)+(1/beta_trans*m)*Math.exp(-alpha_trans*int_trans)*Math.sin(beta_trans*int_trans)*R_trans[i-1]*int_trans;
         r_trans[i]=r_trans[i-1]*Math.exp(-alpha_trans*int_trans)*Math.cos(beta_trans*int_trans)+ (((v_trans[i-1]+alpha_trans*r_trans[i-1])*Math.exp(-alpha_trans*int_trans)*Math.sin(beta_trans*int_trans))/beta_trans)+(Math.exp(-alpha_trans*int_trans)*Math.sin(beta_trans*int_trans)/(beta_trans*m))*R_trans[i-1]*int_trans
     }
-    console.log(alpha_trans);
-    console.log(beta_trans);
-    console.log(R_trans);
-    console.log(v_trans);
-    console.log(r_trans);
 
-// Energy
+// Energy calculations
     for (let i = 1; i < 1000+1; i++) {
         KS[0]=0.5* k *Math.pow(r_0_forced,2);
         KE[0]=0.5* m *Math.pow(v_0_trans,2);
@@ -330,9 +325,9 @@ function newPosition_forced() {  // This function does exactly the same thing as
     r_array_trans[0]=r_0_ani_trans;
     v_array_trans[0]=v_0_ani_trans;
     R_array_trans[0]=a0+b1+b2+b3;
-    R_trans = a0 + a1 *t_ani_trans  + a2 * Math.pow(t_ani_trans, 2) + a3 * Math.pow(t_ani_trans, 3) + a4 * Math.pow(t_ani_trans, a5) + b1 * Math.cos(omega1 * t_ani_trans) + b2 * Math.cos(omega2 * t_ani_trans) + b3 * Math.cos(omega3 * t_ani_trans) + c1 * Math.sin(omega1 * t_ani_trans) + c2 * Math.sin(omega2 * t_ani_trans) + c3 * Math.sin(omega3 * t_ani_trans) + d1 * Math.sqrt(t_ani_trans) + e1 * Math.log(t);
-    v_ani_trans = Math.exp(-alpha_trans * int_trans) * Math.cos(beta_trans * int_trans) - (r_array_trans[r_array_trans.length] * beta_trans + (v_array_trans[v_array_trans.length] + alpha_trans * r_array_trans[r_array_trans.length]) / beta_trans) * Math.sin(beta_trans * int_trans) + (1 / beta_trans * m) * Math.exp(-alpha_trans * int_trans) * Math.sin(beta_trans * int_trans) * R_array_trans[R_array_trans.length] * int_trans;
 
+    R_trans = a0 + a1 *t_ani_trans  + a2 * Math.pow(t_ani_trans, 2) + a3 * Math.pow(t_ani_trans, 3) + a4 * Math.pow(t_ani_trans, a5) + b1 * Math.cos(omega1 * t_ani_trans) + b2 * Math.cos(omega2 * t_ani_trans) + b3 * Math.cos(omega3 * t_ani_trans) + c1 * Math.sin(omega1 * t_ani_trans) + c2 * Math.sin(omega2 * t_ani_trans) + c3 * Math.sin(omega3 * t_ani_trans) + d1 * Math.sqrt(t_ani_trans) + e1 * Math.log(t_ani_trans);
+    v_ani_trans = Math.exp(-alpha_trans * int_trans) * Math.cos(beta_trans * int_trans) - (r_array_trans[r_array_trans.length] * beta_trans + (v_array_trans[v_array_trans.length] + alpha_trans * r_array_trans[r_array_trans.length]) / beta_trans) * Math.sin(beta_trans * int_trans) + (1 / beta_trans * m) * Math.exp(-alpha_trans * int_trans) * Math.sin(beta_trans * int_trans) * R_array_trans[R_array_trans.length] * int_trans;
     r_ani_trans = r_array_trans[r_array_trans.length] * Math.exp(-alpha_trans * int_trans) * Math.cos(beta_trans * int_trans) + (((v_array_trans[v_array_trans.length] + alpha_trans * r_array_trans[r_array_trans.length]) * Math.exp(-alpha_trans * int_trans) * Math.sin(beta_trans * int_trans)) / beta_trans) + (Math.exp(-alpha_trans * int_trans) * Math.sin(beta_trans * int_trans) / (beta_trans * m)) * R_array_trans[R_array_trans.length] * int_trans;
 
 
@@ -341,7 +336,10 @@ function newPosition_forced() {  // This function does exactly the same thing as
     r_array_trans.push(r_ani_trans); // .push will add a value to an array. It adds the value of the new displacement to an array
     t_array_trans.push(t_ani_trans); // same as above but for time
     v_array_trans.push(v_ani_trans);
-
+    console.log(R_trans);
+    console.log(R_array_trans);
+    console.log(v_ani_trans);
+    console.log(v_array_trans);
 
 
     //animate the graphs using the arrays above

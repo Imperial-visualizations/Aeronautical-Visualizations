@@ -15,14 +15,13 @@
     </script>
     <link rel="stylesheet" href="Style_guidance.css">
     <meta charset="UTF-8">
-    <link rel="stylesheet"  href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css"> <!-- Imports a CSS stylesheet -->
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css"> <!-- Imports a CSS stylesheet -->
     <link rel="icon" href="https://www.imperial.ac.uk/T4Assets/favicon-196x196.png" type="image/x-icon">
     <title>Forced Vibrations</title>
 </head>
 <body onload="initPlot_forced()">
-<div class="rightnav">&#9654;</div>
-<div class="leftnav">&#9664;</div>
-<div class="container" style=" width: 90%">
+<div class="container" style=" width: 100%">
     <h1 style="font-size: 30pt">Mass spring system under forcing</h1>
     <div class="row" style=" width:100%">
         <!-- Animation side -->
@@ -171,86 +170,87 @@
                     <p> $ \omega_u = $<span id="omegau"></span> </p>
                     <p> $ \xi = $<span id="xi"></span></p>
                     <p> $ \frac{k}{m} = \omega_u^2 = $<span id="koverm"></span></p>
+
                     <p> $ \frac{c}{m} = 2\xi\omega_u = $<span id="coverm"></span></p>
                     <p> $ \beta = \omega_{u}\big(1-\xi^{2}\big)^{1/2} = $ <span id="beta_html" ></span></p>
                     <p> $ \alpha$=$\omega_{u}\xi = $ <span id="alpha_html"></span> </p>
+
+
+
                 </div>
-
-
             </div>
         </div>
     </div>
-</div>
 
-<div id="guideModal" class="modal">
-    <div class="modalContent modalContentH" id="modal_1">
-        <div class="modalHeader">
-            <span class="closeBtn closeBtnH" onclick="closeModal()">&times;</span>
-            <h5>Visualisation Guidance</h5>
+    <div id="guideModal" class="modal">
+        <div class="modalContent modalContentH" id="modal_1">
+            <div class="modalHeader">
+                <span class="closeBtn closeBtnH" onclick="closeModal()">&times;</span>
+                <h5>Visualisation Guidance</h5>
+            </div>
+            <div class="modalBody">
+                <p>Hello there :-)
+                    <br>
+                    This is a guide for the forced vibrations visualisation
+                </p>
+                <button class="nextBtn" onclick="nextModal(0)">Continue</button>
+            </div>
         </div>
-        <div class="modalBody">
-            <p>Hello there :-)
-                <br>
-                This is a guide for the forced vibrations visualisation
-            </p>
-            <button class="nextBtn" onclick="nextModal(0)">Continue</button>
+        <div class="modalContent" id="modal_2">
+            <span class="closeBtn" onclick="closeModal()">&times;</span>
+            <div class="modalBody">
+                <p>
+                    The sliders control the parameters of the dynamic system shown.
+                </p>
+                <button class="nextBtn" onclick="nextModal(1)">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_3">
+            <span class="closeBtn" onclick="closeModal()">&times;</span>
+            <div class="modalBody">
+                <p>
+                    You can access theory by clicking the corresponding button
+                </p>
+                <button class="nextBtn" onclick="nextModal(2)">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_4">
+            <span class="closeBtn" onclick="closeModal()">&times;</span>
+            <div class="modalBody">
+                <p>
+                    Reset button set time to 0s and parameters to default values.
+                </p>
+                <button class="nextBtn" onclick="nextModal(3); currentSlide(2); AmpPhaNyq();">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_5">
+            <span class="closeBtn" onclick="closeModal()">&times;</span>
+            <div class="modalBody">
+                <p>
+                    System responses are presented in plots. You can switch tabs by clicking on the dots.
+                    You can zoom in by clicking on the graphs and click on the legend to hide certain traces
+                </p>
+                <button class="nextBtn" onclick="nextModal(4); currentSlide(1);">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_6">
+            <span class="closeBtn" onclick="closeModal()">&times;</span>
+            <div class="modalBody">
+                <p>
+                    Have fun!
+                </p>
+            </div>
         </div>
     </div>
-    <div class="modalContent" id="modal_2">
-        <span class="closeBtn" onclick="closeModal()">&times;</span>
-        <div class="modalBody">
-            <p>
-                The sliders control the parameters of the dynamic system shown.
-            </p>
-            <button class="nextBtn" onclick="nextModal(1)">Continue</button>
-        </div>
-    </div>
 
-    <div class="modalContent" id="modal_3">
-        <span class="closeBtn" onclick="closeModal()">&times;</span>
-        <div class="modalBody">
-            <p>
-                You can access theory by clicking the corresponding button
-            </p>
-            <button class="nextBtn" onclick="nextModal(2)">Continue</button>
-        </div>
-    </div>
-
-    <div class="modalContent" id="modal_4">
-        <span class="closeBtn" onclick="closeModal()">&times;</span>
-        <div class="modalBody">
-            <p>
-                Reset button set time to 0s and parameters to default values.
-            </p>
-            <button class="nextBtn" onclick="nextModal(3); currentSlide(2); AmpPhaNyq();">Continue</button>
-        </div>
-    </div>
-
-    <div class="modalContent" id="modal_5">
-        <span class="closeBtn" onclick="closeModal()">&times;</span>
-        <div class="modalBody">
-            <p>
-                System responses are presented in plots. You can switch tabs by clicking on the dots.
-                You can zoom in by clicking on the graphs and click on the legend to hide certain traces
-            </p>
-            <button class="nextBtn" onclick="nextModal(4); currentSlide(1);">Continue</button>
-        </div>
-    </div>
-
-    <div class="modalContent" id="modal_6">
-        <span class="closeBtn" onclick="closeModal()">&times;</span>
-        <div class="modalBody">
-            <p>
-                Have fun!
-            </p>
-        </div>
-    </div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
-<script src=Supporting_functions.js></script>
-<script src="Forced_Vibrations.js"> </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/navigator.js"></script>
+    <script src=Supporting_functions.js></script>
+    <script src="Forced_Vibrations.js"> </script>
 </body>
 </html>
 
