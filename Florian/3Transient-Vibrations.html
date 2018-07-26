@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src=https://cdn.plot.ly/plotly-latest.min.js></script> <!-- Imports the plot library used  -->
+    <link rel="stylesheet"  href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css"> <!-- Imports a CSS stylesheet -->
+    <link rel="icon" href="https://www.imperial.ac.uk/T4Assets/favicon-196x196.png" type="image/x-icon">
+    <link rel="stylesheet" href="Style_guidance.css">
+    <meta charset="UTF-8">
+    <title>Transient Load</title>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true
+    }
+    });</script>
+</head>
+<body onload="initPlot_trans()">
+<div class="leftnav">&#9664;</div>
+<div class="container" style=" width: 90%">
+    <h1 style="font-size: 30pt">Mass spring damper system with transient loading</h1>
+    <div class="row" style=" width:100%">
+        <div class="six columns">
+            <!-- Animation side -->
+
+            <div class="eleven columns">
+                <div class="slideshow-container">
+                    <div class="mySlides fade">
+                        <div style="text-align:left;" >
+                            <canvas width="600" height="220" style="border:1px solid #000000;" ></canvas> <!-- Creates canvas -->
+                        </div>
+                        <div id="graphmovingtrans" style="width:600px; height: 270px;"> </div> <!-- Creates graph which will move-->
+                        <div>
+                            <button id="playPauseButton" onclick="Trans_resp(); startAnime()">Start</button> <!-- start pause button -->
+                            <button id="resetButton" onclick="window.location.reload()">Reset</button> <!-- Reset animation-->
+                            <!-- Note: there is a StopAnime() function in Free_Vibrations.js, however it does not work properly, the reload is a temporary solution-->
+                        </div>
+                    </div>
+                    <div class="mySlides fade">
+                        <!-- <div class="numbertext">2 / 2</div> -->
+                        <div id="AV_trans"  style="height: 40vh; width: 75vh; "></div>
+                        <div id="Energy_Trans" style="height: 40vh; width: 75vh;"></div>
+                    </div>
+                    <!-- Next and previous buttons -->
+                    <a class="prev" onclick="plusSlides(-1); Trans_resp()">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1); Trans_resp()">&#10095;</a>
+
+
+                    <!-- The dots/circles -->
+                    <div style="text-align:center">
+                        <span class="dot" onclick="currentSlide(1); Trans_resp()"></span>
+                        <span class="dot" onclick="currentSlide(2); Trans_resp()"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="six columns" style="padding-left: 20px">
+            <div id ="FreeVib"> <!-- This div will manage content of the First Tab-->
+                <div class="spoiler">
+                    <input onclick="showSpoiler(this);" value="Function applied"
+                           type="button">
+                    <div id="ParamTrans" class="inner"> <!-- style="display: none;" - to have it hidden by default -->
+                        $ R(t)= a_{0}+ a_{1}t+a_{2}t^{2}+a_{3}t^{3}+ a_{4}t^{a_{5}}+$<br>$b_{1}cos(\omega_{1} t) + b_{2} cos(\omega_{2} t)+ b_3 cos(\omega_{3} t)+ $<br>$ c_{1}sin(\omega_{1} t)+ c_{2} sin(\omega_{2}t)+ c_{3} sin(\omega_{3} t)+$<br>$d_{1} \sqrt t+ e_{1}ln(t)$ for t>0
+                        <br>
+                        <form  style="padding-top: 20px">
+                            $a_{0}$=<input type="number" id="a0" onchange="Trans_resp()" min="-100" max="100" step="1" value="0" style="width:60px";>
+                            $a_{1}$=<input type="number" id="a1" onchange="Trans_resp()" min="-100" max="100" step="1" value="0" style="width:60px";>&nbsp;
+                            $a_{2}$=<input type="number" id="a2" onchange="Trans_resp()" min="-100" max="100" step="1" value="0" style="width:60px";>&nbsp;
+                            $a_{3}$=<input type="number" id="a3" onchange="Trans_resp()" min="-100" max="100" step="1" value="0" style="width:60px";>&nbsp;
+                            $a_{4}$=<input type="number" id="a4" onchange="Trans_resp()" min="-100" max="100" step="1" value="0" style="width:60px";>&nbsp;
+                            $a_{5}$=<input type="number" id="a5" onchange="Trans_resp()" min="-100" max="100" step="1" value="0" style="width:60px";>&nbsp;
+                            <br>
+                            $b_{1}$=<input type="number" id="b1" onchange="Trans_resp()" min="-100" max="100" step="1" value="0" style="width:60px";>&nbsp;
+                            $\omega_{1}$=<input type="number" id="omega1" onchange="Trans_resp()" min="-100" max="100" step="1" value="0" style="width:60px";>
+                            $b_{2}$=<input type="number" id="b2" onchange="Trans_resp()" min="-100" max="100" step="1" value="0" style="width:60px";>&nbsp;
+                            $\omega_{2}$=<input type="number" id="omega2" onchange="Trans_resp()" min="-100" max="100" step="1" value="0" style="width:60px";>&nbsp;
+                            $b_{3}$=<input type="number" id="b3" onchange="Trans_resp()" min="-100" max="100" step="1" value="0" style="width:60px";>&nbsp;
+                            $\omega_{3}$=<input type="number" id="omega3" onchange="Trans_resp()" min="-100" max="100" step="1" value="0" style="width:60px";>&nbsp;
+                            <br>
+                            $c_{1}$=<input type="number" id="c1" onchange="Trans_resp()" min="-100" max="100" step="1" value="0" style="width:60px";>&nbsp;
+                            $c_{2}$=<input type="number" id="c2" onchange="Trans_resp()" min="-100" max="100" step="1" value="0" style="width:60px";>&nbsp;
+                            $c_{3}$=<input type="number" id="c3" onchange="Trans_resp()" min="-100" max="100" step="1" value="0" style="width:60px";>&nbsp;
+
+                            <br>
+                            $d_{1}$=<input type="number" id="d1" onchange="Trans_resp()" min="-100" max="100" step="1" value="0" style="width:60px";>&nbsp;
+                            $e_{1}$=<input type="number" id="e1" onchange="Trans_resp()" min="-100" max="100" step="1" value="0" style="width:60px";>&nbsp;
+                        </form>
+                    </div>
+                </div>
+                <div class="spoiler">
+                    <input onclick="showSpoiler(this);" value="Parameters"
+                           type="button">
+                    <div id="ParamFree" class="inner" style="display: none;">
+                        <div class="row">
+                            <div class="row">
+                                <div class="six columns">
+                                    <label class = "SpringTransTitle">Spring Constant:
+                                        <span id="SpringTransDisplay">1</span>
+                                    </label>
+                                    <label class="slider">
+                                        <input class="inputs" type="range" id="SpringTrans" style="width: 17em" onchange="Trans_resp()" min="0" max="1" step = "0.05" value="1"/>
+                                        <!--  <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                    </label>
+
+                                    <label class="DampingTransTitle">Damping Constant:&nbsp;
+                                        <span id="DampingTransDisplay">0.1</span>
+                                    </label>
+                                    <label class="slider">
+                                        <input class="inputs" type="range" id="DampingTrans" style="width: 17em"  onchange="Trans_resp()" min="0" max="1" step = "0.05" value="0.1"/>
+                                        <!--   <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                    </label>
+                                </div>
+                                <div class="six columns">
+                                    <label class="MassTransTitle">Mass:&nbsp;
+                                        <span id="MassTransDisplay">1</span>
+                                    </label>
+                                    <label class="slider">
+                                        <input class="inputs" type="range" id="MassTrans" style="width: 17em"  onchange="Trans_resp()" min="0" max="1" step = "0.05" value="1"/>
+                                        <!--   <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                    </label>
+
+                                    <label class="InitDispTrans">Initial displacement:&nbsp;
+                                        <span id="IniDispTransDisplay">1</span>
+                                    </label>
+                                    <label class="slider">
+                                        <input class="inputs" type="range" id="IniDispTrans" style="width: 17em" onchange="Trans_resp()" min="0" max="1" step = "0.05" value="1"/>
+                                        <!--    <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                    </label>
+                                </div>
+                                <div class="six columns">
+                                    <label class="InitVeloTrans">Initial Velocity:&nbsp;
+                                        <span id="IniVeloTransDisplay">1</span>
+                                    </label>
+                                    <label class="slider">
+                                        <input class="inputs" type="range" id="IniVeloTrans" style="width: 17em" onchange="Trans_resp()" min="0" max="1" step = "0.05" value="1"/>
+                                        <!--  <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="modalBtn" onclick="openModal(); currentSlide(1)">Show Guidance</button> <!-- Opens the guidance windows-->
+                <a href="Theory_Forced_Vib.html" class="button" target="_blank">Show Theory</a> <!-- button to open a new tab to theory -->
+            </div>
+        </div>
+    </div>
+
+    <div id="guideModal" class="modal">
+        <div class="modalContent modalContentH" id="modal_1">
+            <div class="modalHeader">
+                <span class="closeBtn closeBtnH" onclick="closeModal()">&times;</span>
+                <h5>Visualisation Guidance</h5>
+            </div>
+            <div class="modalBody">
+                <p>Hello there :-)
+                    <br>
+                    This is a guide for the forced vibrations visualisation
+                </p>
+                <button class="nextBtn" onclick="nextModal(0)">Continue</button>
+            </div>
+        </div>
+        <div class="modalContent" id="modal_2">
+            <span class="closeBtn" onclick="closeModal()">&times;</span>
+            <div class="modalBody">
+                <p>
+                    The sliders control the parameters of the dynamic system shown.
+                </p>
+                <button class="nextBtn" onclick="nextModal(1)">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_3">
+            <span class="closeBtn" onclick="closeModal()">&times;</span>
+            <div class="modalBody">
+                <p>
+                    You can access theory by clicking the corresponding button
+                </p>
+                <button class="nextBtn" onclick="nextModal(2)">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_4">
+            <span class="closeBtn" onclick="closeModal()">&times;</span>
+            <div class="modalBody">
+                <p>
+                    Reset button set time to 0s and parameters to default values.
+                </p>
+                <button class="nextBtn" onclick="nextModal(3); currentSlide(2); calcu_resp(); calcu_resp2();">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_5">
+            <span class="closeBtn" onclick="closeModal()">&times;</span>
+            <div class="modalBody">
+                <p>
+                    System responses are presented in plots. You can switch tabs by clicking on the dots.
+                    You can zoom in by clicking on the graphs and click on the legend to hide certain traces
+                </p>
+                <button class="nextBtn" onclick="nextModal(4); currentSlide(1);">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_6">
+            <span class="closeBtn" onclick="closeModal()">&times;</span>
+            <div class="modalBody">
+                <p>
+                    Have fun!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src=Supporting_functions.js></script>
+<script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
+<script src="Transient_Vibrations.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+
+<head>
+
+    <script src=https://cdn.plot.ly/plotly-latest.min.js></script> <!-- Imports the plot library used  -->
+    <title>Mass spring damper system</title> <!-- Sets Title, name of the tab in browser -->
+    <link rel="stylesheet"  href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css"> <!-- Imports a CSS stylesheet -->
+
+    <!--alert button if browser does not support Canvas-->
+    <style>
+
+        .HarmonicOscillator-alert {
+            color: white;
+            border: 1px solid white;
+            background: white;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<!--Calls function to have an initial drawing of the system upon loading of the page
+onload="graphics.drawScene(1)"-->
+<body onload="initPlot()">
+
+<div class="container" style=" width: 100%">
+    <h1 style="font-size: 30pt">Mass spring damper system</h1>
+    <div class="row" style=" width:100%">
+        <!-- Animation side -->
+        <div class="six columns">
+            <div style="text-align:left;" >
+                <canvas width="600" height="220" style="border:1px solid #000000;" ></canvas>
+            </div>
+            <div id="graphmoving"> </div>
+            <div>
+                <button id="playPauseButton" onclick="response_mass(); startAnime()">Start</button>
+                <button id="resetButton" onclick="stopAnime()">Reset</button>
+            </div>
+
+            <!--<div class="HarmonicOscillator"> <!--Calls simulation-->
+            <!--
+            <canvas class="HarmonicOscillator-canvas"></canvas>
+        </div>
+
+        <div id='graphmoving' style="width:95%; height:450px; padding-left: 18px ;padding-right: 55px"></div>
+        <!--Control buttons for the animation
+        <!--
+        <button id="playButton" onclick="SimuTab()" >Start</button>
+        <button id="resetButton" onclick="window.location.reload()"  >Reset</button> <!--This button will reload the page (cheeky)-->
+            <!--  <button id="pauseButton" onclick="pause()" >pause</button> -->
+
+        </div>
+
+        <!--Tabs -->
+        <div class="six columns" style="padding-left: 20px">
+            <!--Main Options --- TABS section -->
+            <ul class="tab-nav">
+                <li><a class="button active" href="#FreeVib" id="free">Free Vibrations</a></li>
+                <!-- without forcing function -->
+                <li><a class="button" href="#ForcedVib" id="periodic">Periodic Load</a></li>
+                <!-- with forcing function -->
+                <li><a class="button" href="#TransVib" id="trans">Transient Load</a></li> <!--Transient case-->
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane" id ="ForcedVib" style=" width:600px">  <!-- This div will manage the Second Tab -->
+
+                    <div class="spoiler"> <!--Hide/Show button, see Supporting_functions.js for code-->
+                        <input onclick="showSpoiler(this);" value="Parameters" type="button" >
+                        <div id="ParamForced" class="inner" style="display: none;">
+                            <!--SLIDERS -->
+                            <div class =row>
+                                <div class="row">
+                                    <div class="six columns">
+                                        <label  class="label">Applied Force:&nbsp;
+                                            <span id="ForceDisplay">1</span>
+                                        </label>
+                                        <label class="slider">
+                                            <input  type="range" style="width: 17em" id="Force" onchange="AmpPhaNyq()" min="0" max="1" step = "0.05" value="1"/>
+                                            <!-- <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                        </label>
+                                    </div>
+                                    <div class="six columns">
+                                        <label class = "SpringForcedTitle">Spring Constant:&nbsp;
+                                            <span id="SpringForcedDisplay">1</span>
+                                        </label>
+                                        <label class="slider">
+                                            <input class="inputs" type="range" style="width: 17em" id="SpringForced" onchange="AmpPhaNyq()" min="0" max="1" step = "0.05" value="1"/>
+                                            <!-- <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="six columns">
+                                        <label class="InitVeloForcedTitle">Initial Velocity:&nbsp;
+                                            <span id="IniVeloForcedDisplay">0.8</span>
+                                        </label>
+                                        <label class="slider">
+                                            <input class="inputs" type="range" style="width: 17em" id="IniVeloForced" onchange="AmpPhaNyq()" min="0" max="0.8" step = "0.05" value="0.8"/>
+                                            <!--  <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                        </label>
+                                    </div>
+                                    <div class="six columns">
+                                        <label class="MassForcedTitle">Mass:&nbsp;
+                                            <span id="MassForcedDisplay">1</span>
+                                        </label>
+                                        <label class="slider">
+                                            <input class="inputs" type="range" style="width: 17em" id="MassForced" onchange="AmpPhaNyq()" min="0" max="1" step = "0.05" value="1"/>
+                                            <!-- <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="six columns">
+                                        <label class="IniDispForcedTitle">Initial displacement:&nbsp;
+                                            <span id="IniDispForcedDisplay">0.8</span>
+                                        </label>
+                                        <label class="slider">
+                                            <input class="inputs" type="range" style="width: 17em" id="IniDispForced" onchange="AmpPhaNyq()" min="0" max="0.8" step = "0.05" value="0.8"/>
+                                            <!--   <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                        </label>
+                                    </div>
+                                    <div class="six columns">
+
+                                        <!-- <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="spoiler"> <!--Another Hide/Show button to show a graph-->
+                        <input onclick="showSpoiler(this);" value="Acceleration, Velocity, Displacement"
+                               type="button">
+                        <div id="AcceVeloDispForced" class="inner" style="display: none;">
+                            <!-- PLOT Acceleration/Velo/disp vs time -->
+                            <div id="graph6" style="width:600px ; height:400px;"> </div>
+
+                        </div>
+
+                    </div>
+                    <!--Hide/Show for a graph on the energy of the system-->
+                    <div class="spoiler">
+                        <input onclick="showSpoiler(this);" value="Show Energy variation"
+                               type="button">
+                        <div id="EnergyForced" class="inner" style="display: none;">
+                            energy plot
+                            <!-- PLOT -->
+                        </div>
+
+                    </div>
+                    <div class="spoiler">
+                        <input onclick="showSpoiler(this);" value="Show Amplitude, Phase, Nyquist"
+                               type="button">
+                        <div id="AmpPhaNyq" class="inner" style="display: none;">
+                            <div id="AmpPhaseNyq">
+                                <div id="graph2" style="width:400px ; height:400px;"> </div>
+                                <div id="graph3" style="width:400px ; height:400px;"> </div>
+                                <div id="graph4" style="width:400px ; height:400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane active" id ="FreeVib"> <!-- This div will manage content of the First Tab-->
+                    <div class="spoiler">
+                        <input onclick="showSpoiler(this);" value="Parameters"
+                               type="button" onclick="AVD_graph()">
+                        <div id="ParamFree" class="inner" style="display: none;">
+                            <div class="row">
+                                <div class="row">
+                                    <div class="six columns">
+                                        <label class = "SpringTitle">Spring Constant:&nbsp;
+                                            <span id="SpringDisplay">1</span>
+                                        </label>
+                                        <label class="slider">
+                                            <input class="inputs" type="range" id="Spring" style="width: 17em" onchange="response_mass()" min="0" max="1" step = "0.05" value="1"/>
+                                            <!--  <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                        </label>
+
+                                        <label class="DampingTitle">Damping Constant:&nbsp;
+                                            <span id="DampingDisplay">0.1</span>
+                                        </label>
+                                        <label class="slider">
+                                            <input class="inputs" type="range" id="Damping" style="width: 17em"  onchange="response_mass()" min="0" max="1" step = "0.05" value="0.1"/>
+                                            <!--   <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                        </label>
+                                    </div>
+                                    <div class="six columns">
+                                        <label class="MassTitle">Mass:&nbsp;
+                                            <span id="MassDisplay">1</span>
+                                        </label>
+                                        <label class="slider">
+                                            <input class="inputs" type="range" id="Mass" style="width: 17em"  onchange="response_mass()" min="0" max="1" step = "0.05" value="1"/>
+                                            <!--   <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                        </label>
+
+                                        <label class="InitDisp">Initial displacement:&nbsp;
+                                            <span id="IniDispDisplay">1</span>
+                                        </label>
+                                        <label class="slider">
+                                            <input class="inputs" type="range" id="IniDisp" style="width: 17em" onchange="response_mass()" min="0" max="1" step = "0.05" value="1"/>
+                                            <!--    <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                        </label>
+                                    </div>
+                                    <div class="six columns">
+                                        <label class="InitVelo">Initial Velocity:&nbsp;
+                                            <span id="IniVeloDisplay">1</span>
+                                        </label>
+                                        <label class="slider">
+                                            <input class="inputs" type="range" id="IniVelo" style="width: 17em" onchange="response_mass()" min="0" max="1" step = "0.05" value="1"/>
+                                            <!--  <span class="sliderMin">0</span><span class="sliderMax">1</span> -->
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="spoiler"> <!--Hide/Show--> <!--Onclick allows to trigger an event when user click on an element-->
+                        <input onclick="showSpoiler(this);" value="Acceleration, Velocity, Displacement"
+                               type="button">
+                        <div id="AcceVeloDisp" class="inner" style="display: none;">
+                            <!-- PLOT Acceleration/Velo/disp vs time -->
+                            <div id="AVD_Free" style="width:40vw ; height:40vh;"></div>
+                        </div>
+                    </div>
+                    <div class="spoiler">
+                        <input onclick="showSpoiler(this);" value="Show Energy variation"
+                               type="button">
+                        <div id="Energy" class="inner" style="display: none;">
+                            <div id="Energy_Free" style="width:40vw ; height:40vh;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id ="TransVib">  <!-- Third Tab -->
+
+                    <div class="spoiler">
+                        <input onclick="showSpoiler(this);" value="Parameters"
+                               type="button">
+                        <div id="ParamTrans" class="inner" style="display: none;"> <!--Write maths using MathJax (in construction)-->
+                            $$
+                            0 \quad \textrm{for} \quad t \leq 0 \\
+                            $$
+                            <span style="white-space:nowrap;">
+                                <input> $$ \quad \textrm{for} \quad t \geq 0 $$
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--Everything after this is just importing scripts/libraries etc...-->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+
+<script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script src=Supporting_functions.js></script>
+<script src= Free_Vibrations.js></script>
+
+<!--<script src="graphs.js"> </script> -->
+<!--<script src="harmonic.js"></script>  -->
+
+</body>
+</html> <!--end-->
