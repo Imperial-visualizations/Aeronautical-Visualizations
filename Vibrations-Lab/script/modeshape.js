@@ -163,8 +163,8 @@ var layout2 = {
     },
     showlegend:false
 }
-            Plotly.newPlot('graphAircraftV', [traceAircraftV], layout);
-            Plotly.newPlot('graphAircraftH', [traceAircraftH], layout2);
+            Plotly.newPlot('graphAircraftV', [traceAircraftV], layout,{displayModeBar:false});
+            Plotly.newPlot('graphAircraftH', [traceAircraftH], layout2, {displayModeBar:false});
 
 
 
