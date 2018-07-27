@@ -3,8 +3,9 @@
 
 <head>
     <title>Mode Shapes</title>
-    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
-    <link rel="stylesheet" href="Styles/myStyleSheet3.css">
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+  <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css">
+    <link rel="stylesheet" href="styles/myStyleSheet3.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="http://www.numericjs.com/lib/numeric-1.2.6.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -20,17 +21,26 @@
     <div id="modal" class="sideNav verticalText" onmouseenter="navShow()" onmouseleave="navHide()">
     Instructions for use
 </div>
-    <div class="rightnav">&#9654;</div>
     <div class="container">
-        <h1>Mode Shapes - Simulated Data</h1>
+        <h3>Theoretical model</h3>
          <div class="row">
-            <div class= "twelve columns">
+            <div class= "seven columns">
                     <form>
-                                    Mode Shape = <input type="number" id="mode3" min="1", max="9", step="1" value="1" style="width:80px";>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    Mode Shape = <select id="mode"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option>
+              </select><!--<input type="number" id="mode3" min="1", max="9", step="1" value="1" style="width:80px";>-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <input type="button" class="button" value="Start" id="start"> <input style="width: 180px" class="center" type="button" id="theory" value="Show Theory">
-
                     </form>
             </div>
+            <div class="four columns">
+                    <label class="TimeTitle">Slow time by:&nbsp;
+                        <span id="TimeDisplay">0</span>&nbsp;%
+                    </label>
+                    <label class="slider">
+                        <input class="inputs" type="range" id="Time" min="0" max="100" step = "0.5" value="0"/>
+                        <span class="sliderMin">0%</span><span class="sliderMax">100%</span>                            
+                    </label>   
+            </div>
+        </div>
 
             <div class="row">
                 <div class="eleven columns">
@@ -41,10 +51,10 @@
                                 <div class="row">
                                     <!-- <div class="numbertext">2 / 2</div> -->
                                     <div class="five columns">
-                                        <div  id="graphAircraftV" style="height: 70vh; width: 70vh;  margin-left: 10%"></div>
+                                        <div  id="graphAircraftV" style="height: 70vh;  width: 70vh; margin-left: 10%"></div>
                                     </div>
                                     <div class="five columns offset-by-two">
-                                        <div  id="graphAircraftH" style="height: 70vh; width: 70vh; margin-right: 10%"></div>
+                                        <div  id="graphAircraftH" style="height: 70vh;width: 70vh; margin-right: 10%"></div>
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +62,7 @@
                             <div class="mySlides fade">
                                 <div class="row">
                                     <!-- <div class="numbertext">2 / 2</div> -->
-                                    <div class="ten columns" style="height: 70vh; width: 70vh; margin-left: 25%">
+                                    <div class="ten columns" style="height: 70vh; width: 70vh; margin-left: 20vw">
                                         <div  id="aircraft3D"  ></div>
                                     </div>
                                 </div>
@@ -137,7 +147,7 @@
     </div>
     </div>
     <script src=script/modeshape.js></script>
-    <script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
+    <script src="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/navigator.js"></script>
 </body>
 
 </html>

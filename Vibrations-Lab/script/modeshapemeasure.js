@@ -47,9 +47,10 @@ $('input#reset').on('click',resetValues)
 function resetValues() {
   phaseList=[];
   amplList=[]
-  wex=0;
-  z=[0, 0, 0, 0, 0, 0, 0, 0, 0]
   clearInterval(anim)
+  z=[0, 0, 0, 0, 0, 0, 0, 0, 0]
+  zmes=[0, 0, 0, 0, 0, 0, 0, 0, 0]
+  t=0;
   generate2D()
    if ($('input#start').val().toString()=="Pause"){
         $('input#start').val("Start")

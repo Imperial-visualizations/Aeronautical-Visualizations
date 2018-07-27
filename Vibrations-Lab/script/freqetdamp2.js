@@ -84,7 +84,6 @@ function setTraces(cDisp, Displacement, Velocity, Acceleration,mode, w, dampl, v
     mode: mode,
     marker:{color: cDisp}
   };
-  console.log(din);
   trace5 = {
     x: vin, 
     y: vout, 
@@ -129,10 +128,8 @@ function setTraces(cDisp, Displacement, Velocity, Acceleration,mode, w, dampl, v
 
   data1 = [trace1, trace2, trace3];
   data2 = [trace4, trace5, trace6];
-  console.log(data1)
-  console.log(data2)
   data3 = [trace7, trace8, trace9];
-console.log(data3)
+
   layout1= {
     autosize: true,
     margin:{
@@ -203,19 +200,19 @@ function normalise(freqList, dAmplNorm, vAmplNorm, aAmplNorm, dAmpl, vAmpl, aAmp
           vAmplNorm[i]= vAmpl[i]/Math.max(...vAmpl);
           aAmplNorm[i]= aAmpl[i]/Math.max(...aAmpl);
 
-          dInNorm[i]= (dIn[i]/Math.max(...dOut.map(Math.abs)))*2;
-          vInNorm[i]= (vIn[i]/Math.max(...vIn.map(Math.abs)))*2;
-          aInNorm[i]= (aIn[i]/Math.max(...aOut.map(Math.abs)))*2;
+          dInNorm[i]= (dIn[i]/Math.max(...dOut.map(Math.abs)));
+          vInNorm[i]= (vIn[i]/Math.max(...vIn.map(Math.abs)));
+          aInNorm[i]= (aIn[i]/Math.max(...aOut.map(Math.abs)));
 
-          dOutNorm[i]= (dOut[i]/Math.max(...dOut.map(Math.abs)))*2;
-          vOutNorm[i]= (vOut[i]/Math.max(...vIn.map(Math.abs)))*2;
-          aOutNorm[i]= (aOut[i]/Math.max(...aOut.map(Math.abs)))*2;
+          dOutNorm[i]= (dOut[i]/Math.max(...dOut.map(Math.abs)));
+          vOutNorm[i]= (vOut[i]/Math.max(...vIn.map(Math.abs)));
+          aOutNorm[i]= (aOut[i]/Math.max(...aOut.map(Math.abs)));
   }
 }
 
 $('input#submit').on('click', initPlot)
 function initPlot() {
-        freq = parseFloat($("input#frequency").val());
+        freq = parseFloat($("input#frequency").val()*Math.PI*2);
         ampl = parseFloat($("input#amplitude").val());
         angle = parseFloat($("input#phase").val());
         load = parseFloat($("input#load").val());
@@ -241,7 +238,6 @@ function initPlot() {
         calculateExp();
              dAmplNorm=[]; vAmplNorm=[]; aAmplNorm=[]; dInNorm=[]; dOutNorm=[]; vInNorm=[]; vOutNorm=[]; aInNorm=[]; aOutNorm=[];
         normalise(freqList, dAmplNorm, vAmplNorm, aAmplNorm, dAmpl, vAmpl, aAmpl,dInNorm,vInNorm,aInNorm, dIn, vIn, aIn, dOut,vOut, aOut, dOutNorm, vOutNorm, aOutNorm)
-               console.log(vAmpl)
         setTraces(cDisp, disp, vel, acc, markers, freqList, dAmplNorm, vAmplNorm, aAmplNorm, dInNorm, dOutNorm, vInNorm, vOutNorm, aInNorm, aOutNorm, dPhase, vPhase, aPhase)
         Plotly.newPlot('graph1', data1, layout1, {displayModeBar:false});
         Plotly.newPlot('graph2', data2, layout2, {displayModeBar:false});
@@ -377,6 +373,9 @@ function findRes(){
      
             setTraces(cDisp, dispFit, velFit, accFit, lines, w, damplNorm, vamplNorm, aamplNorm, dinNorm, doutNorm, vinNorm, voutNorm, ainNorm, aoutNorm, phased, phasev, phasea )
             
+            console.log(Math.pow(vInNorm[0],2)+Math.pow(vOutNorm[0],2))
+            console.log(Math.pow(vAmplNorm[0],2))
+
             Plotly.plot('graph1', data1 );
             Plotly.plot('graph2', data2 );
             Plotly.plot('graph3', data3);
@@ -401,7 +400,6 @@ $('#modal').click(function(){
   openModal()
   j=0})
 $('.nextBtn').click(function(){
-  console.log(j)
   nextModal(j);
   j++
 

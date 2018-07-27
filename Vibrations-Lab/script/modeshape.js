@@ -20,9 +20,9 @@ $('#theory').click(function() {
 });
 
 // function that takes the mode that the student desires to animate
-$('input#mode3').on('click', getMode)
+$('select#mode').on('change', getMode)
 function getMode(){
- mode3=document.getElementById("mode3").value;
+ mode3=document.getElementById("mode").value;
 };
 
 //set the time and time incremets for the 2d and 3d simulations
@@ -205,8 +205,7 @@ function animate2D (){
           return;
         }
 
-
-function begin_animation(){
+function begin_animation(velu){
 
       if ($(this).val().toString()=="Start"){
         anim= setInterval(animate2D,30);
@@ -219,6 +218,36 @@ function begin_animation(){
         };
   }
 $(window).on('load',getMode)
+
+
+
+function main() {
+    $("input[type=range]").each(function () {
+        $(this).on('input', function(){
+            $("#"+$(this).attr("id") + "Display").text( $(this).val());
+            dt=0.00002-$(this).val()*0.00002/100;
+
+        });
+    });
+    $("select").click(function () {
+       var idName = $(this).attr("id");
+       if (idName === "mode") {
+          var value = $(this).val();
+          if( value === "1") {
+          } else if ( value === "2") {
+          } else if (value === "3") {
+          }else if (value === "4") {
+          }else if (value === "5") {
+          }else if (value === "6") {
+          }else if (value === "7") {
+          }else if (value === "8") {
+          }else {}
+
+      }
+   });
+  }
+$(document).ready = main();
+
 
 
 

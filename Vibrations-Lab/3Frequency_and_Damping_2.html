@@ -3,8 +3,9 @@
 
 <head>
     <title>Undamped Frequency and Damping Ratio</title>
-    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
-        <link rel="stylesheet" href="Styles/myStyleSheet2.css">
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+  <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css">
+        <link rel="stylesheet" href="styles/myStyleSheet2.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script type="text/x-mathjax-config">
@@ -21,14 +22,13 @@
 </head>
 
 <body>
-    <div class="leftnav">&#9664;</div>
     <!-- *Instructions nav bar* -->
 <div id="modal" class="sideNav verticalText" onmouseenter="navShow()" onmouseleave="navHide()" onclick="openModal(); scrollToTop();">
     Instructions for use
 </div>
     
     <div class="container">
-        <h1>Undamped Frequency and  Damping Ratio</h1>
+        <h3>Experimental data</h3>
         <div class="row">
                 <div class="four columns">
                     <div id='graph1' style="width:300px; height:300px;"></div>
@@ -44,11 +44,11 @@
             <div class="four columns">
                     <h6>Import the acquired data in the following cells:</h6>
                         <form>
-                            Frequency &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; = <input type="number" id="frequency" style="width:120px";><br>
-                            Amplitude &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;= <input type="number" id="amplitude" style="width:120px"><br>
-                            Phase angle &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;= <input type="number" id="phase" style="width:120px"><br>
-                            Load Amplitude Factor = <input type="number" id="load" style="width:120px"><br>
-                            <input type="button" value="submit" id="submit">
+                            Frequency (Hz)&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= <input type="number" id="frequency" style="width:120px";><br>
+                            Acceleration amplitude (V) = <input type="number" id="amplitude" style="width:120px"><br>
+                            Phase angle (Rad)&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;= <input type="number" id="phase" style="width:120px"><br>
+                            Load Amplitude Factor &nbsp; &nbsp;&nbsp;&nbsp; = <input type="number" id="load" style="width:120px"><br>
+                            <input type="button" value="submit/Load Data" id="submit">
                             <input type="button" id="reset" value="reset"> 
                         </form>
             </div>
@@ -83,8 +83,8 @@
                         <input class="center" type="button" id="theory" value="Show Theory"></br></br>
                     </form>
                          
-                    </div>
-                    <div id="guideModal" class="modal">
+            </div>
+    <div id="guideModal" class="modal">
         <div class="modalContent modalContentH" id="modal_1">
             <div class="modalHeader">
                 <span class="closeBtn closeBtnH">&times;</span>
@@ -118,7 +118,7 @@
             </div>
         </div>
 
-        <<div class="modalContent" id="modal_4">
+        <div class="modalContent" id="modal_4">
             <span class="closeBtn" >&times;</span>
             <div class="modalBody">
                 <p>
@@ -149,10 +149,10 @@
             </div>
         </div>
     </div>
-            </div>
-        </div>
+    </div>
+</div>
     <script src=script/freqetdamp2.js></script>
-    <script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
+    <script src="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/navigator.js"></script>
 </body>
 
 </html>

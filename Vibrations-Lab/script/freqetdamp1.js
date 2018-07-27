@@ -260,16 +260,16 @@ let modalContent = document.getElementsByClassName("modalContent");
 //Listen for outside click
 window.addEventListener("click", outsideClick);
 let j;
+
 //Function to open modal
 $('#modal').click(function(){
   openModal()
   j=0})
 $('.nextBtn').click(function(){
-
   nextModal(j);
   j++
-
 })
+
 $('.closeBtn').click(closeModal)
 $('.closeBtnH').click(closeModal)
 function openModal(){

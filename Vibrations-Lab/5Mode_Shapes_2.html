@@ -3,8 +3,9 @@
 
 <head>
     <title>Mode Shapes</title>
-    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
-    <link rel="stylesheet" href="Styles/myStyleSheet4.css">
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+  <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css">
+    <link rel="stylesheet" href="styles/myStyleSheet4.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="http://www.numericjs.com/lib/numeric-1.2.6.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -14,9 +15,8 @@
     <div id="modal" class="sideNav verticalText" onmouseenter="navShow()"   onmouseleave="navHide()">
         Instructions for use
     </div>
-    <div class="leftnav">&#9664;</div>
     <div class="container">
-        <h1>Mode Shapes - Experimental Data</h1>
+        <h3>Experimental data</h3>
             <div class="row">
 
                             Input the resonance frequency found previously: 
@@ -32,7 +32,8 @@
                             <input type="button" class="button" id="reset" value="reset" href="reset"> 
                             <input type="button" class="button" value="Start" id="start">
  
-
+            </div>
+            <div class="row">
                 
                         <div class="six columns" id='graphAircraftV'></div>
                         <div class="six columns" id='graphAircraftH'></div>
@@ -113,7 +114,7 @@
     </div>
     </div>
     <script src=script/modeshapemeasure.js></script>
-    <script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
+    <script src="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/navigator.js"></script>
 </body>
 
 </html>
