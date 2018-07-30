@@ -26,6 +26,11 @@ let data1,data2,data3;
 let layout1,layout2,layout3;
 const cDisp = 'rgb(0, 128, 255)', cVel='rgb(255, 128, 0)', cAcc='rgb(77, 172, 0)';
 
+//show and hide the modal bar
+$("#modal").mouseenter(navShow);
+$("#modal").mouseleave(navHide);
+
+// function that opens the theory page in a new tab
 $('#theory').click(function() {
   window.open('freqanddapingtheory1.html', '_blank');
 });
@@ -297,17 +302,6 @@ function nextModal(n){
     modalContent[n].style.display = "none";
     modalContent[n+1].style.display = "block";
 }
-function scrollToTop(){
-    //Scroll to top
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-}
-
-function scrollToBottom(){
-    //Scroll to top
-    document.body.scrollTop = 1000; // For Safari
-    document.documentElement.scrollTop = 1000; // For Chrome, Firefox, IE and Opera
-}
 
 /** --------------------------- Function for hiding after few seconds---------------------------- **/
 /* Function to make fade out instruction tab after window load */
@@ -318,11 +312,6 @@ navShow();
 //Hide nav bar
 function navHide(){document.getElementById("modal").style.left = "5px";
     document.getElementById("modal").style.transitionDuration = "1s";}
-
-//Hide nav bar
-function arrowHide1(){document.getElementById("prev1").style.color = "white";}
-
-function arrowHide2(){document.getElementById("prev2").style.color = "white";}
 
 //Set timeout in milliseconds
 setTimeout(function() {

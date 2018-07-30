@@ -14,7 +14,11 @@ y3=y;
 x3=x;
 z3=z;
 
-//open theory page in new tab
+//show and hide the modal bar
+$("#modal").mouseenter(navShow);
+$("#modal").mouseleave(navHide);
+
+// function that opens the theory page in a new tab
 $('#theory').click(function() {
   window.open('modeshapetheory1.html', '_blank');
 });
@@ -337,17 +341,6 @@ function outsideClick(e){
 function nextModal(n){
     modalContent[n].style.display = "none";
     modalContent[n+1].style.display = "block";
-}
-function scrollToTop(){
-    //Scroll to top
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-}
-
-function scrollToBottom(){
-    //Scroll to top
-    document.body.scrollTop = 1000; // For Safari
-    document.documentElement.scrollTop = 1000; // For Chrome, Firefox, IE and Opera
 }
 /** --------------------------- Function for hiding after few seconds---------------------------- **/
 /* Function to make fade out instruction tab after window load */

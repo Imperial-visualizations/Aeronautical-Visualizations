@@ -24,7 +24,11 @@ wex=17.33759511;
 
 //The -1/1 factors accountig for the back/front position of the sensor
 const fact=[1, -1, -1, -1, 1, -1, 1, 1, -1];
+//show and hide the modal bar
+$("#modal").mouseenter(navShow);
+$("#modal").mouseleave(navHide);
 
+// function that opens the theory page in a new tab
 $('#theory').click(function() {
   window.open('modeshapetheory2.html', '_blank');
 });
@@ -61,19 +65,21 @@ function resetValues() {
 //function that takes the values inputed by the students in the input form, on the press of the "submit" button
 $('input#submit').on('click', takeValues)
 function takeValues() {
-        /*phase = document.getElementById("phase").value;
-        ampl = document.getElementById("amplitude").value;
-        document.getElementById('phase').value = ''
-        document.getElementById('amplitude').value = ''
-        wex = document.getElementById('frequency').value;
+        phase = parseFloat($("#phase").val());
+        ampl = parseFloat($("#amplitude").val());
+        $('#phase').val('')
+        $('#amplitude').val('')
+        wex = parseFloat($('#frequency').val());
         
         if (phase && ampl && amplList.length<9){
           phaseList.push(phase)
-          amplList.push(ampl)}
-          else{alert('Input your values!')};*/
-        wex=17.33759511;
-        amplList=[0.2587891, 0.2929688, 1.3867188, 3.0371094, 5.5273438, 9.1870117, 1.015625, 0.9228516, 9.284668];
-        phaseList=[-1.45071, -1.9997, -1.93723, -1.95051, 1.172893, 1.190894, -1.91862, -1.95301, 1.131028];
+          amplList.push(ampl)
+          console.log(phaseList)
+        }
+          else{alert('Input your values!')};
+        //wex=17.33759511;
+        //amplList=[0.2587891, 0.2929688, 1.3867188, 3.0371094, 5.5273438, 9.1870117, 1.015625, 0.9228516, 9.284668];
+        //phaseList=[-1.45071, -1.9997, -1.93723, -1.95051, 1.172893, 1.190894, -1.91862, -1.95301, 1.131028];
 
         if(amplList.length===9){
           alert('You have now imported all your data, anyting that you will add will not count. Click "Reset" to start again.')
@@ -278,17 +284,6 @@ function nextModal(n){
     modalContent[n].style.display = "none";
     modalContent[n+1].style.display = "block";
 }
-function scrollToTop(){
-    //Scroll to top
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-}
-
-function scrollToBottom(){
-    //Scroll to top
-    document.body.scrollTop = 1000; // For Safari
-    document.documentElement.scrollTop = 1000; // For Chrome, Firefox, IE and Opera
-}
 /** --------------------------- Function for hiding after few seconds---------------------------- **/
 /* Function to make fade out instruction tab after window load */
 //Display nav bar
@@ -301,6 +296,4 @@ function navHide(){document.getElementById("modal").style.left = "5px";
 //Set timeout in milliseconds
 setTimeout(function() {
     navHide();
-    arrowHide1();
-    arrowHide2();
 }, 3000);
