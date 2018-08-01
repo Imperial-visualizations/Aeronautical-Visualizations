@@ -54,6 +54,9 @@ function animateModes1(){
     r = A1 * Math.cos(omega1 * t) * s11 + A2 * Math.cos(omega2 * t) * s21;
     theta = A1 * Math.cos(omega1 * t) * s12 + A2 * Math.cos(omega2 * t) * s22;
 
+    console.log(t);
+    console.log(r);
+
     /** The animation function **/
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
@@ -248,6 +251,7 @@ function animateModes1(){
     ctx.restore();
 
     //x += 1;
+    console.log("hello1");
 
     myReq = requestAnimationFrame(animateModes1);
     return
@@ -271,6 +275,8 @@ function animateModes2(){
     //displacements
     r = A1 * Math.cos(omega1 * t) * s11 + A2 * Math.cos(omega2 * t) * s21;
     theta = A1 * Math.cos(omega1 * t) * s12 + A2 * Math.cos(omega2 * t) * s22;
+
+    console.log("hi");
 
     /** The animation function **/
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -466,6 +472,7 @@ function animateModes2(){
     ctx.restore();
 
     x += 1;
+    console.log("hello2");
 
     myReq = requestAnimationFrame(animateModes2);
     return
