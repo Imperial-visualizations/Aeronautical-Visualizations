@@ -11,7 +11,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="1System-Visualisation.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="1System-Visualisation.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/1System-Visualisation.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="495">
@@ -20,11 +20,38 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="2Equations-of-Motion.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/2Equations-of-Motion.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="3Vibration-Frequencies.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/3Vibration-Frequencies.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="4Mode-Shapes.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/4Mode-Shapes.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Q1_graphics2.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scripts/Q1_graphics2.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="461" column="23" lean-forward="true" selection-start-line="461" selection-start-column="23" selection-end-line="461" selection-end-column="23" />
+            <state relative-caret-position="6915">
+              <caret line="461" column="23" selection-start-line="461" selection-start-column="23" selection-end-line="461" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -93,12 +120,12 @@
         <option value="$PROJECT_DIR$/dynamicSystem3.html" />
         <option value="$PROJECT_DIR$/dynamicSystem.html" />
         <option value="$PROJECT_DIR$/1Q1-Visualisation.html" />
-        <option value="$PROJECT_DIR$/2Equations-of-Motion.html" />
-        <option value="$PROJECT_DIR$/4Mode-Shapes.html" />
-        <option value="$PROJECT_DIR$/3Vibration-Frequencies.html" />
         <option value="$PROJECT_DIR$/1System-Visualisation.html" />
         <option value="$PROJECT_DIR$/styles/myStyleSheet.css" />
         <option value="$PROJECT_DIR$/scripts/Q1_graphics2.js" />
+        <option value="$PROJECT_DIR$/2Equations-of-Motion.html" />
+        <option value="$PROJECT_DIR$/3Vibration-Frequencies.html" />
+        <option value="$PROJECT_DIR$/4Mode-Shapes.html" />
       </list>
     </option>
   </component>
@@ -122,7 +149,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -144,6 +170,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -206,17 +233,17 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32880846" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32880846" />
+      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32880846" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.225" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" id="SciView" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -318,20 +345,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dynamicSystem1.html" />
     <entry file="file://$PROJECT_DIR$/dynamicSystem.html" />
-    <entry file="file://$PROJECT_DIR$/2Equations-of-Motion.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/3Vibration-Frequencies.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/1Q1-Visualisation.html" />
     <entry file="file://$PROJECT_DIR$/styles/myStyleSheet.css">
       <provider selected="true" editor-type-id="text-editor">
@@ -340,17 +353,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/4Mode-Shapes.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/Q1_graphics2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="461" column="23" lean-forward="true" selection-start-line="461" selection-start-column="23" selection-end-line="461" selection-end-column="23" />
+        <state relative-caret-position="6915">
+          <caret line="461" column="23" selection-start-line="461" selection-start-column="23" selection-end-line="461" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -358,6 +364,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/2Equations-of-Motion.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/3Vibration-Frequencies.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/4Mode-Shapes.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
         </state>
       </provider>
     </entry>
