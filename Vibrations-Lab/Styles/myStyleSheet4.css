@@ -146,34 +146,38 @@
 
 #modal_2{
     position: relative;
-    top: 250px;
-    left: 300px;
+    top: 200px;
+    left: 100px;
 }
 
 #modal_3{
     position: relative;
-    top: 250px;
-    left: 400px;
+    top: 200px;
+    left: 550px;
 }
 #modal_4{
     position: relative;
-    top: 150px;
-    left: 650px;
+    top: 120px;
+    left: 500px;
 }
 
 #modal_5{
     position: relative;
-    top: 250px;
-    left: 700px;
+    top: 200px;
+    left: 650px;
 }
-
 #modal_6{
     position: relative;
-    top: 150px;
+    top: 200px;
+    left: 850px;
+}
+#modal_7{
+    position: relative;
+    top: 120px;
     left: 750px;
 }
 
-#modal_7{
+#modal_8{
     margin: 20% auto;
 }
 

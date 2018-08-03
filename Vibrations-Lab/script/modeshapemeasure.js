@@ -298,6 +298,7 @@ function openModal(){
     modalContent[4].style.display = "none";
     modalContent[5].style.display = "none";
     modalContent[6].style.display = "none";
+    modalContent[7].style.display = "none";
 }
 
 //Function to close modal
