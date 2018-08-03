@@ -14,6 +14,7 @@ y3=y;
 x3=x;
 z3=z;
 
+let mode3;
 //show and hide the modal bar
 $("#modal").mouseenter(navShow);
 $("#modal").mouseleave(navHide);
@@ -26,7 +27,8 @@ $('#theory').click(function() {
 // function that takes the mode that the student desires to animate
 $('select#mode').on('change', getMode)
 function getMode(){
- mode3=document.getElementById("mode").value;
+ mode3=$("#mode").val();
+ $('#omegau').html(w[mode3-1].toFixed(2));
 };
 
 //set the time and time incremets for the 2d and 3d simulations
@@ -209,7 +211,7 @@ function animate2D (){
           return;
         }
 
-function begin_animation(velu){
+function begin_animation(){
 
       if ($(this).val().toString()=="Start"){
         anim= setInterval(animate2D,30);
@@ -221,6 +223,7 @@ function begin_animation(velu){
             $(this).val("Start")
         };
   }
+  
 $(window).on('load',getMode)
 
 

@@ -48,8 +48,9 @@
                             Acceleration amplitude (V) = <input type="number" id="amplitude" style="width:120px"><br>
                             Phase angle (Rad)&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;= <input type="number" id="phase" style="width:120px"><br>
                             Load Amplitude Factor &nbsp; &nbsp;&nbsp;&nbsp; = <input type="number" id="load" style="width:120px"><br>
-                            <input type="button" value="submit/Load Data" id="submit">
-                            <input type="button" id="reset" value="reset"> 
+                            <input type="button" value="submit" id="submit" style="width:154px">
+                            <input type="button" id="reset" value="reset"  style="width:154px"> 
+                            <input type="button" value="Show PREVIOUS Experimental Data" id="previous" style="width:312px; color:rgb(33, 97, 140)">
                         </form>
             </div>
             <div class="three columns offset-by-one column">
@@ -57,8 +58,8 @@
                         <table style="width:70%">
                             <tr>
                                 <th>Point</th>
-                                <th>$\omega$</th> 
-                                <th>$\theta$</th>
+                                <th>$\omega (\frac{\mathrm{rad}}{\mathrm{s}} \hspace{0.08cm})$</th> 
+                                <th>$\theta (\mathrm{rad})$</th>
                             </tr>
                             <tr>
                                 <td><input type="text" style="width:80px" id="PointA" ></td>

@@ -1,6 +1,6 @@
 let load,freq,angle,ampl;
 let freqList=[], angleList=[], amplList=[];
-let freqListp=[], angleListp=[], amplListp=[];
+let freqListp=[], angleListp=[], amplListp=[], loadp;
 let aAmpl=[],vAmpl =[],dAmpl = [];
 let aIn = [],vIn = [],dIn = [] ;
 let aOut = [],vOut = [],dOut = [];
@@ -37,7 +37,7 @@ $("#modal").mouseleave(navHide);
 
 // function that opens the theory page in a new tab
 $('#theory').click(function() {
-  window.open('freqanddapingtheory3.html', '_blank');
+  window.open('freqanddampingtheory2.html', '_blank');
 });
 
 $('input#reset').on('click',resetValues)
@@ -214,31 +214,41 @@ function normalise(freqList, dAmplNorm, vAmplNorm, aAmplNorm, dAmpl, vAmpl, aAmp
   }
 }
 
-$('input#submit').on('click', initPlot)
-function initPlot() {
-        freq = parseFloat($("input#frequency").val()*Math.PI*2);
-        ampl = parseFloat($("input#amplitude").val());
-        angle = parseFloat($("input#phase").val());
-        load = parseFloat($("input#load").val());
-        $("input#frequency").val('');
-        $("input#amplitude").val('');
-        $("input#phase").val('');
+$('input#submit').on('click', submitData)
+function submitData(){
 
-        if (angle && ampl && freq){
-            freqListp.push(freq);
-            amplListp.push(ampl);
-            angleListp.push(angle)
+            freq = parseFloat($("input#frequency").val()*Math.PI*2);
+            ampl = parseFloat($("input#amplitude").val());
+            angle = parseFloat($("input#phase").val());
+            loadp = parseFloat($("input#load").val());
+            $("input#frequency").val('');
+            $("input#amplitude").val('');
+            $("input#phase").val('');
+            
+            if (angle && ampl && freq && loadp){
+              freqListp.push(freq);
+              amplListp.push(ampl);
+              angleListp.push(angle);
+              $('#previous').val("Show NEW Experimental Data")
+              initPlot()}
+            else{alert('Input your values!')}
+
+            }
+$('input#previous').on('click', initPlot)
+function initPlot() {
+        if ($('#previous').val().toString()=="Show PREVIOUS Experimental Data"){
+            $('#previous').val("Show NEW Experimental Data")
+            load = 0.06;
+            freqList = [106.81, 108.07, 108.70, 108.82, 108.95, 108.98, 109.00, 109.01, 109.04, 109.08, 109.14, 109.20, 109.33, 109.45, 109.96, 110.58, 111.21, 111.84];
+            amplList = [1.558, 3.35, 7.475, 8.826, 9.333, 9.355, 9.34, 9.363, 9.26, 9.272, 9.104, 8.895, 8.257, 7.526, 5.34, 3.73, 2.842, 2.28];
+            aPhase = [-2.945,-2.7573, -2.18447, -1.8739, -1.604, -1.54, -1.502, -1.498, -1.432, -1.3908, -1.29, -1.21, -1.0363, -0.9092, -0.564, -0.346, -0.2426, -0.18];
+        }else if($('#previous').val().toString()=="Show NEW Experimental Data"){
+            $('#previous').val("Show PREVIOUS Experimental Data")
+            load=loadp
             aPhase = angleListp;
             freqList=freqListp;
             amplList=amplListp;
-            }
-        else if (!angle&& !ampl&& !freq){
-          load = 0.06;
-          freqList = [106.81, 108.07, 108.70, 108.82, 108.95, 108.98, 109.00, 109.01, 109.04, 109.08, 109.14, 109.20, 109.33, 109.45, 109.96, 110.58, 111.21, 111.84];
-          amplList = [1.558, 3.35, 7.475, 8.826, 9.333, 9.355, 9.34, 9.363, 9.26, 9.272, 9.104, 8.895, 8.257, 7.526, 5.34, 3.73, 2.842, 2.28];
-          aPhase = [-2.945,-2.7573, -2.18447, -1.8739, -1.604, -1.54, -1.502, -1.498, -1.432, -1.3908, -1.29, -1.21, -1.0363, -0.9092, -0.564, -0.346, -0.2426, -0.18];
-        }
-        else{alert('Input your values!')};
+        };
         calculateExp();
              dAmplNorm=[]; vAmplNorm=[]; aAmplNorm=[]; dInNorm=[]; dOutNorm=[]; vInNorm=[]; vOutNorm=[]; aInNorm=[]; aOutNorm=[];
         normalise(freqList, dAmplNorm, vAmplNorm, aAmplNorm, dAmpl, vAmpl, aAmpl,dInNorm,vInNorm,aInNorm, dIn, vIn, aIn, dOut,vOut, aOut, dOutNorm, vOutNorm, aOutNorm)
@@ -451,7 +461,5 @@ function navHide(){document.getElementById("modal").style.left = "5px";
 //Set timeout in milliseconds
 setTimeout(function() {
     navHide();
-    arrowHide1();
-    arrowHide2();
 }, 3000);
 $(window).on('load',emptyPlot)

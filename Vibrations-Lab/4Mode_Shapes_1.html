@@ -15,6 +15,15 @@
     margin-right: auto;
     width: 20%;
 }</style>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
 </head>
 
 <body>
@@ -24,23 +33,31 @@
     <div class="container">
         <h3>Theoretical model</h3>
          <div class="row">
-            <div class= "seven columns">
+            <div class= "six columns">
                     <form>
                                     Mode Shape = <select id="mode"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option>
               </select><!--<input type="number" id="mode3" min="1", max="9", step="1" value="1" style="width:80px";>-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <input type="button" class="button" value="Start" id="start"> <input style="width: 180px" class="center" type="button" id="theory" value="Show Theory">
                     </form>
             </div>
-            <div class="four columns">
-                    <label class="TimeTitle">Slow time by:&nbsp;
-                        <span id="TimeDisplay">0</span>&nbsp;%
+            <div class="six columns">
+                    <label class="TimeTitle">Slow animation:&nbsp;
+                       <!-- <span id="TimeDisplay">0</span>&nbsp;%-->
                     </label>
                     <label class="slider">
-                        <span class="sliderMin">0%</span>
+                        <span class="sliderMin" style="font-size: 14px">Slow motion</span>
                         <input  style="width: 60%" class="inputs" type="range" id="Time" min="0" max="100" step = "0.5" value="0"/>
-                        <span class="sliderMax">100%</span>                            
+                        <span class="sliderMax" style="font-size: 14px">Very slow motion</span>                            
                     </label>   
             </div>
+        </div>
+        <div class="row">
+           <p> Following the theoretical background (detailed in the theory page), the natural frequency and mode shapes are: </br>
+                <ul>
+                <li> The eigenvalue or undamped natural frequency: &nbsp;&nbsp;&nbsp;$ \omega_u =$&nbsp;&nbsp;<span id="omegau"></span> $\frac{\mathrm{rad}}{\mathrm{s}}$</li>
+                <li> The eigenvector or mode shape: </li>
+                </ul>
+           </p>
         </div>
 
             <div class="row">
@@ -101,7 +118,7 @@
             <span class="closeBtn">&times;</span>
             <div class="modalBody">
                 <p>
-                    Here you can choose the mode shape of the structure that you want to see. There are nine of them.
+                    Here you can choose the mode shape of the structure that you want to see.
                 </p>
                 <button class="nextBtn">Continue</button>
             </div>
