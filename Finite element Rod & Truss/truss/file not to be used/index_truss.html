@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css">
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+        <style>
+                .tooltip {
+                        position: relative;
+                        display: inline-block;
+                }
+                        
+                .tooltip .tooltiptext {
+                        visibility: hidden;
+                        width: 170px;
+                        background-color: #003E74;
+                        color: #fff;
+                        text-align: center;
+                        border-radius: 6px;
+                        padding: 5px 0;
+                        
+                        /* Position the tooltip */
+                        position: absolute;
+                        z-index: 1;
+                        top: -5px;
+                        left: 105%; 
+                }
+                
+                .tooltip .tooltiptext::after {
+                        content: "";
+                        position: absolute;
+                        top: 50%;
+                        right: 100%;
+                        margin-top: -5px;
+                        border-width: 5px;
+                        border-style: solid;
+                        border-color: transparent #003E74 transparent transparent;
+                }
+                        
+                .tooltip:hover .tooltiptext {
+                        opacity: 0.8;
+                        visibility: visible;
+                }
+
+                /* CSS Document */
+
+                div.aria-widget-vertical-slider {
+                margin-top: 0.5em;
+                margin-bottom: 0.5em;
+                }
+
+                div.aria-widget-vertical-slider .rail {
+                margin: 2px;
+                padding: 1px;
+                background-color: #eee;
+                border: 1px solid #888;
+                position: relative;
+                left: 3.8em;
+                width: 4px;
+                }
+
+                div.aria-widget-vertical-slider .thumb  {
+                border: 1px solid #888;
+                border-top-color:  #666;
+                border-left-color: #666;
+                background-color: #DDD;
+                position: relative;
+                }
+
+                div.aria-widget-vertical-slider .rail .thumb.focus, 
+                div.aria-widget-vertical-slider .rail .thumb:hover {
+                outline: 2px solid #888;
+                background-color: #E0CB52;
+                }
+
+                div.aria-widget-vertical-slider .rail.focus {
+                background-color: #AAA;
+                }
+
+
+                div.aria-widget-vertical-slider .label,
+                div.aria-widget-vertical-slider .value  {
+                margin-top: 0.5em;
+                margin-bottom: 0.5em;
+                text-align: center;
+                width: 8em;
+                }
+
+                div.aria-widget-vertical-slider .label {
+                font-weight: bold;
+                font-size: 110%;
+                }
+
+                #id_kbd {
+                clear: both;
+                }
+        </style>
+</head>
+<body>
+    <!-- *Instructions nav bar* -->
+    <!-- <div id="modal" class="sideNav verticalText">Instructions for use</div> -->
+    <!-- <div id="instructions" class="sideNav verticalText" onmouseenter="navShow()" onmouseleave="navHide()" onclick="openModal(); scrollToTop(); currentSlide(1);">
+        Instructions for use
+    </div> -->
+    <br>
+    <br>
+    <br>
+    <div class = "container">
+        <div class = "row">
+                <div class = "six columns">
+                        <h4>2.1</h4>
+
+                        <div id="elementNum" class = "eleven columns">
+                                <div class = "tooltip">
+                                        <label for="element" class="sliderTitle">
+                                                Force:
+                                                <span id="forceDisp">5</span>
+                                        </label>
+                                        <span class = "tooltiptext">slider to change the force magnitude from 1e5 to 1e6</span>
+                                </div>
+                                <span class="sliderMin"></span>
+                                <input type="range" orient="vertical" id="forceMag" name="element" min="1" max="20" value="1" oninput="handleForce()" step = "1">
+                                <span class="sliderMax"></span>
+                        </div>
+
+                        <div class = "tooltip">
+                                <div id = "graph1" style = "width:340px; height:340px;"></div>
+                                <span class = "tooltiptext">redudant structure with adjustable force</span>
+                        </div>
+                        <!-- <div class="aria-widget-vertical-slider">
+                                <div id="idTemp" class="label">Force</div>
+                                <div id="idTempValue" class="value">5</div>
+                                <div class="rail" style="height: 200px">
+                                        <div id="idTempThumb"
+                                                role="slider"
+                                                tabindex="0"
+                                                class="thumb"
+                                                aria-valuemin="1"
+                                                aria-valuenow="5"
+                                                aria-valuemax="20"
+                                                aria-labelledby="idTemp">
+                                        </div>
+                                </div>
+                        </div> -->
+                        
+                </div>
+                <div class = "six columns">
+                        <h3>2.2</h3>
+                        <div class = "tooltip">
+                                <div id = "graph2" style = "width:340px; height:340px;"></div>
+                                <span class = "tooltiptext">structure with reduncy cutted</span>
+                        </div>
+
+                 </div>
+        </div></br>
+        <div class = "row">
+                <div class = "six columns">
+                        <h3>2.3</h3>
+                        <div class = "tooltip">
+                                <div id = "graph3" style = "width:340px; height:340px;"></div>
+                                <span class = "tooltiptext">apply unit loads without external load being applied</span>
+                        </div>
+
+                </div>
+                <div class = "six columns">
+
+                        <h4>2.4</h4>
+
+                        <div id="elementNum" class = "eleven columns">
+                                        <div class = "tooltip">
+                                                <label for="element" class="sliderTitle">
+                                                 x:
+                                                <span id="xDisplay"></span>
+                                                </label>
+                                                <span class = "tooltiptext">slider to change the force magnitude from 1e5 to 1e6</span>
+                                        </div>
+                                        <span class="sliderMin"></span>
+                                        <input type="range" orient="vertical" id="x" min="1" max="20" value="1" oninput="handleVirtual()" step = "1">
+                                        <span class="sliderMax"></span>
+                                </div>
+
+                        <div class = "tooltip">
+                                <div id = "graph4" style = "width:340px; height:340px;"></div>
+                                <span class = "tooltiptext">virtual loads to bring the reduncy together</span>
+                        </div>
+
+                </div>
+        </div>
+
+        
+        
+    </div>
+    <script src = "trussTemp.js"></script>
+</body>
+</html>

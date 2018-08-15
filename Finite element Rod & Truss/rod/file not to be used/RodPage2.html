@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Imperial visualisation</title>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+      tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+      }
+      });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <style>
+    .center {
+        text-align: center;
+        border: 3px solid green;
+    }
+    </style>
+</head>
+
+<body>
+
+<div class="rightnav">&#9654;</div>
+<div class="leftnav">&#9664;</div>
+<div class="ten columns" style="position: absolute; left: 150px">
+  &emsp;
+<!-- <img src = "shape.jpg" width = "100%"></img> -->
+  <p>The equation of motion of the rod modelling the steady state vibration can be written as following:
+    $$ \mathbf{M}\ddot{q} + \mathbf{K}q = 0 $$
+    where $\mathbf{M}$ represents for mass matrix and $\mathbf{K}$ for global stiffness matrix. To simplify the following calculation, a unit mass
+    and stiffness matrix is written out instead as following:
+    $$ \frac{\rho A l_0}{6}\mathbf{M}^*\ddot{q} + \frac{EA}{l_0}\mathbf{K}^* q = 0 $$
+  </p>
+  <p>By assuming the natural modes of vibration in the form:
+    $$\mathbf{q} = \bar{q} e^{i\omega t}$$
+    we get the following differential equation:
+    $$ \left ( -\omega ^2 \mathbf{M^*} + \frac{6E}{\rho l_{0}^{2}} \mathbf{K}\right )\bar{q} = 0 $$
+  </p> 
+  <p>Rearraging the equation to generalized eigenvalue problem, the equation subsequently transforms into:
+    $$ \left ( \mathbf{K}^* - \lambda \mathbf{M}^* \right ) \bar{q} = 0 &emsp;, &emsp; \lambda  = \frac{6E}{\rho l_{0}^{2} \omega^2 }$$
+  </p>
+  <p>By solving the eigenvalue problem we get $\mathbf{k_{max}+1}$ egen values and the same number of eigen modes. By applying FEA, the vibration problem can be described
+    by real symmtric matrices. It can be seen that the first eigenvalue is 0, which indicates the corresponding eigenmode
+    as rigid body motions due to that rigid body DoF of the system. In this case we only have 1 zero eigenvalue is due t the fact
+    that the rod is not constrained and can only move logitudinally.
+  </p>
+</div>
+<script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
+
+
+</body>
+</html>

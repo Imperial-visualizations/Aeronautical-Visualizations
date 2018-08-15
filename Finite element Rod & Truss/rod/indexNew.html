@@ -1,0 +1,281 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>FEA: Longitudinal Rod Vibration</title>
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+  <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css">
+    <link rel="stylesheet" href="styles/myStyleSheet3.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://www.numericjs.com/lib/numeric-1.2.6.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="style/myStyleSheet.css">
+    <style>.center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 10%;
+    }</style>
+    <style>
+                .tooltip {
+                    position: relative;
+                    display: inline-block;
+                }
+                
+                .tooltip .tooltiptext {
+                    visibility: hidden;
+                    width: 170px;
+                    background-color: #003E74;
+                    color: #fff;
+                    text-align: center;
+                    border-radius: 6px;
+                    padding: 5px 0;
+                
+                    /* Position the tooltip */
+                    position: absolute;
+                    z-index: 1;
+                    top: 35px;
+                    left: 40%; 
+                }
+        
+                .tooltip .tooltiptext::after {
+                    content: "";
+                    position: absolute;
+                    top: 0%;
+                    right: 50%;
+                    margin-top: -5px;
+                    border-width: 5px;
+                    border-style: solid;
+                    border-color: transparent #003E74 transparent transparent;
+                }
+        
+                .tooltip:hover .tooltiptext {
+                    opacity: 0.8;
+                    visibility: visible;
+                }
+    </style>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+</head>
+
+<body>
+        <div id="instructions" class="sideNav verticalText" onmouseenter="navShow()" onmouseleave="navHide()" onclick="openModal(); scrollToTop(); currentSlide(1);">
+            Instructions for use
+        </div>
+    <div class="container">
+        <div class = "six columns" id = 'graphs' >
+
+            <div class = "row">&emsp;</div>
+    
+            <div class = "eleven columns" align='left'>
+              
+              <div class = "tooltip">
+                <div class = "row" align= 'center'>
+                    <div id = "graph1" style = "width:800px; height:130px;"></div>
+                </div>
+                <span class = "tooltiptext">Undeformed shape of rod</span>
+              </div>
+    
+              <div class = "tooltip">
+                <div class = "row" align= 'center'>
+                    <div id="graph2" style = "width:800px; height:130px;"></div>
+                </div>
+                <span class = "tooltiptext">Vibrating deformed shape of rod</span>
+              </div>
+    
+              <div class = "tooltip">
+                <div class = "row" align= 'center'>
+                    <div id="graph3" style = "width:800px; height:180px;"></div>
+                </div>
+                <span class = "tooltiptext">Mode shapes of rod with displacements implemented in transverse direction</span>
+              </div>
+    
+              <div class = "tooltip">
+                  <div class = "row" align= 'center'>
+                      <div id="graph4" style = "width:800px; height:180px;"></div>
+                  </div>
+                  <span class = "tooltiptext">Mode shapes of rod with displacements implemented in transverse direction</span>
+                </div>
+    
+            </div>
+    
+        </div>
+        <div class = "one column">&emsp;</div>
+        <div class = "four columns" id = "interface">
+            <div class="twelve columns">
+                <br>
+                <div class = "tooltip">
+                  <h6>Young's Modulus (E)</h6>
+                  <span class = "tooltiptext">Measures the stiffness of the material, higher E gives stiffer behaviour.</span>
+                </div>
+      
+                <div class="row">
+                    <div class="nine columns" >
+                        <label class="label">low</label>
+                    </div>
+    
+                    <div class="three columns" >
+                        <label class="label">high</label>
+                    </div>
+    
+                    <input type="range" id="EInput" min = "1" max = "5" value = "3" step = "0.1">            
+                </div>
+    
+            </div>
+            <div class="twelve columns">
+                <br>
+                <div class = "tooltip">
+                  <h6>Density (&rho;)</h6>
+                  <span class = "tooltiptext">Higher &rho; gives stiffer behaviour.</span>            
+                </div>
+      
+                <div class="row">
+                    <div class="nine columns">
+                        <label class="label">low</label>
+                    </div>
+    
+                    <div class="three columns" >
+                        <label class="label">high</label>
+                    </div>
+    
+                    <input type="range" id="rhoInput" min = "1" max = "5" value = "3" step = "0.1">            
+                </div>
+    
+            </div>
+            <div class="twelve columns">
+                <br>
+                <div class = "tooltip">
+                  <h6>Cross-sectional area (A)</h6>
+                  <span class = "tooltiptext">Larger cross-sectional area gives stiffer behaviour.</span>           
+                </div>
+      
+                <div class="row">
+                    <div class="nine columns" >
+                        <label class="label">low</label>
+                    </div>
+    
+                    <div class="three columns" >
+                        <label class="label">high</label>
+                    </div>
+    
+                    <input type="range" id="aInput" min = "1" max = "5" value = "3" step = "0.1">           
+                </div>
+    
+            </div>
+            <div class="twelve columns">
+                <br>
+                <div class = "tooltip">
+                  <h6>Number of Elements n: <span id="elementDisplay">24</span></h6>
+                  
+                  <span class = "tooltiptext">Adjust the number of elements you want to discritize the rod to see the differnece.</span>          
+                </div>
+      
+                <div class="row">
+                    <div class="nine columns" >
+                        <label class="label">1</label>
+                    </div>
+    
+                    <div class="three columns" >
+                        <label class="label">24</label>
+                    </div>
+                    <input type="range" id="element" name="element" min="1" max="24" value="24" oninput="handleElement()">          
+                </div>
+    
+            </div>
+            <div class="twelve columns">
+                <br>
+                <div class = "tooltip">
+                  <h6>Display Mode Shape i: <span id="ModeDisplay">1</span></h6>
+                  <span class = "tooltiptext">Corresponds to the total DoF, note however only the first few modes are valid depending on the no. of elements.</span>         
+                </div>
+      
+                <div class="row">
+                    <div class="nine columns" >
+                        <span class="sliderMin">1</span>
+                    </div>
+    
+                    <div class="three columns" >
+                        <span class="sliderMax" id="sliderMax">25</span>
+                    </div>
+                    <input type="range" id="modeIndex" name="mode" min="1" max="25" value="1" step="1" oninput="handleElement()">         
+                </div>
+    
+            </div>
+            <div class = "row">&emsp;</div>
+            <div class = row>
+                <div class="start button" id="start">Start</div>&emsp;&emsp;
+                <!-- <div class="theory button" id="theory" href='RodPage1.html'>Theory</div> -->
+                <!-- <a href="RodPage1.html" target="_blank"><h7>Go to the Theory</h7></a> -->
+                <input style="width: 180px" class="center" type="button" id="theory" value="show theory">
+                <h6>Modal frequency $\omega_i$: <span id='freqDisp'></span></h6>
+            </div>
+        </div>
+        <!-- <div id="guideModal" class="modal">
+                <div class="modalContent modalContentH" id="modal_1">
+                    <div class="modalHeader">
+                        <span class="closeBtn closeBtnH" onclick="closeModal()">&times;</span>
+                        <h5>Visualisation Guidance</h5>
+                    </div>
+                    <div class="modalBody">
+                        <p>Hello :-)
+                            <br>
+                            This is the user guidance for the vibration visualisation of rod using FEA approach.
+                        </p>
+                        <button class="nextBtn" onclick="nextModal(0)">Continue</button>
+                    </div>
+                </div>
+        
+                <div class="modalContent" id="modal_2">
+                    <span class="closeBtn" onclick="closeModal()">&times;</span>
+                    <div class="modalBody">
+                        <p>
+                            The control interface inputs the material properties as well as the specifications of FEA used. Note only the first dew modes are valid.
+                        </p>
+                        <button class="nextBtn" onclick="nextModal(1)">Continue</button>
+                    </div>
+                </div>
+        
+                <div class="modalContent" id="modal_3">
+                    <span class="closeBtn" onclick="closeModal()">&times;</span>
+                    <div class="modalBody">
+                        <p>
+                            The start/pause button allows you to start and pause the vibration animation for rod.                    
+                        </p>
+                        <button class="nextBtn" onclick="nextModal(2); scrollToBottom(); showSpoiler();">Continue</button>
+                    </div>
+                </div>
+    
+                <div class="modalContent" id="modal_4">
+                  <span class="closeBtn" onclick="closeModal()">&times;</span>
+                  <div class="modalBody">
+                      <p>
+                          The visulization parts shows the undeformed and deformed rod as well as its corresponding mode shapes.                   
+                      </p>
+                      <button class="nextBtn" onclick="nextModal(3); scrollToBottom(); showSpoiler();">Continue</button>
+                  </div>
+              </div>
+        
+              
+        
+                <div class="modalContent" id="modal_5">
+                    <span class="closeBtn" onclick="closeModal()">&times;</span>
+                    <div class="modalBody">
+                        <p>
+                            Enjoy!
+                        </p>
+                    </div>
+                </div>
+        </div> -->
+    </div>
+    <script src=main.js></script>
+    <script src="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/navigator.js"></script>
+</body>
+
+</html>

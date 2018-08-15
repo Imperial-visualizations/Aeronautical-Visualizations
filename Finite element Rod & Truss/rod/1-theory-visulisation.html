@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Longitudinal vibration of a rod - FEM</title>
+    
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<style>.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}</style>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <style>
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+ 
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 170px;
+            background-color: #003E74;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+ 
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+            top: -5px;
+            left: 105%;
+        }
+ 
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent #003E74 transparent transparent;
+        }
+ 
+        .tooltip:hover .tooltiptext {
+            opacity: 0.8;
+            visibility: visible;
+        }
+   </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2></h2>
+        <h5>Free-Free Rod</h5>
+        <p>
+            Consider a rod element which we will use to compose a macroscopic rod later. Let's assume the rod element has cross-sectional
+            area $A$, length $\ell_0$, Young's Modulus $E$ and density $\rho$. The element has two degrees of freedom, the longitudinal displacements $q_1$ and $q_2$. Here we will consider its steady-state vibration. The analysis we are
+            going to perform assumes that the rod is unconstrained at either end.
+        </p>
+    
+        <div class = "row" align='center'>
+
+            <div class = "three columns" align='center'>
+              <div class = "tooltip">
+                <img src = "rod_element.png" style="width:250px;height:100px;">
+                <span class = "tooltiptext">Rod element with defined displacement.</span>
+              </div>
+            </div>
+       
+            <div class = "nine columns">
+              <div  class = "eight columns">
+                <div class = "tooltip">
+                  <div id = 'graphRod'></div>
+                  <span class = "tooltiptext">Discritized rod with user defined no. of elements.</span>
+                </div>
+              </div>
+              <div  class = "three columns">
+                <div id="elementNum">
+                    <label for="element" class="sliderTitle">
+                      Number of Elements:<br>
+                      <span id="elementDisplay">24</span>
+                    </label>
+                    <span class="sliderMin">1</span>
+                    <input type="range" id="element" name="element" min="1" max="24" value="24" oninput="handleElement()">
+                    <span class="sliderMax">24</span>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <p>
+            The rod is modelled by Lagrangian constant strain elements, where the distribution of displacement is linear and only happens along the rod (1D).
+            Each element contains 2 nodes, where each of then has 1 degree of freedom.
+            As for the analysis, 1 stiffness matrix and 2 mass matrices (consistent and diagonal mass matrices) are listed below for the Lagrangian rod element:            <div class="row" name = "small matrics">
+              <div class = "one column">&emsp;</div>
+              <div class = "three columns">
+                $$
+                \mathbf{k} = \frac{E A}{l_0}\begin{bmatrix}
+                1&-1 \\
+                -1&1
+                \end{bmatrix}
+                $$
+              </div>
+              <!-- <div class = "one column">&emsp;</div> -->
+              <div class = "three columns">
+                $$
+                \mathbf{m_{C}} = \frac{\rho Al_0}{6}\begin{bmatrix}
+                2&1 \\
+                1&2
+                \end{bmatrix}
+                $$
+              </div>
+              <!-- <div class = "one column">&emsp;</div> -->
+              <div class = "three columns">
+                $$
+                \mathbf{m_{D}} = \frac{\rho Al_0}{6}\begin{bmatrix}
+                3&0 \\
+                0&3
+                \end{bmatrix}
+                $$
+              </div>
+            </div>
+            <p> Assuming that we choose to represent the rod using $n$ elements, where  $n = \frac{L}{\ell_0}$, the system will contain $(n+1)$ DoFs, with the following assembled mass and stiffness matrices,
+                each with dimensions  (n+1) by (n+1):
+                <div class="row" name = "small matrics" align='center'>
+              <div class = "two columns">&emsp;</div>
+              <div class = "three columns">
+                $$\mathbf{{M}_C} = \frac{\rho Al_0}{6}\left.\left(
+                            \vphantom{\begin{array}{c}1\\1\\1\\1\\1\end{array}}
+                            \smash{\underbrace{
+                                \begin{array}{ccccc}
+                                       2&1&0&\cdots &0\\
+                                       1&4&1&\cdots &0\\
+                                       0&1&4&\cdots &0\\
+                                       \vdots&&&\ddots&\\
+                                       0&0&0&\cdots &2
+                                \end{array}
+                              }_{n+1\text{ columns}}}
+                        \right)\right\}
+                        \,n+1\text{ rows}
+                $$
+              </div>
+              <div class = "one column">&emsp;</div>
+              <div class = "three columns">
+                $$\mathbf{K} = \frac{E A}{l_0}\left.\left(
+                            \vphantom{\begin{array}{c}1\\1\\1\\1\\1\end{array}}
+                            \smash{\underbrace{
+                                \begin{array}{ccccc}
+                                       1&-1&0&\cdots &0\\
+                                       -1&2&-1&\cdots &0\\
+                                       0&-1&2&\cdots &0\\
+                                       \vdots&&&\ddots&\\
+                                       0&0&0&\cdots &1
+                                \end{array}
+                              }_{n+1\text{ columns}}}
+                        \right)\right\}
+                        \,n+1\text{ rows}
+                $$
+              </div>
+    
+            </div>
+    
+    
+        </p>
+
+        <p>The equation of motion of the rod modelling the steady state vibration can be written as
+            $$ \mathbf{M}\ddot{q} + \mathbf{K}q = 0 $$
+            where $\mathbf{M}$ represents the global mass matrix and $\mathbf{K}$ the global stiffness matrix. To simplify the following calculations, a normalised mass
+            and stiffness matrix are written out instead as:
+            $$ \frac{\rho A l_0}{6}\mathbf{M}^*\ddot{q} + \frac{EA}{l_0}\mathbf{K}^* q = 0 $$
+          </p>
+          <p>By assuming the natural modes of vibration in the form:
+            $$\mathbf{q} = \bar{q} e^{i\omega t}$$
+            we get the following system of equations:
+            $$ \left ( -\omega ^2 \mathbf{M^*} + \frac{6E}{\rho l_{0}^{2}} \mathbf{K}\right )\bar{q} = 0 $$
+          </p>
+          <p>Rearranging the equations and noting that they represent a generalized eigenvalue problem, we get:
+            $$ \left ( \mathbf{K}^ *- \lambda \mathbf{M}^* \right ) \bar{q} = 0 &emsp;, &emsp; \lambda  = \frac{6E}{\rho l_{0}^{2} \omega^2 }$$
+          </p>
+          <p>By solving the eigenvalue problem we get $k_{\mathrm{max}}+1$ eigenvalues and the same number of eigen modes. This eigenvalue problem can be now solved using standard methods.
+            Because of the free - free boundary conditions, it is expected that the first eigenvalue is 0, with a corresponding
+              eigenmode defining a rigid body motion. The other eigenvalues and eigenvectors will correspond to actual longitudinal vibrations.
+          </p>
+
+    </div> 
+    <script src="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/navigator.js"></script>      
+</body>
+
+</html>
