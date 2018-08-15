@@ -11,11 +11,47 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="dynamicSystem.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/dynamicSystem.html">
+      <file leaf-file-name="1System-Visualisation.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/1System-Visualisation.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="35" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+            <state relative-caret-position="495">
+              <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="2Equations-of-Motion.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/2Equations-of-Motion.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="3Vibration-Frequencies.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/3Vibration-Frequencies.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="4Mode-Shapes.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/4Mode-Shapes.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Q1_graphics2.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scripts/Q1_graphics2.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="6915">
+              <caret line="461" column="23" selection-start-line="461" selection-start-column="23" selection-end-line="461" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -77,14 +113,19 @@
         <option value="$PROJECT_DIR$/Q1EquM.html" />
         <option value="$PROJECT_DIR$/dynamicSystemT3.html" />
         <option value="$PROJECT_DIR$/abc" />
-        <option value="$PROJECT_DIR$/scripts/Q1_graphics2.js" />
         <option value="$PROJECT_DIR$/scripts/Q1_canvas.js" />
         <option value="$PROJECT_DIR$/dynamicSystem1.html" />
-        <option value="$PROJECT_DIR$/styles/myStyleSheet.css" />
-        <option value="$PROJECT_DIR$/dynamicSystem.html" />
         <option value="$PROJECT_DIR$/scripts/Q1_graphics1.js" />
         <option value="$PROJECT_DIR$/dynamicSystem2.html" />
         <option value="$PROJECT_DIR$/dynamicSystem3.html" />
+        <option value="$PROJECT_DIR$/dynamicSystem.html" />
+        <option value="$PROJECT_DIR$/1Q1-Visualisation.html" />
+        <option value="$PROJECT_DIR$/1System-Visualisation.html" />
+        <option value="$PROJECT_DIR$/styles/myStyleSheet.css" />
+        <option value="$PROJECT_DIR$/scripts/Q1_graphics2.js" />
+        <option value="$PROJECT_DIR$/2Equations-of-Motion.html" />
+        <option value="$PROJECT_DIR$/3Vibration-Frequencies.html" />
+        <option value="$PROJECT_DIR$/4Mode-Shapes.html" />
       </list>
     </option>
   </component>
@@ -108,33 +149,28 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="Dynamic system" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dynamic system" type="462c0819:PsiDirectoryNode" />
+              <item name="Dynamic System" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Dynamic System" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Dynamic system" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dynamic system" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Dynamic system" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dynamic system" type="462c0819:PsiDirectoryNode" />
+              <item name="Dynamic System" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Dynamic System" type="462c0819:PsiDirectoryNode" />
               <item name="scripts" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Dynamic system" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dynamic system" type="462c0819:PsiDirectoryNode" />
+              <item name="Dynamic System" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Dynamic System" type="462c0819:PsiDirectoryNode" />
               <item name="styles" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -197,17 +233,17 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32880846" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32880846" />
+      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32880846" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.225" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" id="SciView" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -229,23 +265,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/scripts/hide.js" />
-    <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Florian/test spoiler.html" />
-    <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Roan/script/freqetdamp2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1700">
-          <caret line="152" column="21" lean-forward="true" selection-start-line="152" selection-start-column="21" selection-end-line="152" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Roan/modeshape.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="28" lean-forward="true" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/graph.js" />
     <entry file="file://$PROJECT_DIR$/scripts/graphic.js" />
     <entry file="file://$USER_HOME$/Documents/Imperial-Visualizations/visuals_mechanics/mechanics_diatomic/diatomic.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -270,26 +289,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Roan/modeshape1.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Roan/script/freqetdamp1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="359" lean-forward="true" selection-start-line="359" selection-end-line="359" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Florian/data.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Florian/graphs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4275">
-          <caret line="285" column="27" selection-start-line="285" selection-start-column="27" selection-end-line="285" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Roan/modeshape1.html" />
+    <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Roan/script/freqetdamp1.js" />
+    <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Florian/data.js" />
+    <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Florian/graphs.js" />
     <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Florian/Free_Vibrations.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -297,37 +300,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Florian/harmonic.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="426">
-          <caret line="310" column="16" lean-forward="true" selection-start-line="310" selection-start-column="16" selection-end-line="310" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Florian/harmonic.js" />
     <entry file="file://$PROJECT_DIR$/slideShow.css" />
     <entry file="file://$PROJECT_DIR$/index.html" />
-    <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Roan/freqanddaping4.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Roan/freqanddaping4.html" />
     <entry file="file://$PROJECT_DIR$/dynamicSystemTheory.html" />
-    <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Roan/freqanddaping1.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="13" lean-forward="true" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Roan/freqanddaping3.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="39" lean-forward="true" selection-start-line="13" selection-start-column="39" selection-end-line="13" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Roan/freqanddaping1.html" />
+    <entry file="file://$PROJECT_DIR$/../Aeronautical-Visualizations/Roan/freqanddaping3.html" />
     <entry file="file://$PROJECT_DIR$/navigation.js、" />
     <entry file="file://$PROJECT_DIR$/index1.html" />
     <entry file="file://$PROJECT_DIR$/index2.html" />
@@ -348,20 +327,6 @@
     <entry file="file://$PROJECT_DIR$/dynamicSystemT1.html" />
     <entry file="file://$PROJECT_DIR$/dynamicSystemT2.html" />
     <entry file="file://$PROJECT_DIR$/abc" />
-    <entry file="file://$PROJECT_DIR$/scripts/Q1_graphics2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/styles/myStyleSheet.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="1" selection-start-line="35" selection-start-column="1" selection-end-line="35" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/Q1_canvas.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1095">
@@ -369,38 +334,57 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/dynamicSystem2.html" />
+    <entry file="file://$PROJECT_DIR$/dynamicSystem3.html" />
     <entry file="file://$PROJECT_DIR$/scripts/Q1_graphics1.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" column="19" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
+        <state relative-caret-position="8310">
+          <caret line="554" column="29" lean-forward="true" selection-start-line="554" selection-start-column="29" selection-end-line="554" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dynamicSystem1.html">
+    <entry file="file://$PROJECT_DIR$/dynamicSystem1.html" />
+    <entry file="file://$PROJECT_DIR$/dynamicSystem.html" />
+    <entry file="file://$PROJECT_DIR$/1Q1-Visualisation.html" />
+    <entry file="file://$PROJECT_DIR$/styles/myStyleSheet.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="34" column="71" selection-start-line="34" selection-start-column="71" selection-end-line="34" selection-end-column="71" />
+        <state relative-caret-position="600">
+          <caret line="40" column="19" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dynamicSystem2.html">
+    <entry file="file://$PROJECT_DIR$/scripts/Q1_graphics2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="39" column="14" selection-start-line="39" selection-start-column="14" selection-end-line="39" selection-end-column="14" />
+        <state relative-caret-position="6915">
+          <caret line="461" column="23" selection-start-line="461" selection-start-column="23" selection-end-line="461" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dynamicSystem3.html">
+    <entry file="file://$PROJECT_DIR$/1System-Visualisation.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="43" column="73" selection-start-line="43" selection-start-column="73" selection-end-line="43" selection-end-column="73" />
+        <state relative-caret-position="495">
+          <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dynamicSystem.html">
+    <entry file="file://$PROJECT_DIR$/2Equations-of-Motion.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="35" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+        <state relative-caret-position="270">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/3Vibration-Frequencies.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/4Mode-Shapes.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
         </state>
       </provider>
     </entry>

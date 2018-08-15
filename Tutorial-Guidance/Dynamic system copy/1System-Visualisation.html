@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Imperial Visualisations</title>
+    <link rel="icon" href="https://www.imperial.ac.uk/T4Assets/favicon-196x196.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css">
+    <link rel="stylesheet" href="styles/myStyleSheet.css">
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true
+    }
+    });</script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+
+<!-- *Instructions nav bar* -->
+<div id="instructions" class="sideNav verticalText" onmouseenter="navShow()" onmouseleave="navHide()" onclick="openModal(); scrollToTop(); currentSlide(1);">
+    Instructions for use
+</div>
+
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <!-- *Animation and trail of the MSD system* -->
+        <div class="seven columns">
+
+            <div class="row">
+                <div class="eleven columns">
+                    <!-- Slideshow container -->
+                    <div class="slideshow-container">
+                        <!-- Full-width images with number and caption text -->
+                        <div class="mySlides fade">
+                            <!-- <div class="numbertext">1 / 2</div> -->
+                            <br>
+                            <div style="text-align:center;" >
+                                <canvas width="500" height="500" ></canvas>
+                            </div>
+                            <br>
+                            <div style="text-align:center;">
+                                <button id="playPauseButton" onclick="calcu_resp(); plot_resp(); plot_resp2(); startAnime()">Start</button>
+                                <button id="resetButton" onclick="stopAnime(); slider();">Reset</button>
+                            </div>
+                        </div>
+
+                        <div class="mySlides fade">
+                            <!-- <div class="numbertext">2 / 2</div> -->
+                            <div id="plot_r"  style="height: 45vh; width: 75vh"></div>
+                            <div id="plot_theta" style="height: 45vh; width: 75vh;"></div>
+                        </div>
+
+                        <!-- Next and previous buttons -->
+                        &emsp;&emsp;&emsp;&emsp;
+                        <a id="prev1" class="prev" onmouseenter="arrowShow1()" onmouseleave="arrowHide1()" onclick="plusSlides(-1); calcu_resp(); plot_resp(); plot_resp2();">&#10094;</a>
+                        <a id="prev2" class="next" onmouseenter="arrowShow2()" onmouseleave="arrowHide2()" onclick="plusSlides(1); calcu_resp(); plot_resp(); plot_resp2();">&#10095;</a>
+                        <br>
+
+                        <!-- The dots/circles -->
+                        <div style="text-align:center">
+                            <span class="dot" onclick="currentSlide(1); calcu_resp(); plot_resp(); plot_resp2();"></span>
+                            <span class="dot" onclick="currentSlide(2); calcu_resp(); plot_resp(); plot_resp2();"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- *user inputs page* -->
+        <div class="five columns">
+
+            <br>
+            <h4>Parameters</h4>
+            <div class="row">
+                <div class="row">
+                    <div class="six columns">
+                        <label class="label">m :
+                            <span id="mDisplay"></span>
+                            kg
+                        </label>
+                        <input type="range" min="1" max="7" step="0.1" value="4" style="width: 17em" id="m" oninput="calcu_resp(); plot_resp(); slider();" onmousemove="plot_resp2()" onchange="plot_resp2()">
+                    </div>
+
+                    <div class="six columns">
+                        <label class="label">ℓ :
+                            <span id="LDisplay"></span>
+                            m
+                        </label>
+                        <input type="range" min="1" max="2" value="1.5" step="0.1" style="width: 17em" id="L" oninput="calcu_resp(); plot_resp(); slider();" onmousemove="plot_resp2()" onchange="plot_resp2()">
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="six columns">
+                        <label class="label">k :
+                            <span id="kDisplay"></span>
+                            N/m
+                        </label>
+                        <input type="range" min="6" max="10" value="8" step="0.1" style="width: 17em" id="k" oninput="calcu_resp(); plot_resp(); slider();" onmousemove="plot_resp2()" onchange="plot_resp2()">
+                    </div>
+
+                    <div class="six columns">
+                        <label class="label">k <sub>&theta;</sub> :
+                            <span id="k_thetaDisplay"></span>
+                            N&middot;m/rad
+                        </label>
+                        <input type="range" min="5" max="11" value="8" step="0.1" style="width: 17em" id="k_theta" oninput="calcu_resp(); plot_resp(); slider();" onmousemove="plot_resp2()" onchange="plot_resp2()">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="six columns">
+                        <label class="label">I :
+                            <span id="IDisplay"></span>
+                            kg&middot;m<sup>2</sup>
+                        </label>
+                        <input type="range" min="6" max="7" value="6.5" step="0.1" style="width: 17em" id="I" oninput="calcu_resp(); plot_resp(); slider();" onmousemove="plot_resp2()" onchange="plot_resp2()">
+                    </div>
+                </div>
+
+                <div class="twelve columns">
+                    <br>
+                    <h4>Mode Shapes</h4>
+                    <p>
+                    <div class="row">
+                        <div class="seven columns" style="font-size: large">
+                            <label class="label">1<sup>st</sup> Mode</label>
+                        </div>
+
+                        <div class="three columns" style="font-size: large">
+                            <label class="label">2<sup>st</sup> Mode</label>
+                        </div>
+
+                        <input type="range" min="0" max="1" step = "0.01" value="0.5" id="mode1" oninput="calcu_resp(); plot_resp();" onmousemove="plot_resp2()" onchange="plot_resp2()">
+                    </div>
+
+                </div>
+
+
+                <!--<div class="spoiler">
+                    <input onclick="showSpoiler();" value="Equations of motion" type="button">
+                    <div id="spoiler1" class="inner" style="display: none;">
+                        <p style="font-style: bold; font-size: large">
+                            <img src="assets/Q1EquM.png" alt="Dynamic system equation of motions">
+                            <a href="dynamicSystem1.html" target="_blank">
+                                Show solutions
+                            </a>
+                        </p>
+                    </div>
+                </div>-->
+
+
+            </div>
+        </div>
+
+        <div id="guideModal" class="modal">
+            <div class="modalContent modalContentH" id="modal_1">
+                <div class="modalHeader">
+                    <span class="closeBtn closeBtnH" onclick="closeModal()">&times;</span>
+                    <h5>Visualisation Guidance</h5>
+                </div>
+                <div class="modalBody">
+                    <p>Hello :-)
+                        <br>
+                        This is the guidance for the Dynamic System visualisation.
+                    </p>
+                    <button class="nextBtn" onclick="nextModal(0)">Continue</button>
+                </div>
+            </div>
+
+            <div class="modalContent" id="modal_2">
+                <span class="closeBtn" onclick="closeModal()">&times;</span>
+                <div class="modalBody">
+                    <p>
+                        The slider on the right allows you to change the input parameters of the dynamic system shown.
+                    </p>
+                    <button class="nextBtn" onclick="nextModal(1)">Continue</button>
+                </div>
+            </div>
+
+            <div class="modalContent" id="modal_3">
+                <span class="closeBtn" onclick="closeModal()">&times;</span>
+                <div class="modalBody">
+                    <p>
+                        Drag the slider to the leftmost position for pure first mode, or to the rightmost position for pure second mode. In between positions allow you to see a combination of the two mode shapes.
+                    </p>
+                    <button class="nextBtn" onclick="nextModal(2); showSpoiler();">Continue</button>
+                </div>
+            </div>
+
+            <div class="modalContent" id="modal_4">
+                <span class="closeBtn" onclick="closeModal()">&times;</span>
+                <div class="modalBody">
+                    <p>
+                        Click the button "show solution" to see the theory and calculations required for this animation.
+                    </p>
+                    <button class="nextBtn" onclick="nextModal(3); showSpoiler();">Continue</button>
+                </div>
+            </div>
+
+            <div class="modalContent" id="modal_5">
+                <span class="closeBtn" onclick="closeModal()">&times;</span>
+                <div class="modalBody">
+                    <p>
+                        The reset button sets time to 0s and all parameters to the default values.
+                    </p>
+                    <button class="nextBtn" onclick="nextModal(4); currentSlide(2); calcu_resp(); plot_resp(); plot_resp2();">Continue</button>
+                </div>
+            </div>
+
+            <div class="modalContent" id="modal_6">
+                <span class="closeBtn" onclick="closeModal()">&times;</span>
+                <div class="modalBody">
+                    <p>
+                        Notice this second tab that allows you to see graphs displacement, velocity and acceleration versus time.
+                        In the plots, you can hide and show individual curves by clicking the respective legend.
+                    </p>
+                    <button class="nextBtn" onclick="nextModal(5); currentSlide(1);">Continue</button>
+                </div>
+            </div>
+
+            <div class="modalContent" id="modal_7">
+                <span class="closeBtn" onclick="closeModal()">&times;</span>
+                <div class="modalBody">
+                    <p>
+                        Have fun!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>console.log("Hello global1");</script>
+
+<script src=https://code.jquery.com/jquery-latest.min.js></script>
+<script src="scripts/Q1_graphics1.js"></script>
+<script src="scripts/Q1_canvas.js"></script>
+<script src="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/navigator.js"></script>
+
+</body>
+
+<br>
+<!-- *function to get slider value* -->
+</html>

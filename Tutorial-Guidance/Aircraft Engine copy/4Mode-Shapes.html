@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Imperial visualisation</title>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+<link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+   <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css">    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true
+    }
+    });</script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <p>
+        Each eigenvalue is the square of a natural frequency of the structure, and
+        the corresponding eigenvector is the respective mode shape, i.e. it represents the displaced shape of the structure.
+        If the structure is excited at the $i^\mathrm{th}$ resonant frequency then its displaced shape will be proportional to the $i^\mathrm{th}$ mode shape.
+    </p>
+
+    <p>
+        In order to compute the mode shapes, the responses can be expressed as:
+        $$\begin{bmatrix}r_1\\r_2\end{bmatrix} = \sum_{i = 1}^{n} A_i\cdot\cos(\omega_it)\cdot\vec{\varphi_i} = A_1\cdot\cos(\omega_1t)\cdot\vec{\varphi_1} + A_2\cdot\cos(\omega_2t)\cdot\vec{\varphi_2}$$
+        $$\begin{bmatrix}\ddot{r_1}\\\ddot{r_2}\end{bmatrix} = - \sum_{i = 1}^{n} (\omega_i)^2\cdot A_i\cdot\cos(\omega_it)\cdot\vec{\varphi_i} = - (\omega_1)^2\cdot A_1\cdot\cos(\omega_1t)\cdot\vec{\varphi_1} - (\omega_2)^2\cdot A_2\cdot\cos(\omega_2t)\cdot\vec{\varphi_2}$$
+        where $A_i$ are constants, $\varphi_i$ are eigenvectors of particular mode and $n$ is the number of degrees of freedoms (DoF).
+        In this case, there are two DoFs, so $n=2$ as shown above.
+    </p>
+
+    <p>
+        Replacing the expressions for $r_1$ and $r_2$ above in the equations of motion from the previous page, we get:
+
+        $$\begin{bmatrix} \frac{2\sqrt{2}EA}{\ell} - \omega^2 m & 0\\0 & \frac{2\sqrt{2}EA}{\ell} - \omega^2 m\end{bmatrix}
+        (A_1\cdot\vec{\varphi_1} + A_2\cdot\vec{\varphi_2})
+        = 0$$
+
+        For DoF $i$, setting all other constants to zero except for $A_i$, leads us to obtaining the $i^{th}$ mode shape.
+        Writing $\vec{\varphi_i}$ as $\begin{bmatrix}\varphi_i^1\\\varphi_i^2\end{bmatrix}$:
+        $$A_i\cdot\begin{bmatrix} \frac{2\sqrt{2}EA}{\ell} - (\omega_i)^2 m & 0\\0 & \frac{2\sqrt{2}EA}{\ell}
+        - (\omega_i)^2 m\end{bmatrix}
+        \begin{bmatrix}\varphi_i^1\\\varphi_i^2\end{bmatrix}
+        = 0$$
+
+        Hence, the relation between $\varphi_i^1$ and $\varphi_i^2$ can be described by the following equations:
+        $$\begin{cases} [\frac{2\sqrt{2}EA}{\ell} - (\omega_i)^2]\varphi_i^1 - 0 \cdot \varphi_i^2 = 0\\
+        0 \cdot \varphi_i^1 - [\frac{2\sqrt{2}EA}{\ell} - (\omega_i)^2] \varphi_i^2 = 0 \end{cases}$$
+
+        It can be seen that the two DoFs are uncoupled, therefore, the mode shapes are:
+        $$\varphi_1 = \begin{bmatrix}1\\0\end{bmatrix}$$
+        $$\varphi_2 = \begin{bmatrix}0\\1\end{bmatrix}$$
+    </p>
+
+    <p>
+        The combination of mode shapes gives system response, with $A_1$ and $A_2$ being absolutely generic.
+        The expressions for the system responses are as follows:
+        $$ \begin{cases}
+        \text{Displacement:}
+        \begin{bmatrix}r\\&theta;\end{bmatrix} = A_1\cdot\cos(\omega_1t)\begin{bmatrix}\varphi_1^1\\\varphi_1^2\end{bmatrix} + A_2\cdot\cos(\omega_1t)\begin{bmatrix}\varphi_2^1\\\varphi_2^2\end{bmatrix}\\
+        \text{Velocity:}
+        \begin{bmatrix}\dot{r}\\\dot{&theta;}\end{bmatrix} = - \omega_1\cdot A_1\cdot\cos(\omega_1t)\begin{bmatrix}\varphi_1^1\\\varphi_1^2\end{bmatrix} - \omega_2\cdot A_2\cdot\cos(\omega_1t)\begin{bmatrix}\varphi_2^1\\\varphi_2^2\end{bmatrix}\\
+        \text{Acceleration:}
+        \begin{bmatrix}r\\&theta;\end{bmatrix} = - (\omega_1)^2\cdot A_1\cdot\cos(\omega_1t)\begin{bmatrix}\varphi_1^1\\\varphi_1^2\end{bmatrix} - (\omega_2)^2\cdot A_2\cdot\cos(\omega_1t)\begin{bmatrix}\varphi_2^1\\\varphi_2^2\end{bmatrix}
+        \end{cases} $$
+
+        where $\omega_1 = \omega_2$ in this case.
+    </p>
+
+    <br>
+    <h3>First mode</h3>
+
+    <div class="row">
+        <div class="seven columns">
+            <p>
+                The animation on the right hand side shows the system response for the first mode shape.
+                Parameters are set to default values of $m = 4 kg, \ell = 1.5 m, EA = 7.5 N/m$.
+            </p>
+
+            <p>
+                Setting $A_1 = 1, A_2 = 0$, the expression of DoF $r_1$ displacement for first mode is as follows:
+                $$r_1 =  \cos(\omega_1 t)\varphi_1^1$$
+                Since $\varphi_1^1 = 1$:
+                $$r =  \cos(\omega_1 t)$$
+                As for DoF $r_2$, the first mode displacement is:
+                $$r_2 =  \cos(\omega_1 t)\varphi_1^2 =  0$$
+            </p>
+
+        </div>
+
+        <div class="five columns">
+            <canvas width="450" height="450" style="margin-top: -60px; margin-left: 50px"></canvas>
+        </div>
+    </div>
+
+    <br>
+    <h3>Second mode</h3>
+
+    <div class="row">
+        <div class="seven columns">
+            <p>
+                The animation on the right hand side shows the system response for the second mode shape.
+                Parameters are set to default values of $m = 4 kg, \ell = 1.5 m, EA = 7.5 N/m$.
+            </p>
+
+            <p>
+                Setting $A_1 = 0, A_2 = 1$, the expression of DoF $r_1$  for the second mode is as follows:
+                $$r_1 =  \cos(\omega_2t)\varphi_2^1$$
+                Since $\varphi_2^1 = 0$:
+                $$r =  0$$
+                As for DoF $r_2$, the second mode displacement is:
+                $$r_2 =  \cos(\omega_2t)\varphi_2^2 =  \cos(\omega_2t)$$
+            </p>
+
+        </div>
+
+        <div class="five columns">
+            <canvas width="450" height="450" style="margin-top: -60px; margin-left: 50px"></canvas>
+        </div>
+    </div>
+
+</div>
+
+<script>console.log("Hi global3");</script>
+<script src="scripts/Q4_graphics2.js"></script>
+<script src="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/navigator.js"></script>
+
+</body>
+
+</html>
