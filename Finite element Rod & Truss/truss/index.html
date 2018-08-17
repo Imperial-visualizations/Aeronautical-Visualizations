@@ -1,0 +1,238 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>FEA: Longitudinal Rod Vibration</title>
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+  <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://www.numericjs.com/lib/numeric-1.2.6.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="style/myStyleSheet.css">
+    <style>.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10%;
+    }</style>
+    <style>
+                .tooltip {
+                    position: relative;
+                    display: inline-block;
+                }
+                
+                .tooltip .tooltiptext {
+                    visibility: hidden;
+                    width: 170px;
+                    background-color: #003E74;
+                    color: #fff;
+                    text-align: center;
+                    border-radius: 6px;
+                    padding: 5px 0;
+                
+                    /* Position the tooltip */
+                    position: absolute;
+                    z-index: 1;
+                    top: 35px;
+                    left: 40%; 
+                }
+        
+                .tooltip .tooltiptext::after {
+                    content: "";
+                    position: absolute;
+                    top: 0%;
+                    right: 50%;
+                    margin-top: -5px;
+                    border-width: 5px;
+                    border-style: solid;
+                    border-color: transparent #003E74 transparent transparent;
+                }
+        
+                .tooltip:hover .tooltiptext {
+                    opacity: 0.8;
+                    visibility: visible;
+                }
+                
+    </style>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            processEscapes: true
+            }
+        });
+    </script>
+</head>
+
+<body>
+        <div id="instructions" class="sideNav verticalText" onmouseenter="navShow()" onmouseleave="navHide()" onclick="openModal(); scrollToTop(); currentSlide(1);">
+            Instructions for use
+        </div>
+    <div class="container">
+            <div class = 'nine columns' id = 'graphs'>
+                    <div class = 'row'>
+                        <div class = "tooltip">
+                            <div id = "graph1" style = "width:500px; height:300px;"></div>
+                            <span class = "tooltiptext">redudant structure with adjustable force</span>
+                        </div>
+                        <div class = "tooltip">
+                                <div id = "graph2" style = "width:500px; height:300px;"></div>
+                                <span class = "tooltiptext">structure with redundancy cutted</span>
+                        </div>
+                    </div>
+                    <div class = 'row'>
+                            <div class = "tooltip">
+                                    <div id = "graph3" style = "width:500px; height:300px;"></div>
+                                    <span class = "tooltiptext">apply unit loads without external load being applied</span>
+                            </div>
+                            <div class = "tooltip">
+                                    <div id = "graph4" style = "width:500px; height:300px;"></div>
+                                    <span class = "tooltiptext">virtual loads to bring the redundancy together</span>
+                            </div>
+                        </div>
+            </div>
+            <div class = 'three columns' id = 'control'>
+                    <div class = "row">&emsp;</div>
+                    <div class = "row">&emsp;</div>
+                    <!-- <div id="elementNum" class = "eleven columns">
+                        <div class = "tooltip">
+                            <label for="element" class="sliderTitle">
+                                Force:
+                                <span id="forceDisp"></span>
+                            </label>
+                            <span class = "tooltiptext">slider to change the force magnitude from 1e5 to 1e6</span>
+                        </div>
+                        <span class="sliderMin"></span>
+                        <input type="range" id="forceMag" name="element" min="1" max="20" value="1" oninput="handleForce()" step = "1">
+                        
+                        <span class="sliderMax"></span>
+                        
+                    </div> -->
+        
+                    <!-- <div id="elementNum" class = "eleven columns">
+                        <div class = "tooltip">
+                            <label for="element" class="sliderTitle">
+                                x:
+                                <span id="xDisplay"></span>
+                                </label>
+                                <span class = "tooltiptext">slider to change the force magnitude from 1e5 to 1e6</span>
+                        </div>
+                        <span class="sliderMin"></span>
+                        <input type="range" id="x" min="1" max="20" value="1" oninput="handleVirtual()" step = "1">
+                        <span class="sliderMax"></span>
+                    </div> -->
+
+
+                    <div class="twelve columns offset-by-one column">
+
+                            <label class="forceTitle">External force (N):&nbsp;
+                                <span id="forceDisp"></span>&nbsp;
+                            </label>
+                            <div class="row">
+                                    <input class="inputs" type="range" id="forceMag" min="1" max="20" step = "1" value="1" oninput="handleForce()">         
+
+                                    <div class="six columns" >
+                                        <span class="sliderMin">0</span>
+                                    </div>
+                    
+                                    <div class="three columns" >
+                                        <span class="sliderMax" id="sliderMax">1x10<sup>6</sup></span>
+                                    </div>
+                            </div>
+        
+                            <label class="MassTitle">Virtual force 1:&nbsp;
+                                <span id="virtualDisplay"></span> &nbsp;
+                            </label>
+                            <div class="row">
+                                    <input class="inputs" type="range" id="virtualForce" min="1" max="20" step = "1" value="1" oninput="handleVirtual()">       
+
+                                    <div class="six columns" >
+                                        <span class="sliderMin">1</span>
+                                    </div>
+                    
+                                    <div class="three columns" >
+                                        <span class="sliderMax" id="sliderMax"></span>
+                                    </div>
+                            </div>
+
+                            <label class="xTitle">Virtual force X:&nbsp;
+                                    <span id="xDisplay"></span>&nbsp;
+                            </label>
+                            <div class="row">
+                                        <input type="range" id="x" min="1" max="20" value="10" oninput="handleCombine()" step = "1">         
+    
+                                        <div class="three columns" >
+                                            <span class="sliderMin">&emsp;</span>
+                                        </div>
+                        
+                                        <div class="three columns" >
+                                            <span class="sliderMax" id="sliderMax">$-\frac{d_0}{d_1}$</span>
+                                        </div>
+                            </div>
+                            <input style="width: 180px" class="center" type="button" id="theory" value="show theory">
+
+                    </div>
+            </div>
+             <div id="guideModal" class="modal">
+                <div class="modalContent modalContentH" id="modal_1">
+                    <div class="modalHeader">
+                        <span class="closeBtn closeBtnH" onclick="closeModal()">&times;</span>
+                        <h5>Visualisation Guidance</h5>
+                    </div>
+                    <div class="modalBody">
+                        <p>Hello :-)
+                            <br>
+                            This is the user guidance for the visulation for redundant framework structure, where the methodology is explained in theory section.
+                        </p>
+                        <button class="nextBtn" onclick="nextModal(0)">Continue</button>
+                    </div>
+                </div>
+        
+                <div class="modalContent" id="modal_2">
+                    <span class="closeBtn" onclick="closeModal()">&times;</span>
+                    <div class="modalBody">
+                        <p>
+                            The control surface alters the magnitude of external force, unit load in the 3rd graph and virtual force in the 4th graph.
+                        </p>
+                        <button class="nextBtn" onclick="nextModal(1)">Continue</button>
+                    </div>
+                </div>
+        
+                <div class="modalContent" id="modal_3">
+                    <span class="closeBtn" onclick="closeModal()">&times;</span>
+                    <div class="modalBody">
+                        <p>
+                            The theory button directs you to the theory section.                    
+                        </p>
+                        <button class="nextBtn" onclick="nextModal(2); scrollToBottom(); showSpoiler();">Continue</button>
+                    </div>
+                </div>
+    
+                <div class="modalContent" id="modal_4">
+                  <span class="closeBtn" onclick="closeModal()">&times;</span>
+                  <div class="modalBody">
+                      <p>
+                          The visulization parts compares deformation of the framework structure using different methods and also validates the principle of virtual work.                   
+                      </p>
+                      <button class="nextBtn" onclick="nextModal(3); scrollToBottom(); showSpoiler();">Continue</button>
+                  </div>
+              </div>
+        
+              
+        
+                <div class="modalContent" id="modal_5">
+                    <span class="closeBtn" onclick="closeModal()">&times;</span>
+                    <div class="modalBody">
+                        <p>
+                            Enjoy!
+                        </p>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <script src=main.js></script>
+    <script src="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/navigator.js"></script>
+</body>
+
+</html>

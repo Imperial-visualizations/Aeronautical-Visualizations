@@ -18,7 +18,7 @@
 .prev, .next {
     cursor: pointer;
     position: absolute;
-    top: 310px;
+    top: 400px;
     width: auto;
     margin-top: -20px;
     padding: 16px;
@@ -146,28 +146,34 @@
 
 #modal_2{
     position: relative;
-    top: 150px;
-    left: 200px;
+    top: 120px;
+    left: 80px;
 }
 
 #modal_3{
     position: relative;
-    top: 150px;
-    left: 300px;
+    top: 120px;
+    left: 200px;
 }
 #modal_4{
     position: relative;
-    top: 90px;
-    left: 700px;
+    top: 50px;
+    left: 550px;
 }
 
 #modal_5{
     position: relative;
-    top: 400px;
-    left: 800px;
+    top: 120px;
+    left: 700px;
 }
 
 #modal_6{
+    position: relative;
+    top: 350px;
+    left: 750px;
+}
+
+#modal_7{
     margin: 20% auto;
 }
 

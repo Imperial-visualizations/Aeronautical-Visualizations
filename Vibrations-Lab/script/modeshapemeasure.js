@@ -4,6 +4,8 @@ let ampl;
 let phaseList=[];
 let amplList=[];
 
+let wexp, phaseListp=[], amplListp=[];
+
 let n=9;
 let t=0;
 let dt=0.00005;
@@ -38,9 +40,11 @@ $('input#match').on('click', matchFreq)
 function matchFreq (){
       if ($(this).val().toString()=="Match Frequencies"){
         wt=wex;
+        console.log(wt);
         $(this).val("Unmatch Frequencies")
       }else {
             wt=w[k];
+            console.log(wt);
             $(this).val("Match Frequencies")
         }};
 
@@ -51,6 +55,10 @@ $('input#reset').on('click',resetValues)
 function resetValues() {
   phaseList=[];
   amplList=[]
+  phaseListp=[]; 
+  amplListp=[];
+  wexp;
+  $('#frequency').val('');
   clearInterval(anim)
   z=[0, 0, 0, 0, 0, 0, 0, 0, 0]
   zmes=[0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -59,41 +67,66 @@ function resetValues() {
    if ($('input#start').val().toString()=="Pause"){
         $('input#start').val("Start")
       }
-  document.getElementById('frequency').value = ''
 }
 
 //function that takes the values inputed by the students in the input form, on the press of the "submit" button
 $('input#submit').on('click', takeValues)
 function takeValues() {
+
         phase = parseFloat($("#phase").val());
         ampl = parseFloat($("#amplitude").val());
         $('#phase').val('')
         $('#amplitude').val('')
-        wex = parseFloat($('#frequency').val());
+        wexp = parseFloat($('#frequency').val());
         
-        if (phase && ampl && amplList.length<9){
-          phaseList.push(phase)
-          amplList.push(ampl)
-          console.log(phaseList)
+        if (wexp && phase && ampl && amplListp.length<9){
+          phaseListp.push(phase)
+          amplListp.push(ampl)
+          $('#previous').val("Show NEW Experimental Data")
+          select()
         }
           else{alert('Input your values!')};
-        //wex=17.33759511;
-        //amplList=[0.2587891, 0.2929688, 1.3867188, 3.0371094, 5.5273438, 9.1870117, 1.015625, 0.9228516, 9.284668];
-        //phaseList=[-1.45071, -1.9997, -1.93723, -1.95051, 1.172893, 1.190894, -1.91862, -1.95301, 1.131028];
 
-        if(amplList.length===9){
+        console.log(amplListp)
+        if(amplListp.length===9){
           alert('You have now imported all your data, anyting that you will add will not count. Click "Reset" to start again.')
-          correctAplitude();
-        }
-        
-      }
+        } }
+
+$('input#previous').on('click', select)
+function select() {
+
+  if ($('#previous').val().toString()=="Show PREVIOUS Experimental Data"){
+            $('#previous').val("Show NEW Experimental Data")
+            wex=17.33759511;
+            amplList=[0.2587891, 0.2929688, 1.3867188, 3.0371094, 5.5273438, 9.1870117, 1.015625, 0.9228516, 9.284668];
+            phaseList=[-1.45071, -1.9997, -1.93723, -1.95051, 1.172893, 1.190894, -1.91862, -1.95301, 1.131028];
+            wt=w[k]; 
+            console.log(wt);
+            if(wt===wex){
+                $('#match').val("Unmatch Frequencies")}
+            else{$('#match').val("Match Frequencies")}
+            if(amplList.length===9){
+            correctAplitude();}
+  }else if($('#previous').val().toString()=="Show NEW Experimental Data"){
+            $('#previous').val("Show PREVIOUS Experimental Data")
+            $('#match').val("Match Frequencies")
+            wex=wexp
+            wt=w[k]; 
+            console.log(wt);
+            phaseList = phaseListp;
+            amplList=amplListp;
+            if(wt===wex){
+                $('#match').val("Unmatch Frequencies")}
+            else{$('#match').val("Match Frequencies")}
+            if(amplList.length===9){
+            correctAplitude();}
+  };
+}
 for (var i = 0; i <w.length; i++) {
             if(0.7*w[i]<=wex && 1.3*w[i]>=wex){
                 k=i;
-                console.log(k)
             }
         }
-        console.log(w[k])
         wt=w[k]; //store the theoretical frequency in a separate variable
 // function that calculates the corrected amplitude and then normalises it. 
 //The generate2D function is called inside so that the plots are made after the amplitude is calculated.
@@ -265,6 +298,7 @@ function openModal(){
     modalContent[4].style.display = "none";
     modalContent[5].style.display = "none";
     modalContent[6].style.display = "none";
+    modalContent[7].style.display = "none";
 }
 
 //Function to close modal

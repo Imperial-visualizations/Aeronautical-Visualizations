@@ -32,7 +32,7 @@ $("#modal").mouseleave(navHide);
 
 // function that opens the theory page in a new tab
 $('#theory').click(function() {
-  window.open('freqanddapingtheory1.html', '_blank');
+  window.open('freqanddampingtheory1.html', '_blank');
 });
 // function animates and relayouts given new data and a plotly div
 function animate_shorthand(data,div){

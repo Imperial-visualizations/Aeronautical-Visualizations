@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Redundant framework</title>
+    
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<style>.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}</style>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <style>
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+ 
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 170px;
+            background-color: #003E74;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+ 
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+            top: -5px;
+            left: 105%;
+        }
+ 
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent #003E74 transparent transparent;
+        }
+ 
+        .tooltip:hover .tooltiptext {
+            opacity: 0.8;
+            visibility: visible;
+        }
+   </style>
+</head>
+
+<body>
+    <div class="container">
+        <p>&emsp;</p>
+        <p>
+        This visulization talks about solving the static deformation of a redundant structure.
+        First of all the method of Finite Element is used to performe the calculation using the assembled stiffness matrix.
+        Then another method described in detail in 2nd year Structural Mechanics and Dynamics notes, which utilizes the principal of virtual work. This methods is ssupposed to give exactly the same result as the 
+        direct stiffness method and the corresponding comparison is shown in the visulization page for redundant framework structure.
+        The above methodology is applied to a fundamental structure often used in bridge structure and is of hope to provide a intuituive illustration of how this method can be applied in real life.
+        </p>
+            <img src='truss_theory.PNG' style="width:200px;height:100px;">
+        <p>&emsp;</p>
+        <h3>Direct stiffness method</h3>
+        <p>For a truss structure listed above, the stiffness matrix of a single typical member can be found. Here a single member corresponds to a single finite element.
+            Each 2-dimensional pin-ended bar element can be considered as a rod element. Similarly to the theory explained in the rod, the global stiffness matrix for a single rod element, aligned of an angle &alpha;, with Young's Modulus E, length l and density &rho;, is as following:
+            $$
+                \mathbf{k} = \frac{E A}{l}\begin{bmatrix}
+                1&-1 \\
+                -1&1
+                \end{bmatrix}
+            $$
+        </p>
+        <p>Following this, a mapping scheme is applied to assemble the stiffness matrix for the whole structure.</p>
+
+        <h3>The principal of vitual work</h3>
+        <p>For a frame the unit load method gives the delfection at the point where the virtual unit load is applied and in the direction of the unit load as:
+                \[r=\int \bar{\sigma_{i}}\varepsilon _{i}dV = \sum_{i=0}^{no. of bars} \frac{\bar{N_{i}}N_{i}}{E_i A_i}L_i\]
+        </p>
+        <p>To solve the problem with redundancy by hand, which is the case since only relative displacement can be found in this structure directly using unit load mehtod,
+            the folloing steps would shown useful:
+            <li>Decide upon the number of redundancies in the system. For the structure we used
+                 there is only one. If there were one bar less it would be statically
+                determinate.
+            </li>
+            <li>
+                    Remove the redundancy by either cutting a member or removing a support.
+                    The resulting structure must be statically determinate and not a mechanism. This limits
+                    the choice of what can be cut or removed. 
+            </li>
+            <li>
+                    Apply the actual load to the basic system (the system with bar 14 cut) and
+                    find the forces in all of the members using equilibrium.
+            </li>
+            <li>
+                    Apply a pair of unit loads across the cut faces, as shown below. Find
+                    all of the forces in the members.
+            
+            </li>
+            <li>– Using the member forces of steps 3 and 4 and put them into equation.
+                    The displacement found from this will be the relative displacement $\delta_0$, across the cut
+                    face due to the applied load.
+            </li>
+            <li>
+                    Use the member forces found in basic structure for both $N_i$ and $\bar{N_i}$
+                    in equation above, calculate the displacement. This will be the relative displacement, $\delta_1$, across the cut
+                    face due to a unit load across the cut face. the displacement across the cut would be $\delta_1$ times the bar force X.
+            </li>
+            <li>
+                The final displacement across the cut dace has to be zero to maintain compatibility of displacement in the cutted member. This gives $zdelta_0 + \delta_1 X$
+            </li>
+        </p>
+            <img src='truss_theory_2.PNG' style="width:200px;height:100px;">
+            <p>&emsp;</p>
+            <input style="width: 200px" class="center" type="button" id="visual" value="back to visulization">
+
+    </div> 
+    <script src="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/navigator.js"></script>      
+</body>
+<script>
+    $('#visual').click(function() {
+    window.open('index.html', '_blank');
+});
+</script>
+
+</html>

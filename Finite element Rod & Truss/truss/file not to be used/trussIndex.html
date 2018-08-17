@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Imperial Visualisations</title>
+    <link rel="icon" href="https://www.imperial.ac.uk/T4Assets/favicon-196x196.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://rawgit.com/cydcowley/public-test-data/master/Style2.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src = "http://www.numericjs.com/lib/numeric-1.2.6.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js"></script>
+    <link rel="stylesheet" href="myStyleSheet.css">
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css">
+    <style>
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 170px;
+            background-color: #003E74;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+        
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+            top: -5px;
+            left: 105%; 
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent #003E74 transparent transparent;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            opacity: 0.8;
+            visibility: visible;
+        }
+    </style>
+  </head>
+
+  <body>
+
+    <div id="instructions" class="sideNav verticalText" onmouseenter="navShow()" onmouseleave="navHide()" onclick="openModal(); scrollToTop(); currentSlide(1);">
+        Instructions for use
+    </div>
+
+    <div class = container>
+        <h1> FEA: Static redundant truss structure</h1>
+        <div class = 'nine columns' id = 'graphs'>
+            <div class = 'row'>&emsp;</div>
+            <div class = 'row'>&emsp;</div>
+            <div class = 'row'>
+                <div class = "tooltip">
+                    <div id = "graph1" style = "width:850px; height:500px;"></div>
+                    <span class = "tooltiptext">redudant structure with adjustable force</span>
+                </div>
+                <div class = "tooltip">
+                        <div id = "graph2" style = "width:850px; height:500px;"></div>
+                        <span class = "tooltiptext">structure with reduncy cutted</span>
+                </div>
+            </div>
+            <div class = 'row'>
+                    <div class = "tooltip">
+                            <div id = "graph3" style = "width:850px; height:500px;"></div>
+                            <span class = "tooltiptext">apply unit loads without external load being applied</span>
+                    </div>
+                    <div class = "tooltip">
+                            <div id = "graph4" style = "width:850px; height:500px;"></div>
+                            <span class = "tooltiptext">virtual loads to bring the reduncy together</span>
+                    </div>
+                </div>
+        </div>
+        
+        <div class = 'two columns' id = 'control'>
+            <div class = "row">&emsp;</div>
+            <div class = "row">&emsp;</div>
+            <div id="elementNum" class = "eleven columns">
+                <div class = "tooltip">
+                    <label for="element" class="sliderTitle">
+                        Force:
+                        <span id="forceDisp">5</span>
+                    </label>
+                    <span class = "tooltiptext">slider to change the force magnitude from 1e5 to 1e6</span>
+                </div>
+                <span class="sliderMin"></span>
+                <input type="range" orient="vertical" id="forceMag" name="element" min="1" max="20" value="1" oninput="handleForce()" step = "1">
+                <span class="sliderMax"></span>
+            </div>
+
+            <div id="elementNum" class = "eleven columns">
+                <div class = "tooltip">
+                    <label for="element" class="sliderTitle">
+                        x:
+                        <span id="xDisplay"></span>
+                        </label>
+                        <span class = "tooltiptext">slider to change the force magnitude from 1e5 to 1e6</span>
+                </div>
+                <span class="sliderMin"></span>
+                <input type="range" orient="vertical" id="x" min="1" max="20" value="1" oninput="handleVirtual()" step = "1">
+                <span class="sliderMax"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <script src = "trussTemp.js"></script>
+    <script src="https://rawgit.com/cydcowley/public-test-data/master/navigation.js"></script>
+
+  </body>
+
+  </html>
+
+
