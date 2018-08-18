@@ -7,22 +7,28 @@ x=[0,0,0,0,0, -1.016*Math.cos(Math.PI/6), -1.016*Math.cos(Math.PI/6)/2, 1.016*Ma
 // incremented in the for loop with the eigenvector and a sine function
 z=[0, 0, 0, 0, 0, 0, 0, 0, 0]
 // the eigenvectors for the mode shapes
-xi=[[0.051, -0.054, -0.15, -0.353, -0.639, 1, 0.118, 0.118, 1],[1,  0.198, -0.228,  0.03,  0.708, 0.214, -0.231, -0.231, 0.214],[-0.823, 0.29,  0.494, 0.208, 0.131, 0.545, -1, -1, 0.545],[0.78, -0.62, -0.107,  1, -0.82, 0.025, -0.089, -0.089, 0.025]];
+xi=[[0.051, -0.054, -0.15, -0.353, -0.639, 1, 0.118, 0.118, 1],[1,  0.198, -0.228,  0.03,  0.708, 0.214, -0.231, -0.231, 0.214],[-0.823, 0.29,  0.494, 0.208, 0.131, 0.545, -1, -1, 0.545],[0.78, -0.62, -0.107,  1, -0.82, 0.025, -0.089, -0.089, 0.025],[-0.87573374885010935,1,-0.2699170241978317,0.3544158096378055,-0.24153902434171154,-0.035645767866736663,0.061189182073798108,0.061189182073798108,-0.035645767866736663],[-1,0.96073121957399066,-0.3675846499086089,-0.47795867491901484,0.452883797527915,0.8124909513726768,0.28100285936623415,0.28100285936623415,0.8124909513726768],[-0.0084215161285740685,-0.0017116884223683652,-0.32231936139084988,0.027405366248597365,-0.038769370623410938,1,0.60373918725054343,0.60373918725054343,1],[-1,0.060948407855320089,-0.08043048929324309,0.0068627094197270611,0.5848929324309331,-0.17865660712304449,-0.21376278708532123,-0.21376278708532123,-0.17865660712304449],[-1,-0.38871691527818175,0.14259497790889325,-0.312437847121231,-0.62839157352391239,-0.033421697760418832,-0.040239401116328025,-0.040239401116328025,-0.033421697760418832],[1,0.60741714075246489,-0.14591937803925081,-0.26409241811132178,-0.36373056994818648,-0.15074285884935271,-0.17298830837228052,-0.17298830837228052,-0.15074285884935271],[1,0.76075715807969524,-0.62295908156968016,-0.30894027834968374,-0.34817599545688382,-0.81115368536196664,-0.84777103365321649,-0.84777103365321649,-0.81115368536196664],[0.976232222871615,1,0.025919694033447148,-0.58825248392752771,-0.528740758969311,0.2033995714007403,0.11399561147169501,0.11399561147169501,0.2033995714007403],[1,0.68762200642947924,0.18457381856242161,0.37183863170048925,0.52468371780068612,0.0080583221883488536,-0.0005552777385511243,-0.0005552777385511243,0.0080583221883488536]];
 // the resonance frequencies
-w=[15.65, 34.45, 65.2, 106.84].map(function(x){return x*2*Math.PI})
+w=[15.65, 34.45, 65.2, 106.84, 161.91, 462.13, 510.41, 742.93, 923.12, 1039.6, 1149.2, 1604.9, 2550.6].map(function(x){return x*2*Math.PI})
 y3=y;
 x3=x;
 z3=z;
 
-//open theory page in new tab
+let mode3;
+//show and hide the modal bar
+$("#modal").mouseenter(navShow);
+$("#modal").mouseleave(navHide);
+
+// function that opens the theory page in a new tab
 $('#theory').click(function() {
   window.open('modeshapetheory1.html', '_blank');
 });
 
 // function that takes the mode that the student desires to animate
-$('input#mode3').on('click', getMode)
+$('select#mode').on('change', getMode)
 function getMode(){
- mode3=document.getElementById("mode3").value;
+ mode3=$("#mode").val();
+ $('#omegau').html(w[mode3-1].toFixed(2));
 };
 
 //set the time and time incremets for the 2d and 3d simulations
@@ -163,8 +169,8 @@ var layout2 = {
     },
     showlegend:false
 }
-            Plotly.newPlot('graphAircraftV', [traceAircraftV], layout);
-            Plotly.newPlot('graphAircraftH', [traceAircraftH], layout2);
+            Plotly.newPlot('graphAircraftV', [traceAircraftV], layout,{displayModeBar:false});
+            Plotly.newPlot('graphAircraftH', [traceAircraftH], layout2, {displayModeBar:false});
 
 
 
@@ -205,7 +211,6 @@ function animate2D (){
           return;
         }
 
-
 function begin_animation(){
 
       if ($(this).val().toString()=="Start"){
@@ -218,7 +223,38 @@ function begin_animation(){
             $(this).val("Start")
         };
   }
+  
 $(window).on('load',getMode)
+
+
+
+function main() {
+    $("input[type=range]").each(function () {
+        $(this).on('input', function(){
+            $("#"+$(this).attr("id") + "Display").text( $(this).val());
+            dt=0.00002-$(this).val()*0.00002/100;
+
+        });
+    });
+    $("select").click(function () {
+       var idName = $(this).attr("id");
+       if (idName === "mode") {
+          var value = $(this).val();
+          if( value === "1") {
+          } else if ( value === "2") {
+          } else if (value === "3") {
+          }else if (value === "4") {
+          }else if (value === "5") {
+          }else if (value === "6") {
+          }else if (value === "7") {
+          }else if (value === "8") {
+          }else {}
+
+      }
+   });
+  }
+$(document).ready = main();
+
 
 
 
@@ -269,11 +305,11 @@ $('#modal').click(function(){
   j=0})
 $('.nextBtn').click(function(){
   nextModal(j);
-  if (j===3)
+  if (j===4)
     {
       currentSlide(2)
     }
-  if (j===4)
+  if (j===5)
     {
       currentSlide(1)
     }  
@@ -290,6 +326,7 @@ function openModal(){
     modalContent[3].style.display = "none";
     modalContent[4].style.display = "none";
     modalContent[5].style.display = "none";
+    modalContent[6].style.display = "none";
 }
 
 //Function to close modal
@@ -308,17 +345,6 @@ function outsideClick(e){
 function nextModal(n){
     modalContent[n].style.display = "none";
     modalContent[n+1].style.display = "block";
-}
-function scrollToTop(){
-    //Scroll to top
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-}
-
-function scrollToBottom(){
-    //Scroll to top
-    document.body.scrollTop = 1000; // For Safari
-    document.documentElement.scrollTop = 1000; // For Chrome, Firefox, IE and Opera
 }
 /** --------------------------- Function for hiding after few seconds---------------------------- **/
 /* Function to make fade out instruction tab after window load */

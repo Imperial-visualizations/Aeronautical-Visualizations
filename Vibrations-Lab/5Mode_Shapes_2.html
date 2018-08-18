@@ -1,0 +1,170 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Mode Shapes</title>
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+  <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css">
+    <link rel="stylesheet" href="styles/myStyleSheet4.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://www.numericjs.com/lib/numeric-1.2.6.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+                .tooltip {
+                    position: relative;
+                    display: inline-block;
+                }
+                
+                .tooltip .tooltiptext {
+                    visibility: hidden;
+                    width: 170px;
+                    background-color: #003E74;
+                    color: #fff;
+                    text-align: center;
+                    border-radius: 6px;
+                    padding: 5px 0;
+                
+                    /* Position the tooltip */
+                    position: absolute;
+                    z-index: 1;
+                    top: 35px;
+                    left: 40%; 
+                }
+        
+                .tooltip .tooltiptext::after {
+                    content: "";
+                    position: absolute;
+                    top: 0%;
+                    right: 50%;
+                    margin-top: -5px;
+                    border-width: 5px;
+                    border-style: solid;
+                    border-color: transparent #003E74 transparent transparent;
+                }
+        
+                .tooltip:hover .tooltiptext {
+                    opacity: 0.8;
+                    visibility: visible;
+                }
+        </style>
+</head>
+
+<body>
+    <div id="modal" class="sideNav verticalText">
+        Instructions for use
+    </div>
+    <div class="container">
+        <h3>Experimental data</h3>
+            <div class="row">
+
+                            Input the resonance frequency found previously: 
+                            <input type="number" id="frequency" style="width:120px">&nbsp;(Hz) &nbsp; &nbsp; &nbsp; &nbsp;</input>
+                            <span class="tooltip"> <input type="button" class="button" value="Match Frequencies" id="match"><span class = "tooltiptext">Set the frequencies of the experimental and theoretical mode shapes to be the real ones or set them to be equal instead.</span></span>
+                            <input class="center" type="button" id="theory" value="Show Theory"><br>
+                            Input the data recorded by each accelerometer, one by one: 
+            </div>
+            <div class="row" style="align-items: flex-start;">
+                            Amplitude = <input type="number" id="amplitude" style="width:120px">&nbsp; &nbsp; &nbsp; &nbsp;
+                            Phase angle = <input type="number" id="phase" style="width:120px">&nbsp; &nbsp; &nbsp; &nbsp;
+                            <input type="button" class="button" id="submit" value="submit" href="submit">
+                            <input type="button" class="button" id="reset" value="reset" href="reset"> 
+                            <input type="button" class="button" value="Start" id="start">
+                            <input type="button" value="Show PREVIOUS Experimental Data" id="previous" style="width:312px; color:rgb(33, 97, 140)">
+ 
+            </div>
+            <div class="row">
+                
+                        <div class="six columns" id='graphAircraftV'></div>
+                        <div class="six columns" id='graphAircraftH'></div>
+            </div>
+     <div id="guideModal" class="modal">
+        <div class="modalContent modalContentH" id="modal_1">
+            <div class="modalHeader">
+                <span class="closeBtn closeBtnH">&times;</span>
+                <h5>Visualisation Guidance</h5>
+            </div>
+            <div class="modalBody">
+                <p>
+                    This is the guidance for the Experimental Mode Shapes visualisation.
+                </p>
+                <button class="nextBtn">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_2">
+            <span class="closeBtn">&times;</span>
+            <div class="modalBody">
+                <p>
+                    You can import the experimental data in the three input boxes above. As it is constant, the resonance frequency is loaded only once, at the beginning. The Amplitudes and Phase Angles are loaded one by one. To record the data, press "Submit". 
+                </p>
+                <button class="nextBtn">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_3">
+            <span class="closeBtn" >&times;</span>
+            <div class="modalBody">
+                <p>
+                    Anything that you input after the data for the ninth accelerometer will not be recorded. To start over press "Reset".
+                </p>
+                <button class="nextBtn" >Continue</button>
+            </div>
+        </div>
+
+
+        <div class="modalContent" id="modal_4">
+            <span class="closeBtn" >&times;</span>
+            <div class="modalBody">
+                <p>
+                   The "Match Frequencies" and "Unmatch Frequencies" toggle button allows you to set the frequencies of the theoretical mode shape and your experimental data to be the same. This allows for a better comparison of the eigenvectors.
+                </p>
+                <button class="nextBtn">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_5">
+            <span class="closeBtn" >&times;</span>
+            <div class="modalBody">
+                <p>
+                   Click on the "Start" button to see the mode shape animate. To stop the animation just click on the "Stop" button.
+                </p>
+                <button class="nextBtn">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_6">
+            <span class="closeBtn" >&times;</span>
+            <div class="modalBody">
+                <p>
+                  The "Show previous/new experimental data" button allows you to see previous experimental data and compare it to yours
+                </p>
+                <button class="nextBtn">Continue</button>
+            </div>
+        </div>
+
+
+        <div class="modalContent" id="modal_7">
+            <span class="closeBtn" >&times;</span>
+            <div class="modalBody">
+                <p>
+                    Click on the "Show theory" button to see the underlying theory behind this visualisation
+                </p>
+                <button class="nextBtn">Continue</button>
+            </div>
+        </div>
+
+        <div class="modalContent" id="modal_8">
+            <span class="closeBtn">&times;</span>
+            <div class="modalBody">
+                <p>
+                    Have fun!
+                </p>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src=script/modeshapemeasure.js></script>
+    <script src="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/navigator.js"></script>
+</body>
+
+</html>

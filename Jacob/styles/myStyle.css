@@ -1,0 +1,130 @@
+.grid-container {
+  display: grid;
+  margin: auto;
+  width: 90vw;
+  height: 94vh;
+  grid-template-columns: 7fr 3fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+  "mt mt"
+  "ps eb"
+  "ps mb"
+  "ps nb"
+  "ps sb"
+  "sn tb";
+}
+.mySlides {
+  display: none;
+}
+
+.slidesNav {
+  margin: auto;
+}
+
+}
+
+.userInputs {
+  width:auto;
+  height:auto;
+  margin:auto;
+}
+
+#slide1 {
+}
+
+.slide2 {
+  margin: auto;;
+  display:grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "fu wi";
+  grid-column-gap: 5%;
+}
+
+
+#fusbox {
+  grid-area: fu;
+}
+
+#wibox {
+  grid-area: wi;
+}
+
+
+#mainTitle {
+  grid-area: mt;
+}
+
+#plotSlidesBox {
+  grid-area: ps;
+  margin:auto;
+}
+
+#numberOfElementsBox {
+  grid-area: eb;
+}
+
+#modalShapeBox {
+  grid-area: mb;
+}
+
+#updateBox {
+  grid-area: nb
+}
+
+#showTheoryBox {
+  grid-area: tb;
+}
+
+#slidesNavBox {
+  grid-area: sn;
+  display: grid;
+  margin: auto;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 10%;
+  grid-template-areas:
+  "b1 b2 b3";
+}
+
+#ThreedPlotButton {
+  grid-area:b1;
+}
+
+#TwodPlotButton2 {
+  grid-area:b2;
+}
+
+#FreqPlotButton3 {
+  grid-area:b3;
+}
+
+#startBox {
+  grid-area: sb;
+}
+
+#elemSlider input[type=range]::-ms-tooltip {
+    display: none;
+}
+
+#elemSlider {
+  width: 300px;
+}
+
+#modeSlider {
+  width: 300px;
+}
+
+#theory {
+  height:65px;
+  width: 200px;
+}
+
+#start {
+  height:65px;
+  width: 200px;
+}
+
+#update {
+  height:65px;
+  width: 200px;
+}

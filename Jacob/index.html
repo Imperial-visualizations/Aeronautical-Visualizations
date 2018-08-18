@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css">
+    <link rel="stylesheet" href="./styles/myStyle.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://www.numericjs.com/lib/numeric-1.2.6.js"></script>
+    <script src="./assets/eigVectors.json"></script>
+
+  </head>
+
+<title>FE Visualization</title>
+
+<body>
+  <!--- <div class="rightnav">&#9654;</div> ---> <!--- Cyd's navigation bars --->
+  <!--- <div class="leftnav">&#9664;</div>  --->
+
+  <div class="grid-container">
+    <div id="mainTitle"><h1>FE Visualization</h1></div>
+    <div class="plotSlides" id="plotSlidesBox">
+
+      <div class="mySlides" id="slide1">
+      <h6>Full Aircraft Plot</h6>
+      <div id="fullAircraft"></div> <!--- id used in JS for the full aircraft plot --->
+      </div>
+
+      <div class="mySlides slide2" id="slidetwo">
+        <div id="fusbox">
+          <h6>Wing Plot</h6> <!--- Fuselage plot title --->
+          <div id="fuselage"></div>
+        </div>
+        <div id="wibox">
+          <h6>Fuselage Plot</h6> <!--- Wing plot title --->
+          <div id="wing"></div>
+        </div>
+      </div>
+
+      <div class="mySlides" id="slide3">
+        <div id="freqPlot"></div>
+      </div>
+    </div>
+
+    <div class="userInputs" id="numberOfElementsBox">
+      <div id="elemSlider"> <!--- slider for the number of elements --->
+        <label for="nElem" class="sliderTitle"> <!--- slider title --->
+          Number of Elemnts:
+          <span id="elementDisplay">8</span>
+        </label>
+        <input type="range" id="nElem" name="elemSlider" min="0" max="7" Value="1">
+        <span class="sliderMin">4</span><span class="sliderMax">512</span>
+      </div>
+    </div>
+
+    <div class="userInputs" id="modalShapeBox">
+      <div id="modeSlider"> <!--- slider for the modal shape --->
+        <label for="nMode" class="sliderTitle"> <!--- slider title --->
+          Modal Shape:
+          <span id="modeDisplay">1</span>
+        </label>
+        <input type="range" id="nMode" name="modeSlider" min="1" max="8" value="1">
+        <span class="sliderMin">1</span><span class="sliderMax" id="modeSliderMax">8</span>
+      </div>
+    </div>
+
+    <div class="userInputs" id="updateBox">
+      <input type="button" class="button" value="Change this to slider" id="update">
+    </div>
+
+    <div class="userInputs" id="startBox">
+      <input type="button" class="button" value="Start" id="start">
+    </div>
+
+    <div class="userInputs" id="showTheoryBox">
+      <input class="center" type="button" id="theory" value="Show Theory">
+    </div>
+
+    <div class="slidesNav" id="slidesNavBox">
+      <!-- The plots navigation -->
+        <input type="button" class="button" value="3D Plot" id="ThreedPlotButton" onclick="currentSlide(1)">
+        <input type="button" class="button" value="2D Plot" id="TwodPlotButton2" onclick="currentSlide(2)">
+        <input type="button" class="button" value="Freq. Plot" id="FreqPlotButton3" onclick="currentSlide(3)">
+    </div>
+
+  </div>
+
+
+
+  <!--- Body Scripts  below here--->
+  <script src="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/navigator.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="./scripts/newMain.js"></script>
+
+</body>
+
+
+
+</html>
