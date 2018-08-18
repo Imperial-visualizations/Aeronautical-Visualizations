@@ -383,7 +383,6 @@ let interval_ani_forced= ( t_end_ani_forced-t_init_ani_forced) /(n_ani_forced-1)
 
 let r_ani_forced= 0; // displacement array
 let t_ani_forced=0;
-let g_s=0;
 function newPosition_forced() {  // This function does exactly the same thing as AmpPhaNyq() earlier but this one is called in the animation function to create the moving graph
     // gets values from the sliders in the HTML (value is called by the ID of the slider in the HTML file)
     k_ani_forced = document.getElementById("SpringForced").value;
