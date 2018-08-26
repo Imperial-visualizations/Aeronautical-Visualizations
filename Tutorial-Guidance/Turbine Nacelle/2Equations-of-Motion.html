@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Imperial visualisation</title>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css">
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true
+    }
+    });</script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <br>
+    <div class="row">
+        <div class="twelve columns">
+
+            <p>
+                The flexibility matrix can be found using the load method.
+                Consider a coordinate $z$ pointing downwards from the centre of the nacelle.
+                Let $r$ be the first degree of freedom and $\theta$ be the second.
+            </p>
+
+            <p>
+                The bending moments due to unit loads at DOFs 1 and 2 are, respectively, $M_1 = z$ and $M_2 = 1$
+                (this follows the right hand convention for the sign of the moment; following any other convention for
+                \emph{both} expressions would be equally correct).
+            </p>
+
+            <p>
+                The flexibility terms can be obtained as:
+                $$
+                F_{11} = \frac{1}{EI} \int_0^\ell \! M_1 M_1 \, \mathrm{d}z= \frac{1}{EI} \int_0^\ell \! z^2 \, \mathrm{d}z = \frac{1}{3} \frac{\ell^3}{EI} \, ,
+                $$
+
+                $$
+                F_{12} = \frac{1}{EI} \int_0^\ell \! M_1 M_2 \, \mathrm{d}z= \frac{1}{EI} \int_0^\ell \! z \, \mathrm{d}z = \frac{1}{2} \frac{\ell^2}{EI} \, ,
+                $$
+
+                $$
+                F_{22} = \frac{1}{EI} \int_0^\ell \! M_2 M_2 \, \mathrm{d}z= \frac{1}{EI} \int_0^\ell \! 1 \, \mathrm{d}z =  \frac{\ell}{EI} \, .
+                $$
+            </p>
+
+            <p>
+                This leads to the flexibility matrix
+
+                $$
+                \mathbf{F} = \frac{\ell}{EI} \begin{bmatrix} \ell^2 / 3 & \ell /2 \\ \ell /2 & 1 \end{bmatrix}
+                = \frac{\ell}{6EI} \begin{bmatrix} 2\ell^2 & 3\ell \\ 3\ell & 6 \end{bmatrix}.
+                $$
+            </p>
+
+            <p>
+                The stiffness matrix is the inverse of the flexibility matrix.
+                The determinant of  the flexibility matrix is
+                $\Delta = \left( \frac{\ell}{6EI} \right) ^2 \left( 12\ell^2 - 9 \ell^2 \right) = \frac{\ell^4}{12 \left( EI \right)^2}$.
+            </p>
+
+            <p>
+                The stiffness matrix comes then as
+                $$\mathbf{K} = \frac{2EI}{\ell^3} \begin{bmatrix} 6  & -3 \ell \\ -3 \ell & 2\ell^2 \end{bmatrix} . $$
+
+            </p>
+
+            <p>
+                Given that the coordinates are attached to the centre of mass, the mass matrix must
+                be diagonal with leading diagonal terms $m$ and $J$ respectively. This can be explained
+                for instance by considering the inertia force associated with DoF $r \space (m\ddot{r})$
+                and the inertia moment associated with DoF $\theta \space (J\ddot{\theta})$;
+                for these generalised forces to appear correctly in the equations of motion, the mass matrix must be as stated.
+                Finally, the equations of motion are:
+                $$\begin{bmatrix}m & 0\\0 & J\end{bmatrix} \begin{bmatrix} \ddot{r} \\ \ddot{&theta;} \end{bmatrix}
+                + \frac{2EI}{\ell^3}\begin{bmatrix}6 & -3\ell\\-3\ell & 2\ell^2\end{bmatrix} \begin{bmatrix}r\\&theta;\end{bmatrix}
+                = \begin{bmatrix}R\\&Theta;\end{bmatrix}
+                $$
+            </p>
+        </div>
+    </div>
+</div>
+
+<script src="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/navigator.js"></script>
+
+</body>
+
+</html>

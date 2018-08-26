@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Imperial visualisation</title>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css">
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true
+    }
+    });</script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <br>
+
+    <h3>Initial Setup</h3>
+
+    <p>
+        Force equilibrium of mass $m$ leads to:
+        $$ m\ddot{r_1}(t) + kr_1(t) = R_0 \cos(\Omega t). $$
+    </p>
+
+    <p>
+        The second derivative of the assumed displacement is $\ddot{r_1}(t) = -\Omega^2 r_{10} \cos(\Omega t).$
+    </p>
+
+    <p>
+        Replacing in the equation of motion leads to:
+        $$r_{10} = \frac{R_0/k}{1 - (\frac{\Omega}{\omega})^2}.$$
+
+        If $\Omega \equiv \omega$, then the response tends to infinity, as expected for periodic loading at the
+        resonant frequency and without damping.
+    </p>
+
+    <h3>Revised Setup</h3>
+
+    <p>
+        Equilibrium of forces for the bottom mass leads to:
+        $$-m\ddot{r_1} + 2k(r_2 - r_1) - k r_1 + R_1 = 0,$$
+        and, for the top mass,
+        $$-2m\ddot{r_2} - 2k(r_2 - r_1) = 0.$$
+    </p>
+
+    <p>
+        Putting in matrix form:
+        $$ m\begin{bmatrix}1 & 0\\0 & 2\end{bmatrix}  + k\begin{bmatrix}3 & -2\\-2 & 2\end{bmatrix}
+        = \begin{bmatrix} R_1 \\ 0 \end{bmatrix} $$
+    </p>
+
+</div>
+
+<script>console.log("Hi global1");</script>
+<script src="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/navigator.js"></script>
+
+</body>
+
+</html>

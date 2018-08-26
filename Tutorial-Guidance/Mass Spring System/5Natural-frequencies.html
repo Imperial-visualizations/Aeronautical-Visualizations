@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Imperial visualisation</title>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css">
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true
+    }
+    });</script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <br>
+    <p>
+        Let a natural frequency be $\varpi$. Defining for simplicity $\alpha = \varpi^2 m/k = \varpi^2 / \omega^2$
+        and solving the eigenvalue problem $\det(K - \varpi^2 M) = 0$ leads to
+        $$2\alpha^2 - 8\alpha + 2 = 0 $$
+        leading to
+        $$\alpha = 2 \pm \sqrt{3}.$$
+    </p>
+
+</div>
+
+<script>console.log("Hi global3");</script>
+<script src="scripts/Q1_graphics2.js"></script>
+<script src="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/navigator.js"></script>
+
+</body>
+
+</html>

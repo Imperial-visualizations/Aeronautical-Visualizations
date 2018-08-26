@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Imperial visualisation</title>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css">
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true
+    }
+    });</script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <br>
+    <p>
+        The equations of motion can be expressed as:
+        $$M\ddot{r} + Kr = R$$
+    </p>
+
+    <p>
+        Using $r=r_0 \cos(\Omega t),$ the second derivative is:
+        $$\ddot{r} = -\Omega^2 r_0 \cos(\Omega t).$$
+    </p>
+
+    <p>
+        Replacing in the equations of motion and solving for $r_0$:
+        $$r_0 = (K - \Omega^2 M)^{-1} R_0.$$
+    </p>
+
+    <p>
+        Expanding and using $\Omega^2 = \omega^2 = k/m$ leads to:
+
+        $$ \begin{bmatrix} r_{10} \\ r_{20} \end{bmatrix} =
+        \frac{1}{\Delta} k \begin{bmatrix} 0 & 2 \\ 2 & 2 \end{bmatrix} \begin{bmatrix} R_0 \\ 0 \end{bmatrix}
+        =  \frac{1}{\Delta} k\begin{bmatrix} 0 \\ 2R_0 \end{bmatrix}$$
+
+        where $\Delta = \det(K - \Omega^2M) = -4k^2.$
+    </p>
+
+    <p>
+        Displacement $r_1$ is zero, even though there is a load applied to DOF 1. The converse is ture for $r_2.$
+        The top mass is in free vibration. The force of the top spring on the bottom mass equals at any time the applied force.
+        This type of arrangement is known as a vibrations absorber.
+    </p>
+</div>
+
+
+
+<script>console.log("Hi global2");</script>
+<script src="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/navigator.js"></script>
+
+</body>
+
+</html>

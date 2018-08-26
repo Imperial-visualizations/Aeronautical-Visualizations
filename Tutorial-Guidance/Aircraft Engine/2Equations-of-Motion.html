@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Imperial visualisation</title>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+    <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css">
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true
+    }
+    });</script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="row">
+        <div class="twelve columns">
+            <p>
+                The first thing to note is that the vertical and horizontal bars do not play any role in this structure as their ends are fixed.
+                Let's define for simplicity $k=2\sqrt{2}AE/L$. Applying the unit displacement method:
+            </p>
+
+            <ul>
+                <li>$r_1=1$ and $r_2=0$. The bars on the left extend by $1/ \sqrt{2}$ and the ones on the right contract by the same amount.
+                    From equilibrium, this leads to $R_1=K_{11}=4 \frac{1}{\sqrt{2}} \frac{1}{\sqrt{2}} AE/(\sqrt{2}L/2)=k$
+                    and from symmetry it is trivial that $R_2=K_{12}=0$.
+                </li>
+
+                <li>
+                    $r_1=0$ and $r_2=1$. From symmetry (of the stiffness matrix),
+                    this leads to $R_1=K_{21}=0$ and, from symmetry (of the problem wrt the DOF), $R_2=K_{22}=k$.
+                </li>
+            </ul>
+
+            <p>
+
+                Hence the stiffness matrix is:
+
+                $$
+                \mathbf{K}= k \begin{bmatrix} 1& 0 \\ 0 & 1 \end{bmatrix}
+                $$
+
+            </p>
+
+            <p>
+                Since the engine can be represented as a point mass:
+                $$ M = m\begin{bmatrix}1 & 0\\0 & 1\end{bmatrix} $$
+            </p>
+
+            <p>
+                Hence the equations of equilibrium are:
+                $$m \begin{bmatrix}1 & 0\\0 & 1\end{bmatrix} \begin{bmatrix} \ddot{r_1} \\ \ddot{r_2} \end{bmatrix}
+                + \frac{2\sqrt{2}EA}{\ell} \begin{bmatrix}1 & 0\\0 & 1\end{bmatrix} \begin{bmatrix} r_1 \\ r_2 \end{bmatrix}
+                = \begin{bmatrix}R_1\\R_2\end{bmatrix}
+                $$
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>console.log("Hi global1");</script>
+<script src="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/navigator.js"></script>
+
+</body>
+
+</html>
