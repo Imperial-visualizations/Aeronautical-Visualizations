@@ -268,16 +268,17 @@ let R_array_trans=[];
 let k_ani_trans =0;
 let m_ani_trans =0;
 let c_ani_trans=0;
-let t_init_ani_forced =0 ;
-let t_end_ani_forced= 100;
+let t_init_ani_trans =0 ;
+let t_end_ani_trans= 100;
 let v_0_ani_trans =0;
 let r_0_ani_trans =0;
 let R_forced=0;
-const n_ani_forced = 500 ; // number of points
-let interval_ani_trans= ( t_end_ani_forced-t_init_ani_forced) /(n_ani_forced-1) ;  // creates time intervals for the for loop
+const n_ani_trans = 500 ; // number of points
+let interval_ani_trans= parseFloat(( t_end_ani_trans-t_init_ani_trans) /(n_ani_trans-1)) ;  // creates time intervals for the for loop
 let r_ani_trans= []; // displacement array
 let v_ani_trans=[];
-let t_ani_trans=0;
+let t_ani_trans= 0;
+console.log(typeof interval_ani_trans);
 
 function newPosition_forced() {  // This function does exactly the same thing as AmpPhaNyq() earlier but this one is called in the animation function to create the moving graph
     // gets values from the sliders in the HTML (value is called by the ID of the slider in the HTML file)
@@ -324,23 +325,25 @@ function newPosition_forced() {  // This function does exactly the same thing as
     $('#koverm').html(koverm.toFixed(2));
     r_array_trans[0]=r_0_ani_trans;
     v_array_trans[0]=v_0_ani_trans;
-    R_array_trans[0]=a0+b1+b2+b3;
 
     R_trans = a0 + a1 *t_ani_trans  + a2 * Math.pow(t_ani_trans, 2) + a3 * Math.pow(t_ani_trans, 3) + a4 * Math.pow(t_ani_trans, a5) + b1 * Math.cos(omega1 * t_ani_trans) + b2 * Math.cos(omega2 * t_ani_trans) + b3 * Math.cos(omega3 * t_ani_trans) + c1 * Math.sin(omega1 * t_ani_trans) + c2 * Math.sin(omega2 * t_ani_trans) + c3 * Math.sin(omega3 * t_ani_trans) + d1 * Math.sqrt(t_ani_trans) + e1 * Math.log(t_ani_trans);
+
     v_ani_trans = Math.exp(-alpha_trans * int_trans) * Math.cos(beta_trans * int_trans) - (r_array_trans[r_array_trans.length] * beta_trans + (v_array_trans[v_array_trans.length] + alpha_trans * r_array_trans[r_array_trans.length]) / beta_trans) * Math.sin(beta_trans * int_trans) + (1 / beta_trans * m) * Math.exp(-alpha_trans * int_trans) * Math.sin(beta_trans * int_trans) * R_array_trans[R_array_trans.length] * int_trans;
     r_ani_trans = r_array_trans[r_array_trans.length] * Math.exp(-alpha_trans * int_trans) * Math.cos(beta_trans * int_trans) + (((v_array_trans[v_array_trans.length] + alpha_trans * r_array_trans[r_array_trans.length]) * Math.exp(-alpha_trans * int_trans) * Math.sin(beta_trans * int_trans)) / beta_trans) + (Math.exp(-alpha_trans * int_trans) * Math.sin(beta_trans * int_trans) / (beta_trans * m)) * R_array_trans[R_array_trans.length] * int_trans;
 
+    t_ani_trans +=  interval_ani_trans; //time counter, incremented at each iteration
 
-    t_ani_trans += interval_ani_trans; //time counter, incremented at each iteration
     R_array_trans.push(R_trans);
     r_array_trans.push(r_ani_trans); // .push will add a value to an array. It adds the value of the new displacement to an array
     t_array_trans.push(t_ani_trans); // same as above but for time
     v_array_trans.push(v_ani_trans);
-    console.log(R_trans);
-    console.log(R_array_trans);
-    console.log(v_ani_trans);
-    console.log(v_array_trans);
 
+    console.log(R_array_trans);
+    console.log(t_ani_trans);
+
+        console.log(R_trans);
+        console.log(v_ani_trans);
+        console.log(v_array_trans);
 
     //animate the graphs using the arrays above
 

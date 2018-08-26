@@ -17,5 +17,130 @@
     <title>Theory - Transient loading</title>
 <body>
 
+Before developing the theory, it must be pointed out that the meaning of time becomes complicated in that there are two time variations involved. There is the time associated with the forcing function and this is denoted by the symbol $\tau$. There is also the time associated with the displacement and this is denoted by the symbol t. To all intents and purposes t, the displacement time, can be considered as a constant since it is possible to specify that the response is required at a specific time, at 5 seconds say. The time associated with the force, $\tau$, is the variable since this can take any value between 0 and t.
+
+If the response of the system to a single impulse Rd$\tau$ can be found then the response to all of the impulses and hence the response to the time varying load can be found by summation. To simplify this further consider the impulse Rd$\tau$ to be applied at time zero.
+
+Further, it was shown in section 2.6.1 that the systems eigenvectors can be used to turn a multi-degree of freedom set of dynamic equations into a series of uncoupled, single degree of freedom set. This means that the solution process only has to be developed for a single degree of freedom system, typically
+
+\begin{equation}
+m\ddot{r}(t)+c\dot{r}(t)+kr(t) =R(t)
+\end{equation}
+This can be written in non-dimensional form as
+\begin{equation}
+\ddot{r}(t)+2\omega_{u}\xi\dot{r}(t)+\omega_{u}^{2}r(t)=\frac{1}{m}R(t)
+\end{equation}
+Consider an impulse Rd$\tau$ is applied at time zero.
+
+
+Calling the time just before the impulse is applied $\tau$=-0, then up to this time the system is at rest and both the displacement and the velocity are zero. The impulse causes a change in momentum so that there is an instantaneous change in the velocity at time zero. The impulse does not affect the displacement instantaneously so that at time $\tau$=+0, just after the impulse the initial conditions are
+
+\begin{equation}
+r=0 \quad at \quad time \quad \tau=+0 \qquad (149)
+\end{equation}
+and
+\begin{equation}
+\dot{r}=\frac{R(\tau)d\tau}{m} \quad at \quad time \quad \tau=+0 \qquad (150)
+\end{equation}
+It will be seen that the force is zero for $\tau$ $>$ +0 hence the equation of motion (148) becomes
+
+\begin{equation}
+\ddot{r}(t)+2\omega_{u}\xi\dot{r}(t)+\omega_{u}^{2}r(t)=0 \quad at \quad time \quad \tau \geq+0
+\end{equation}
+This has the solution
+
+\begin{equation}
+r= r_{01} e^{-\alpha t} sin(\beta t) +  r_{02}e^{-\alpha t} cos(\beta t)
+\end{equation}
+Where
+\begin{equation}
+\alpha= \omega_{u}\xi
+\end{equation}
+and
+\begin{equation}
+\beta =  \omega_{u}(1- \xi)^{1/2}
+\end{equation}
+Using the initial conditions from equations (149)  and  (150) gives
+\begin{equation}
+r_{02}=0
+\end{equation}
+and
+\begin{equation}
+r_{01} =\frac{1}{\beta m} R(\tau)d\tau
+\end{equation}
+Hence the response at time t to an impulse applied at $\tau$=0 is
+\begin{equation}
+r(t)= \frac{1}{\beta m} e^{-\alpha t} sin(\beta t)R(\tau)d\tau \qquad (157)
+\end{equation}
+If the impulse is applied at some time $\tau$ which is not zero then the response can be found by shifting the origin from 0 to $\tau$.  Hence, equation  (157) then becomes
+\begin{equation}
+r(t)= \frac{1}{\beta m} e^{-\alpha (t-\tau)} sin(\beta (t-\tau))R(\tau)d\tau \quad (t \geq \tau)
+\end{equation}
+
+Since the problem under consideration is linear then the response at time t to a series of impulses applied at different times $\tau$ is
+\begin{equation}
+r(t)= \sum_{0}^{t}  \frac{1}{\beta m} e^{-\alpha (t-\tau)} sin(\beta (t-\tau))R(\tau)d\tau
+\end{equation}
+Which, in the limit of d$\tau$ being very small reduces to:
+\begin{equation}
+r(t) = \int_{0}^{t}  \frac{e^{-\alpha (t-\tau)} sin(\beta (t-\tau))}{\beta m} R(\tau)d\tau \qquad (160)
+\end{equation}
+
+If at time zero the initial conditions are $r_{0}$ for the displacement and $\dot{r_{0}}$  for the velocity then response becomes
+\begin{equation}
+r(t) = \int_{0}^{t}  \frac{e^{-\alpha (t-\tau)} sin(\beta (t-\tau))}{\beta m} R(\tau)d\tau +r_{0}e^{-\alpha t} cos(\beta t) + \frac{(\dot{r_{0}}+\alpha_{0})e^{-\alpha t}}{\beta}sin(\beta t)
+\end{equation}
+
+If the damping is zero then
+\begin{equation}
+\alpha=0
+\end{equation}
+
+and
+
+\begin{equation}
+\beta=\omega_{u}
+\end{equation}
+
+The response at time t then simplifies to
+
+\begin{equation}
+r(t) = \int_{0}^{t}  \frac{ sin(\omega_{u} (t-\tau))}{\omega_{u} m} R(\tau)d\tau +r_{0} cos(\omega_{u} t) + \frac{\dot{r_{0}}}{\omega_{u}}{\beta}sin(\omega_{u} t) \qquad (164)
+\end{equation}
+
+Equation (164) is known as the convolution integral or the Duhamel  integral. It is very often used in the undamped form of equation (164). If  both the displacement  and the velocity   are zero (the structure is at rest at time zero) then the convolution integral can be written in various forms
+\begin{equation}
+r(t) = \int_{0}^{t}  \frac{ sin(\omega_{u} (t-\tau))}{\omega_{u} m} R(\tau)d\tau \qquad (165)
+\end{equation}
+
+\begin{equation}
+r(t) = \int_{-\infty}^{t}  \frac{ sin(\omega_{u} (t-\tau))}{\omega_{u} m} R(\tau)d\tau
+\end{equation}
+
+\begin{equation}
+r(t) = \int_{0}^{\infty}  \frac{ sin(\omega_{u} (t-\tau))}{\omega_{u} m} R(\tau)d\tau \qquad (167)
+\end{equation}
+
+\begin{equation}
+r(t) = \int_{- \infty}^{\infty}  \frac{ sin(\omega_{u} (t-\tau))}{\omega_{u} m} R(\tau)d\tau
+\end{equation}
+
+The forms given by equations (165) and (167) are generally the most useful and the form given by (165) will be used here.
+
+The convolution integral in the form of equation (160) is often written as
+
+\begin{equation}
+r(t) = \int_{0}^{t}  \frac{e^{-\alpha (t-\tau)} sin(\beta (t-\tau))}{\beta m} R(\tau)d\tau
+\end{equation}
+\begin{equation}
+r(t) = \int_{0}^{t} W(t-\tau) R(\tau)d\tau
+\end{equation}
+Where
+
+\begin{equation}
+ W(t-\tau)= \frac{e^{-\alpha (t-\tau)} sin(\beta (t-\tau))}{\beta m}
+\end{equation}
+
+is called the impulse response function. It represents the response at time t due to an impulse applied at a time $\tau$. This quantity can be measured experimentally.
 </body>
 </html>
