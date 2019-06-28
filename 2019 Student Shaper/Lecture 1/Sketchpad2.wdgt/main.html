@@ -39,12 +39,12 @@
               tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line,
               LC.tools.Text]
             });
-          var localStorageKey = 'drawing'
-            if (localStorage.getItem(localStorageKey)) {
-              lc.loadSnapshot(JSON.parse(localStorage.getItem(localStorageKey)));
+          var localStorageKey2 = 'my-drawing'
+            if (localStorage.getItem(localStorageKey2)) {
+              lc.loadSnapshot(JSON.parse(localStorage.getItem(localStorageKey2)));
               }
               lc.on('drawingChange', function() {
-              localStorage.setItem(localStorageKey, JSON.stringify(lc.getSnapshot()));
+              localStorage.setItem(localStorageKey2, JSON.stringify(lc.getSnapshot()));
               });
             });
 
