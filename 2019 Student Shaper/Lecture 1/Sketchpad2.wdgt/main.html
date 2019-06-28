@@ -21,11 +21,6 @@
 
     <!-- kick it off -->
     <script>
-        var lc = LC.init(
-            document.getElementsByClassName('my-drawing')[0],
-            {imageURLPrefix: 'img/',
-        });
-
         $(document).ready(function() {
           var watermarkImage = new Image();
           var imageSize = {width: 1300, height: 1000};
@@ -33,7 +28,7 @@
           var lc = LC.init(
             document.getElementsByClassName('my-drawing')[0],{
               watermarkImage: watermarkImage,
-              watermarkScale: 0.6,  // you can scale it
+              watermarkScale: 0.65,  // you can scale it
               imageSize: imageSize,
               keyboardShortcuts: false,
               tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line,
@@ -47,8 +42,6 @@
               localStorage.setItem(localStorageKey2, JSON.stringify(lc.getSnapshot()));
               });
             });
-
-
     </script>
   </body>
 </html>

@@ -21,25 +21,20 @@
 
     <!-- kick it off -->
     <script>
-        var lc = LC.init(
-            document.getElementsByClassName('my-drawing')[0],
-            {imageURLPrefix: 'img/',
-        });
-
         $(document).ready(function() {
           var watermarkImage = new Image();
           var imageSize = {width: 1300, height: 1000};
-          watermarkImage.src = 'logo.png';
+          watermarkImage.src = 'logo.png'; //background pic
           var lc = LC.init(
             document.getElementsByClassName('my-drawing')[0],{
               watermarkImage: watermarkImage,
-              watermarkScale: 0.7,  // you can scale it
+              watermarkScale: 0.6,  // you can scale it
               imageSize: imageSize,
               keyboardShortcuts: false,
               tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line,
-              LC.tools.Text]
+              LC.tools.Text]  // overwrite the given tools and only display the useful ones
             });
-          var localStorageKey = 'drawing3'
+          var localStorageKey = 'drawing3' // enabling local storage, requires different key for each widget
             if (localStorage.getItem(localStorageKey)) {
               lc.loadSnapshot(JSON.parse(localStorage.getItem(localStorageKey)));
               }
@@ -47,8 +42,6 @@
               localStorage.setItem(localStorageKey, JSON.stringify(lc.getSnapshot()));
               });
             });
-
-
     </script>
   </body>
 </html>

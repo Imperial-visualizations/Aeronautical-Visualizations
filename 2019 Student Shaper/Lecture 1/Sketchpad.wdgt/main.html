@@ -21,11 +21,6 @@
 
     <!-- kick it off -->
     <script>
-        var lc = LC.init(
-            document.getElementsByClassName('my-drawing')[0],
-            {imageURLPrefix: 'img/',
-        });
-
         $(document).ready(function() {
           var watermarkImage = new Image();
           var imageSize = {width: 1300, height: 1000};
@@ -47,8 +42,6 @@
               localStorage.setItem(localStorageKey, JSON.stringify(lc.getSnapshot()));
               });
             });
-
-
     </script>
   </body>
 </html>
