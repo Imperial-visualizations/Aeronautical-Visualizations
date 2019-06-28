@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- stylesheet -->
+    <link href="css/literallycanvas.css" rel="stylesheet">
+
+    <!-- dependency: React.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-with-addons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- Literally Canvas -->
+    <script src="js/literallycanvas.js"></script>
+  </head>
+  <body>
+    <!-- where the widget goes. you can do CSS to it. -->
+    <!-- note: as of 0.4.13, you cannot use 'literally' as the class name.
+         sorry about that. -->
+    <div class="my-drawing"></div>
+
+    <!-- kick it off -->
+    <script>
+        LC.init(
+            document.getElementsByClassName('my-drawing')[0],
+            {imageURLPrefix: 'img/', imageSize: {width: 100, height: 900}}
+        );
+    </script>
+    <script>
+  $(document).ready(function() {
+    var backgroundImage = new Image()
+    backgroundImage.src = 'img/logo.png';
+
+    var lc = LC.init(
+        document.getElementsByClassName('my-drawing')[0],
+        {
+          backgroundShapes: [
+            LC.createShape(
+              'Image', {x: 20, y: 20, image: backgroundImage, scale: 0.2},imageSize: {width: 100, height: 100})
+          ]
+        });
+    // the background image is not included in the shape list that is
+    // saved/loaded here
+    var localStorageKey = 'drawing-with-background'
+    if (localStorage.getItem(localStorageKey)) {
+      lc.loadSnapshotJSON(localStorage.getItem(localStorageKey));
+    }
+    lc.on('drawingChange', function() {
+      localStorage.setItem(localStorageKey, lc.getSnapshotJSON());
+    });
+  });
+</script>
+<script>
+  $(document).ready(function() {
+    var lc = LC.init(
+      document.getElementsByClassName('my-drawing')[0]);
+    var localStorageKey = 'drawing'
+    if (localStorage.getItem(localStorageKey)) {
+      lc.loadSnapshot(JSON.parse(localStorage.getItem(localStorageKey)));
+    }
+    lc.on('drawingChange', function() {
+      localStorage.setItem(localStorageKey, JSON.stringify(lc.getSnapshot()));
+    });
+  });
+</script>
+  </body>
+</html>
