@@ -31,8 +31,11 @@
               watermarkScale: 0.6,  // you can scale it
               imageSize: imageSize,
               keyboardShortcuts: false,
-              tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Line,
-              LC.tools.Text]  // overwrite the given tools and only display the useful ones
+              tools: [LC.tools.Pencil, LC.tools.Eraser, LC.tools.Pan,
+                LC.tools.Line,LC.tools.Text],  // overwrite the given tools and only display the useful ones
+              toolbarPosition: 'top',
+              zoomMax: 1
+
             });
           var localStorageKey = 'drawing3' // enabling local storage, requires different key for each widget
             if (localStorage.getItem(localStorageKey)) {
