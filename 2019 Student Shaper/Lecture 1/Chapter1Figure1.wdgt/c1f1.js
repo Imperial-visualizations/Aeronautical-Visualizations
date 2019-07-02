@@ -11,7 +11,7 @@ const iMin = math.pi / 4;
 const iMax = 7 * (math.pi / 4);
 var wt = Array.from(indices).map(x => math.round(((iMax-iMin)*(x/iN)+iMin),5));
 var wtx1 = wt.map(x => radius*math.cos(x));
-var wtx2 = wt.map(x => radius*math.cos(x) + 10);
+var wtx2 = wt.map(x => radius*math.cos(x) + 8);
 var wty = wt.map(x => radius*math.sin(x));
 
 var highlightConst = -1;
@@ -60,7 +60,7 @@ var data = [{ // horizontal 1
         },
           connectgaps: false,
       }, { // horizontal 2
-        x: [10,15],
+        x: [8,13],
         y: [0,0],
         type: 'scatter',
         mode: 'markers+lines',
@@ -74,7 +74,7 @@ var data = [{ // horizontal 1
       },
         connectgaps: false,
     }, { // vertical 2
-          x: [10,10],
+          x: [8,8],
           y: [0,5],
           type: 'scatter',
           mode: 'markers+lines',
@@ -102,7 +102,7 @@ var data = [{ // horizontal 1
         },
           connectgaps: false,
       }, { // origins
-        x: [0, 10],
+        x: [0, 8],
         y: [0, 0],
         type: 'scatter',
         mode: 'markers',
@@ -113,7 +113,7 @@ var data = [{ // horizontal 1
         },
         connectgaps: false,
     },{ // hovers
-      x: [5.6, 0, 1.1, 15.6, 10, 11.2],
+      x: [5.6, 0, 1.1, 13.6, 8, 9.2],
       y: [0, 5.6, -.9, 0, 5.6, -.9,],
       type: 'scatter',
       mode: 'markers',
@@ -133,19 +133,19 @@ var data = [{ // horizontal 1
 
 var layout = {
     autosize: false,
-    width: 650,
-    height: 350,
+    width: 487,
+    height: 262,
     plot_bgcolor:"#F4F4F4",
     paper_bgcolor:"#F4F4F4",
     margin: {
-      l: 50,
-      r: 50,
-      b: 50,
-      t: 50,
+      l: 10,
+      r: 10,
+      b: 10,
+      t: 30,
       pad: 4
     },
     xaxis: {
-      range: [-2,16],
+      range: [-1.5,14],
       showgrid: false,
       zeroline: false,
       showline: false,
@@ -195,7 +195,7 @@ var layout = {
       ax: -10,
       ay: 8,
     }, {
-      x: 15.1, // horizontal 2
+      x: 13.1, // horizontal 2
       y: 0,
       xref: 'x',
       yref: 'y',
@@ -205,7 +205,7 @@ var layout = {
       ax: -10,
       ay: 0,
     }, {
-      x: 10, // vertical 2
+      x: 8, // vertical 2
       y: 5.1,
       xref: 'x',
       yref: 'y',
@@ -215,7 +215,7 @@ var layout = {
       ax: 0,
       ay: 18,
     }, {
-      x: 10.7, // curved 2
+      x: 8.7, // curved 2
       y: -0.66,
       xref: 'x',
       yref: 'y',
@@ -261,7 +261,7 @@ var layout = {
       ax: 0,
       ay: -20,
     }, { // text horizontal 2
-      x: 15,
+      x: 13,
       y: 0,
       xref: "x",
       yref: "y",
@@ -273,7 +273,7 @@ var layout = {
       ax: 20,
       ay: 0,
     }, { // text vertical 2
-      x: 10,
+      x: 8,
       y: 5,
       xref: "x",
       yref: "y",
@@ -285,7 +285,7 @@ var layout = {
       ax: 0,
       ay: -20,
     }, { // text curved 2
-      x: 11.1,
+      x: 9.1,
       y: -1.5,
       xref: "x",
       yref: "y",
@@ -309,7 +309,7 @@ var layout = {
       ax: 0,
       ay: -15,
     }, { // i 2
-      x: 10.4,
+      x: 8.4,
       y: 0,
       xref: "x",
       yref: "y",
@@ -320,7 +320,31 @@ var layout = {
       arrowhead: 0,
       ax: 0,
       ay: -15,
-    },
+    }, { // text 1
+      x: 2.7,
+      y: -2,
+      xref: "x",
+      yref: "y",
+      text: "Displacements at point <i>i</i>",
+      font: {size:15},
+      showarrow: true,
+      arrowcolor: "transparent",
+      arrowhead: 0,
+      ax: 0,
+      ay: -15,
+    }, { // text 2
+      x: 10.7,
+      y: -2,
+      xref: "x",
+      yref: "y",
+      text: "Forces at point <i>i</i>",
+      font: {size:15},
+      showarrow: true,
+      arrowcolor: "transparent",
+      arrowhead: 0,
+      ax: 0,
+      ay: -15,
+    }
   ],
 };
 /*
