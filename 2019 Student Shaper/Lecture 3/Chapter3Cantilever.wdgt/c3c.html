@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+  <title>Lecture 3 Worked Example</title>
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/plotly-1.47.4.min.js"></script>
+  <script src="js/math.min.js"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script src="js/MathJax-min/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  <!--
+  <script src="http://www.numericjs.com/lib/numeric-1.2.6.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  -->
+</head>
+<body style="background-color: #F4F4F4">
+
+  <div class="row">
+    <div class="one columns"></div>
+    <div class="six columns">
+      <div id="graph1"></div>
+    </div>
+    <div class="five columns">
+      <br><br>
+
+      <div class="row" id="R1container">
+        <div class="two columns" style="text-align: center; font-size: 2.25rem">$R_1$</div>
+        <div class="ten columns" style="text-align: center">
+          <div class="sliderContainer">
+            <span class="sliderMin">$-1$</span>
+            <input
+            id="R1"
+            style="margin: auto; width: 70%"
+            class="inputs"
+            type="range"
+            value="0"
+            min="-1"
+            max="1"
+            step="1"/>
+            <span class="sliderMax">$1$</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" id="R2container">
+        <div class="two columns" style="text-align: center; font-size: 2.25rem">$R_2$</div>
+        <div class="ten columns" style="text-align: center">
+          <div class="sliderContainer">
+            <span class="sliderMin">$-1$</span>
+            <input
+            id="R2"
+            style="margin: auto; width: 70%"
+            class="inputs"
+            type="range"
+            value="0"
+            min="-1"
+            max="1"
+            step="1"/>
+            <span class="sliderMax">$1$</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" id="R3container">
+        <div class="two columns" style="text-align: center; font-size: 2.25rem">$R_3$</div>
+        <div class="ten columns" style="text-align: center">
+          <div class="sliderContainer">
+            <span class="sliderMin">$-1$</span>
+            <input
+            id="R3"
+            style="margin: auto; width: 70%"
+            class="inputs"
+            type="range"
+            value="0"
+            min="-1"
+            max="1"
+            step="1"/>
+            <span class="sliderMax">$1$</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" id="R4container">
+        <div class="two columns" style="text-align: center; font-size: 2.25rem">$R_4$</div>
+        <div class="ten columns" style="text-align: center">
+          <div class="sliderContainer">
+            <span class="sliderMin">$-1$</span>
+            <input
+            id="R4"
+            style="margin: auto; width: 70%"
+            class="inputs"
+            type="range"
+            value="0"
+            min="-1"
+            max="1"
+            step="1"/>
+            <span class="sliderMax">$1$</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="latexbox1" class="row" style="text-align: center; font-size: 2.25rem;">
+    <div class="three columns" style="text-align: center; margin-left: 0; width: 25%"><span id="r1latex">$r_1 = 0$</span><p></p></div>
+    <div class="three columns" style="text-align: center; margin-left: 0; width: 25%"><span id="r2latex">$r_2 = 0$</span><p></p></div>
+    <div class="three columns" style="text-align: center; margin-left: 0; width: 25%"><span id="r3latex">$r_3 = 0$</span><p></p></div>
+    <div class="three columns" style="text-align: center; margin-left: 0; width: 25%"><span id="r4latex">$r_4 = 0$</span><p></p></div>
+  </div>
+
+  <div class="row">
+    <div class="four columns" style="text-align: center; margin-left: 0; width: 33.33%">
+      <input type="button" class="button" value="Free End" id="mode1">
+    </div>
+    <div class="four columns" style="text-align: center; margin-left: 0; width: 33.33%">
+      <input type="button" class="button" value="Propped" id="mode2" style="font-weight: 400">
+    </div>
+    <div class="four columns" style="text-align: center; margin-left: 0; width: 33.33%">
+      <input type="button" class="button" value="Built-in" id="mode3" style="font-weight: 400">
+    </div>
+  </div>
+
+  <!-- here is the code -->
+  <script src="c3c.js"></script>
+</body>
+</html>
