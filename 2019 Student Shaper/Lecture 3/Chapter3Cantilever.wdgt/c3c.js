@@ -449,7 +449,7 @@ function update () {
   textData = findDisplacements(input);
 
   // update text
-  $("#r1latex").html((textData._data[0].n==0) ? '$r_1 = 0$' : ((textData._data[0].d == 1) ? `$r_1 = ${checkNegative(textData._data[0].s)} \\frac{${textData._data[0].n}$}{EI}` : `$r_1 = ${checkNegative(textData._data[0].s)} \\frac{${textData._data[0].n}}{${textData._data[0].d}EI}$`));
+  $("#r1latex").html((textData._data[0].n==0) ? '$r_1 = 0$' : ((textData._data[0].d == 1) ? `$r_1 = ${checkNegative(textData._data[0].s)} \\frac{${textData._data[0].n}}{EI}$` : `$r_1 = ${checkNegative(textData._data[0].s)} \\frac{${textData._data[0].n}}{${textData._data[0].d}EI}$`));
 
   $("#r2latex").html((textData._data[1].n==0) ? '$r_2 = 0$' : ((textData._data[1].d == 1) ? `$r_2 = ${checkNegative(textData._data[1].s)} \\frac{${textData._data[1].n}}{EI}$` :  `$r_2 = ${checkNegative(textData._data[1].s)} \\frac{${textData._data[1].n}}{${textData._data[1].d}EI}$`));
 
