@@ -114,7 +114,8 @@ function updateLayout () {
       showline: false,
       autotick: false,
       ticks: '',
-      showticklabels: false
+      showticklabels: false,
+      fixedrange: true,
     },
     yaxis: {
       range: [-21,21],
@@ -123,7 +124,8 @@ function updateLayout () {
       showline: false,
       autotick: false,
       ticks: '',
-      showticklabels: false
+      showticklabels: false,
+      fixedrange: true,
     },
     showlegend: false,
     hovermode: false,
@@ -444,14 +446,16 @@ function update () {
     }
   }
 
+  textData = findDisplacements(input);
+
   // update text
-  $("#r1latex").html((output._data[0].n==0) ? '$r_1 = 0$' : ((output._data[0].d == 1) ? `$r_1 = ${checkNegative(output._data[0].s)} \\frac{${output._data[0].n}$}{EI}` : `$r_1 = ${checkNegative(output._data[0].s)} \\frac{${output._data[0].n}}{${output._data[0].d}EI}$`));
+  $("#r1latex").html((textData._data[0].n==0) ? '$r_1 = 0$' : ((textData._data[0].d == 1) ? `$r_1 = ${checkNegative(textData._data[0].s)} \\frac{${textData._data[0].n}$}{EI}` : `$r_1 = ${checkNegative(textData._data[0].s)} \\frac{${textData._data[0].n}}{${textData._data[0].d}EI}$`));
 
-  $("#r2latex").html((output._data[1].n==0) ? '$r_2 = 0$' : ((output._data[1].d == 1) ? `$r_2 = ${checkNegative(output._data[1].s)} \\frac{${output._data[1].n}}{EI}$` :  `$r_2 = ${checkNegative(output._data[1].s)} \\frac{${output._data[1].n}}{${output._data[1].d}EI}$`));
+  $("#r2latex").html((textData._data[1].n==0) ? '$r_2 = 0$' : ((textData._data[1].d == 1) ? `$r_2 = ${checkNegative(textData._data[1].s)} \\frac{${textData._data[1].n}}{EI}$` :  `$r_2 = ${checkNegative(textData._data[1].s)} \\frac{${textData._data[1].n}}{${textData._data[1].d}EI}$`));
 
-  $("#r3latex").html((output._data[2].n==0) ? '$r_3 = 0$' : ((output._data[2].d == 1) ? `$r_3 = ${checkNegative(output._data[2].s)} \\frac{${output._data[2].n}}{EI}$` :  `$r_3 = ${checkNegative(output._data[2].s)} \\frac{${output._data[2].n}}{${output._data[2].d}EI}$`));
+  $("#r3latex").html((textData._data[2].n==0) ? '$r_3 = 0$' : ((textData._data[2].d == 1) ? `$r_3 = ${checkNegative(textData._data[2].s)} \\frac{${textData._data[2].n}}{EI}$` :  `$r_3 = ${checkNegative(textData._data[2].s)} \\frac{${textData._data[2].n}}{${textData._data[2].d}EI}$`));
 
-  $("#r4latex").html((output._data[3].n==0) ? '$r_4 = 0$' : ((output._data[3].d == 1) ? `$r_4 = ${checkNegative(output._data[3].s)}\\frac{${output._data[3].n}}{EI}$` :  `$r_4 = ${checkNegative(output._data[3].s)} \\frac{${output._data[3].n}}{${output._data[3].d}EI}$`));
+  $("#r4latex").html((textData._data[3].n==0) ? '$r_4 = 0$' : ((textData._data[3].d == 1) ? `$r_4 = ${checkNegative(textData._data[3].s)}\\frac{${textData._data[3].n}}{EI}$` :  `$r_4 = ${checkNegative(textData._data[3].s)} \\frac{${textData._data[3].n}}{${textData._data[3].d}EI}$`));
 
   MathJax.Hub.Queue(["Typeset",MathJax.Hub,"latexbox"]);
   return;
@@ -540,7 +544,7 @@ function main () {
   // plot graph
   updateData();
   updateLayout();
-  Plotly.newPlot('graph1', [], layout);
+  Plotly.newPlot('graph1', [], layout, {displayModeBar: false});
   Plotly.react('graph1', data, layout);
 
 }
