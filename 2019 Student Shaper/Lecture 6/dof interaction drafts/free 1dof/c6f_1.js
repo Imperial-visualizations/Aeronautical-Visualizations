@@ -91,15 +91,15 @@ function updateData () {
       y: [-0.3, massCoords[1]+0.2],
       mode: 'text',
       text: ['t', 'm'],
-      textfont: {color: 'grey', size: 30, family: 'sans-serif'},
+      textfont: {color: 'grey', size: 30, family: 'serif'},
       textposition: 'bottom',
       type: 'scatter',
     }, { // text k,c
       x: [2.9],
       y: [-1.3],
       mode: 'text',
-      text: ['k,c'],
-      textfont: {color: 'grey', size: 30, family: 'sans-serif'},
+      text: ['k, c'],
+      textfont: {color: 'grey', size: 30, family: 'serif'},
       textposition: 'bottom',
       type: 'scatter',
     }, { // text r
@@ -107,7 +107,7 @@ function updateData () {
       y: [1.3],
       mode: 'text',
       text: ['r'],
-      textfont: {color: 'black', size: 30, family: 'sans-serif'},
+      textfont: {color: 'black', size: 30, family: 'serif'},
       textposition: 'bottom',
       type: 'scatter',
     }, {
