@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+  <title>Two Degrees of Freedom Free Vibration</title>
+
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .scatterlayer .trace:last-child .points path {
+      pointer-events: all;
+    }
+  </style>
+
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/plotly-1.47.4.min.js"></script>
+  <script src="js/math.min.js"></script>
+  <script src="js/deque.js"></script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [["\\(","\\)"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script src="js/MathJax-min/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+</head>
+
+<body style="background-color: #F4F4F4">
+  <!--Graph-->
+  <div class="row" id="graph">
+    <div id="graph0"></div>
+  </div>
+  <div class="row" id="buttons">
+    <div class="four columns" style="text-align: center; margin-left: 0; width: 33.33%">
+      <input type="button" class="button" value="Variables" id="page1b" style="font-weight: 400">
+    </div>
+    <div class="four columns" style="text-align: center; margin-left: 0; width: 33.33%">
+      <input type="button" class="button" value="Graph Plot" id="page2b" style="font-weight: 400">
+    </div>
+    <div class="four columns" style="text-align: center; margin-left: 0; width: 33.33%">
+      <input type="button" class="button" value="Reset" id="resetb" style="font-weight: 400">
+    </div>
+  </div>
+  <div class="row" id="sliders">
+    <div id="one" class="six columns" style="text-align: center; margin: 0 auto;">
+      <div style="font-weight: bold">\(m_1\)</div>
+      <div class="slideWrap" style="text-align: center">
+        <span class="sliderMin">small</span>
+        <input
+        id="m1"
+        style="width: 60%"
+        class="inputs"
+        type="range"
+        value="1"
+        min="1"
+        max="3.9"
+        step="0.1"/>
+        <span class="sliderMax">large </span>
+      </div>
+      <div style="font-weight: bold">\(c_1\)</div>
+      <div class="slideWrap" style="text-align: center">
+        <span class="sliderMin">&nbsp;&nbsp;zero</span>
+        <input
+        id="c1"
+        style="width: 60%"
+        class="inputs"
+        type="range"
+        value="0"
+        min="0"
+        max="4"
+        step="0.1"/>
+        <span class="sliderMax">large </span>
+      </div>
+      <div style="font-weight: bold">\(k_1\)</div>
+      <div class="slideWrap" style="text-align: center">
+        <span class="sliderMin">small</span>
+        <input
+        id="k1"
+        style="width: 60%"
+        class="inputs"
+        type="range"
+        value="1"
+        min="1"
+        max="3.9"
+        step="0.1"/>
+        <span class="sliderMax">large </span>
+      </div>
+    </div>
+    <div id="two" class="six columns" style="text-align: center; margin: 0 auto">
+      <div style="font-weight: bold">\(m_2\)</div>
+      <div class="slideWrap" style="text-align: center">
+        <span class="sliderMin">small</span>
+        <input
+        id="m2"
+        style="width: 60%"
+        class="inputs"
+        type="range"
+        value="1"
+        min="1"
+        max="3.9"
+        step="0.1"/>
+        <span class="sliderMax">large </span>
+      </div>
+      <div style="font-weight: bold">\(c_2\)</div>
+      <div class="slideWrap" style="text-align: center">
+        <span class="sliderMin">&nbsp;&nbsp;zero</span>
+        <input
+        id="c2"
+        style="width: 60%"
+        class="inputs"
+        type="range"
+        value="0"
+        min="0"
+        max="4"
+        step="0.1"/>
+        <span class="sliderMax">large </span>
+      </div>
+      <div style="font-weight: bold">\(k_2\)</div>
+      <div class="slideWrap" style="text-align: center">
+        <span class="sliderMin">small</span>
+        <input
+        id="k2"
+        style="width: 60%"
+        class="inputs"
+        type="range"
+        value="1"
+        min="1"
+        max="3.9"
+        step="0.1"/>
+        <span class="sliderMax">large </span>
+      </div>
+    </div>
+  </div>
+  <div class="row" id="plotbox">
+    <div id="plot"></div>
+  </div>
+  <!-- here is the code -->
+  <script src="2dof.js"></script>
+</body>
+</html>
