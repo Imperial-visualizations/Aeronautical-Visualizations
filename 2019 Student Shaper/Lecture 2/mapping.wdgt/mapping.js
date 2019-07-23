@@ -27,7 +27,18 @@ const graphx = horRange.toArray().concat(horRange.toArray().reverse()).concat(ma
 const graphy = math.zeros(horLen).toArray().concat(verRange.toArray()).concat(verRange.toArray().reverse());
 
 // initialise graph
-const data = [{ // horizontal
+const data = [{ // event listener
+      x: [2.5, 0.0, 2.5],
+      y: [0.0, 2.5/math.sqrt(3), 2.5/math.sqrt(3),],
+      type: 'scatter',
+      mode: 'markers',
+      hoverinfo: 'none',
+      marker: {
+        color: 'transparent',
+        size: 25,
+      },
+      connectgaps: false,
+  }, { // horizontal
       x: graphx,
       y: graphy,
       type: 'scatter',
@@ -408,7 +419,7 @@ $(document).ready(function () {
   Plotly.newPlot(plot2, data2, layout2, {displayModeBar: false, doubleClick: false,});
 
   var newData = Array.from(data);
-  newData.splice(1, 0, { // horizontal
+  newData.splice(2, 0, { // horizontal
         x: [0, 5],
         y: [0, 0],
         type: 'scatter',
@@ -422,532 +433,555 @@ $(document).ready(function () {
   },);
   Plotly.react(plot1, newData, layout);
 
+  var pointNo = -1;
+
   plot1.on('plotly_click', function(dataOutput) {
-    var xaxis = plot1._fullLayout.xaxis;
-    var yaxis = plot1._fullLayout.yaxis;
-    var mousex = xaxis.p2l(dataOutput.event.x)
-    var mousey = yaxis.p2l(dataOutput.event.y)
+    console.log(dataOutput);
 
-    const eps = 0.51;
-    newData = Array.from(data); // create shallow copy
+    var newData = Array.from(data); // create shallow copy
+    for (var i = 0; i<dataOutput.points.length; i++) {
+      if (dataOutput.points[i].curveNumber==0) {
+        var tempNo = dataOutput.points[i].pointNumber;
+        if (tempNo==0||tempNo==2) {
+          var xaxis = plot1._fullLayout.xaxis;
+          var yaxis = plot1._fullLayout.yaxis;
+          var mousex = xaxis.p2l(dataOutput.event.x - xaxis._offset);
+          var mousey = yaxis.p2l(dataOutput.event.y - yaxis._offset);
+          console.log(mousey)
+          if (mousey*math.sqrt(3)+mousex>=3.5) {
+            pointNo = 2;
+          } else {
+            pointNo = 0;
+          }
+        } else {
+          pointNo = tempNo;
+        }
+        break;
+      }
+    }
 
-    if (math.abs(mousey)<eps) {
-      console.log(1);
-      newData.splice(1, 0, { // horizontal
-            x: [0, 5],
-            y: [0, 0],
-            type: 'scatter',
-            mode: 'lines',
-            hoverinfo: 'none',
-            line: {
-              color: 'red',
-              width: 5,
-          },
-            connectgaps: false,
-      },);
-      Plotly.react(plot1, newData, layout);
-      var annotations = [{ // r1
-        x: 1.0,
-        y: 0.4+2.5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        showarrow: true,
-        arrowcolor: 'black',
-        arrowhead: 2,
-        arrowsize: 1,
-        ax: -30,
-        ay: 0,
-      }, { // r2
-        x: 0,
-        y: 1.5+2.5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        showarrow: true,
-        arrowcolor: 'black',
-        arrowhead: 2,
-        arrowsize: 1,
-        ax: 0,
-        ay: 40,
-      }, { // r3
-        x: 6.0,
-        y: 0.4+2.5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        showarrow: true,
-        arrowcolor: 'black',
-        arrowhead: 2,
-        arrowsize: 1,
-        ax: -30,
-        ay: 0,
-      }, { // r4
-        x: 5,
-        y: 1.5+2.5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        showarrow: true,
-        arrowcolor: 'black',
-        arrowhead: 2,
-        arrowsize: 1,
-        ax: 0,
-        ay: 40,
-      }, { // r1
-        x: 1.4,
-        y: 0.5+2.5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        text: "$\\rho_1$",
-        font: {color: "black", size: 20},
-        showarrow: true,
-        arrowcolor: 'transparent',
-        arrowhead: 2,
-        arrowsize: 0,
-        ax: 0,
-        ay: 0,
-      }, { // r2
-        x: 0,
-        y: 2+2.5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        text: "$\\rho_2$",
-        font: {color: "black", size: 20},
-        showarrow: true,
-        arrowcolor: 'transparent',
-        arrowhead: 2,
-        arrowsize: 0,
-        ax: 0,
-        ay: 0,
-      }, { // r3
-        x: 6.4,
-        y: 0.5+2.5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        text: "$\\rho_3$",
-        font: {color: "black", size: 20},
-        showarrow: true,
-        arrowcolor: 'transparent',
-        arrowhead: 2,
-        arrowsize: 0,
-        ax: 0,
-        ay: 0,
-      }, { // r4
-        x: 5,
-        y: 2+2.5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        text: "$\\rho_4$",
-        font: {color: "black", size: 20},
-        showarrow: true,
-        arrowcolor: 'transparent',
-        arrowhead: 2,
-        arrowsize: 0,
-        ax: 0,
-        ay: 0,
-      }, ];
-      Plotly.relayout(plot2, {
-        annotations: annotations,
-      });
-      Plotly.restyle(plot2, {
-        x: [[0, 5]],
-        y: [[2.5/math.sqrt(3), 2.5/math.sqrt(3)]],
-      });
+    switch (pointNo) {
+      case 0:
+        console.log(1);
+        newData.splice(2, 0, { // horizontal
+              x: [0, 5],
+              y: [0, 0],
+              type: 'scatter',
+              mode: 'lines',
+              hoverinfo: 'none',
+              line: {
+                color: 'red',
+                width: 5,
+            },
+              connectgaps: false,
+        },);
+        Plotly.react(plot1, newData, layout);
+        var annotations = [{ // r1
+          x: 1.0,
+          y: 0.4+2.5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          showarrow: true,
+          arrowcolor: 'black',
+          arrowhead: 2,
+          arrowsize: 1,
+          ax: -30,
+          ay: 0,
+        }, { // r2
+          x: 0,
+          y: 1.5+2.5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          showarrow: true,
+          arrowcolor: 'black',
+          arrowhead: 2,
+          arrowsize: 1,
+          ax: 0,
+          ay: 40,
+        }, { // r3
+          x: 6.0,
+          y: 0.4+2.5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          showarrow: true,
+          arrowcolor: 'black',
+          arrowhead: 2,
+          arrowsize: 1,
+          ax: -30,
+          ay: 0,
+        }, { // r4
+          x: 5,
+          y: 1.5+2.5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          showarrow: true,
+          arrowcolor: 'black',
+          arrowhead: 2,
+          arrowsize: 1,
+          ax: 0,
+          ay: 40,
+        }, { // r1
+          x: 1.4,
+          y: 0.5+2.5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          text: "$\\rho_1$",
+          font: {color: "black", size: 20},
+          showarrow: true,
+          arrowcolor: 'transparent',
+          arrowhead: 2,
+          arrowsize: 0,
+          ax: 0,
+          ay: 0,
+        }, { // r2
+          x: 0,
+          y: 2+2.5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          text: "$\\rho_2$",
+          font: {color: "black", size: 20},
+          showarrow: true,
+          arrowcolor: 'transparent',
+          arrowhead: 2,
+          arrowsize: 0,
+          ax: 0,
+          ay: 0,
+        }, { // r3
+          x: 6.4,
+          y: 0.5+2.5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          text: "$\\rho_3$",
+          font: {color: "black", size: 20},
+          showarrow: true,
+          arrowcolor: 'transparent',
+          arrowhead: 2,
+          arrowsize: 0,
+          ax: 0,
+          ay: 0,
+        }, { // r4
+          x: 5,
+          y: 2+2.5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          text: "$\\rho_4$",
+          font: {color: "black", size: 20},
+          showarrow: true,
+          arrowcolor: 'transparent',
+          arrowhead: 2,
+          arrowsize: 0,
+          ax: 0,
+          ay: 0,
+        }, ];
+        Plotly.relayout(plot2, {
+          annotations: annotations,
+        });
+        Plotly.restyle(plot2, {
+          x: [[0, 5]],
+          y: [[2.5/math.sqrt(3), 2.5/math.sqrt(3)]],
+        });
 
-      $("#smallMatrix1").show();
-      $("#smallMatrix2").hide();
-      $("#smallMatrix3").hide();
-      $("#mapping1").show();
-      $("#mapping2").hide();
-      $("#mapping3").hide();
-      $("#bigMatrix1").show();
-      $("#bigMatrix2").hide();
-      $("#bigMatrix3").hide();
-    } else if (math.abs(mousex)<eps) {
-      console.log(2);
-      newData.splice(1, 0, { // vertical
-            x: [0, 0],
-            y: [0, 5/math.sqrt(3)],
-            type: 'scatter',
-            mode: 'lines',
-            hoverinfo: 'none',
-            line: {
-              color: 'red',
-              width: 5,
-          },
-            connectgaps: false,
-      },);
-      Plotly.react(plot1, newData, layout);
-      var annotations = [{ // r1
-        x: 3.8,
-        y: 0,
-        xref: 'x',
-        yref: 'y',
-        showarrow: true,
-        arrowcolor: 'black',
-        arrowhead: 2,
-        arrowsize: 1,
-        ax: -30,
-        ay: 0,
-      }, { // r2
-        x: 2.8,
-        y: 1.5,
-        xref: 'x',
-        yref: 'y',
-        showarrow: true,
-        arrowcolor: 'black',
-        arrowhead: 2,
-        arrowsize: 1,
-        ax: 0,
-        ay: 40,
-      }, { // r3
-        x: 3.8,
-        y: 5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        showarrow: true,
-        arrowcolor: 'black',
-        arrowhead: 2,
-        arrowsize: 1,
-        ax: -30,
-        ay: 0,
-      }, { // r4
-        x: 2.8,
-        y: 1.1+5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        showarrow: true,
-        arrowcolor: 'black',
-        arrowhead: 2,
-        arrowsize: 1,
-        ax: 0,
-        ay: 35,
-      }, { // r1
-        x: 4.2,
-        y: 0,
-        xref: 'x',
-        yref: 'y',
-        text: "$\\rho_1$",
-        font: {color: "black", size: 20},
-        showarrow: true,
-        arrowcolor: 'transparent',
-        arrowhead: 2,
-        arrowsize: 0,
-        ax: 0,
-        ay: 0,
-      }, { // r2
-        x: 3.3,
-        y: 1.5,
-        xref: 'x',
-        yref: 'y',
-        text: "$\\rho_2$",
-        font: {color: "black", size: 20},
-        showarrow: true,
-        arrowcolor: 'transparent',
-        arrowhead: 2,
-        arrowsize: 0,
-        ax: 0,
-        ay: 0,
-      }, { // r3
-        x: 4.2,
-        y: 0+5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        text: "$\\rho_3$",
-        font: {color: "black", size: 20},
-        showarrow: true,
-        arrowcolor: 'transparent',
-        arrowhead: 2,
-        arrowsize: 0,
-        ax: 0,
-        ay: 0,
-      }, { // r4
-        x: 3.3,
-        y: 1+5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        text: "$\\rho_4$",
-        font: {color: "black", size: 20},
-        showarrow: true,
-        arrowcolor: 'transparent',
-        arrowhead: 2,
-        arrowsize: 0,
-        ax: 0,
-        ay: 0,
-      }, ];
-      Plotly.relayout(plot2, {
-        annotations: annotations,
-      });
-      Plotly.restyle(plot2, {
-        x: [[2.5, 2.5]],
-        y: [[0, 5/math.sqrt(3)]],
-      });
+        $("#smallMatrix1").show();
+        $("#smallMatrix2").hide();
+        $("#smallMatrix3").hide();
+        $("#mapping1").show();
+        $("#mapping2").hide();
+        $("#mapping3").hide();
+        $("#bigMatrix1").show();
+        $("#bigMatrix2").hide();
+        $("#bigMatrix3").hide();
+        break;
+      case 1:
+        console.log(2);
+        newData.splice(2, 0, { // vertical
+              x: [0, 0],
+              y: [0, 5/math.sqrt(3)],
+              type: 'scatter',
+              mode: 'lines',
+              hoverinfo: 'none',
+              line: {
+                color: 'red',
+                width: 5,
+            },
+              connectgaps: false,
+        },);
+        Plotly.react(plot1, newData, layout);
+        var annotations = [{ // r1
+          x: 3.8,
+          y: 0,
+          xref: 'x',
+          yref: 'y',
+          showarrow: true,
+          arrowcolor: 'black',
+          arrowhead: 2,
+          arrowsize: 1,
+          ax: -30,
+          ay: 0,
+        }, { // r2
+          x: 2.8,
+          y: 1.5,
+          xref: 'x',
+          yref: 'y',
+          showarrow: true,
+          arrowcolor: 'black',
+          arrowhead: 2,
+          arrowsize: 1,
+          ax: 0,
+          ay: 40,
+        }, { // r3
+          x: 3.8,
+          y: 5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          showarrow: true,
+          arrowcolor: 'black',
+          arrowhead: 2,
+          arrowsize: 1,
+          ax: -30,
+          ay: 0,
+        }, { // r4
+          x: 2.8,
+          y: 1.1+5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          showarrow: true,
+          arrowcolor: 'black',
+          arrowhead: 2,
+          arrowsize: 1,
+          ax: 0,
+          ay: 35,
+        }, { // r1
+          x: 4.2,
+          y: 0,
+          xref: 'x',
+          yref: 'y',
+          text: "$\\rho_1$",
+          font: {color: "black", size: 20},
+          showarrow: true,
+          arrowcolor: 'transparent',
+          arrowhead: 2,
+          arrowsize: 0,
+          ax: 0,
+          ay: 0,
+        }, { // r2
+          x: 3.3,
+          y: 1.5,
+          xref: 'x',
+          yref: 'y',
+          text: "$\\rho_2$",
+          font: {color: "black", size: 20},
+          showarrow: true,
+          arrowcolor: 'transparent',
+          arrowhead: 2,
+          arrowsize: 0,
+          ax: 0,
+          ay: 0,
+        }, { // r3
+          x: 4.2,
+          y: 0+5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          text: "$\\rho_3$",
+          font: {color: "black", size: 20},
+          showarrow: true,
+          arrowcolor: 'transparent',
+          arrowhead: 2,
+          arrowsize: 0,
+          ax: 0,
+          ay: 0,
+        }, { // r4
+          x: 3.3,
+          y: 1+5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          text: "$\\rho_4$",
+          font: {color: "black", size: 20},
+          showarrow: true,
+          arrowcolor: 'transparent',
+          arrowhead: 2,
+          arrowsize: 0,
+          ax: 0,
+          ay: 0,
+        }, ];
+        Plotly.relayout(plot2, {
+          annotations: annotations,
+        });
+        Plotly.restyle(plot2, {
+          x: [[2.5, 2.5]],
+          y: [[0, 5/math.sqrt(3)]],
+        });
 
-      $("#smallMatrix1").hide();
-      $("#smallMatrix2").show();
-      $("#smallMatrix3").hide();
-      $("#mapping1").hide();
-      $("#mapping2").show();
-      $("#mapping3").hide();
-      $("#bigMatrix1").hide();
-      $("#bigMatrix2").show();
-      $("#bigMatrix3").hide();
-    } else if (math.abs(1+((math.sqrt(3)*mousey-5)/(mousex)))<=2*eps) {
-      console.log(3);
-      newData.splice(1, 0, { // horizontal
-            x: [0, 5],
-            y: [5/math.sqrt(3), 0],
-            type: 'scatter',
-            mode: 'lines',
-            hoverinfo: 'none',
-            line: {
-              color: 'red',
-              width: 5,
-          },
-            connectgaps: false,
-      },);
-      Plotly.react(plot1, newData, layout);
-      var annotations = [{ // r3
-        x: 1.0,
-        y: 0.4+5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        showarrow: true,
-        arrowcolor: 'black',
-        arrowhead: 2,
-        arrowsize: 1,
-        ax: -30,
-        ay: 0,
-      }, { // r4
-        x: 0,
-        y: 1.1+5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        showarrow: true,
-        arrowcolor: 'black',
-        arrowhead: 2,
-        arrowsize: 1,
-        ax: 0,
-        ay: 30,
-      }, { // r1
-        x: 6.0,
-        y: 0.4,
-        xref: 'x',
-        yref: 'y',
-        showarrow: true,
-        arrowcolor: 'black',
-        arrowhead: 2,
-        arrowsize: 1,
-        ax: -30,
-        ay: 0,
-      }, { // r2
-        x: 5,
-        y: 1.5,
-        xref: 'x',
-        yref: 'y',
-        showarrow: true,
-        arrowcolor: 'black',
-        arrowhead: 2,
-        arrowsize: 1,
-        ax: 0,
-        ay: 40,
-      }, { // r3
-        x: 1.4,
-        y: 0.5+5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        text: "$\\rho_3$",
-        font: {color: "black", size: 20},
-        showarrow: true,
-        arrowcolor: 'transparent',
-        arrowhead: 2,
-        arrowsize: 0,
-        ax: 0,
-        ay: 0,
-      }, { // r4
-        x: -0.5,
-        y: 1.1+5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        text: "$\\rho_4$",
-        font: {color: "black", size: 20},
-        showarrow: true,
-        arrowcolor: 'transparent',
-        arrowhead: 2,
-        arrowsize: 0,
-        ax: 0,
-        ay: 0,
-      }, { // r1
-        x: 6.4,
-        y: 0.5,
-        xref: 'x',
-        yref: 'y',
-        text: "$\\rho_1$",
-        font: {color: "black", size: 20},
-        showarrow: true,
-        arrowcolor: 'transparent',
-        arrowhead: 2,
-        arrowsize: 0,
-        ax: 0,
-        ay: 0,
-      }, { // r2
-        x: 5,
-        y: 2,
-        xref: 'x',
-        yref: 'y',
-        text: "$\\rho_2$",
-        font: {color: "black", size: 20},
-        showarrow: true,
-        arrowcolor: 'transparent',
-        arrowhead: 2,
-        arrowsize: 0,
-        ax: 0,
-        ay: 0,
-      }, ];
-      Plotly.relayout(plot2, {
-        annotations: annotations,
-      });
-      Plotly.restyle(plot2, {
-        x: [[0, 5]],
-        y: [[5/math.sqrt(3), 0]],
-      });
+        $("#smallMatrix1").hide();
+        $("#smallMatrix2").show();
+        $("#smallMatrix3").hide();
+        $("#mapping1").hide();
+        $("#mapping2").show();
+        $("#mapping3").hide();
+        $("#bigMatrix1").hide();
+        $("#bigMatrix2").show();
+        $("#bigMatrix3").hide();
+        break;
+      case 2:
+        console.log(3);
+        newData.splice(2, 0, { // horizontal
+              x: [0, 5],
+              y: [5/math.sqrt(3), 0],
+              type: 'scatter',
+              mode: 'lines',
+              hoverinfo: 'none',
+              line: {
+                color: 'red',
+                width: 5,
+            },
+              connectgaps: false,
+        },);
+        Plotly.react(plot1, newData, layout);
+        var annotations = [{ // r3
+          x: 1.0,
+          y: 0.4+5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          showarrow: true,
+          arrowcolor: 'black',
+          arrowhead: 2,
+          arrowsize: 1,
+          ax: -30,
+          ay: 0,
+        }, { // r4
+          x: 0,
+          y: 1.1+5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          showarrow: true,
+          arrowcolor: 'black',
+          arrowhead: 2,
+          arrowsize: 1,
+          ax: 0,
+          ay: 30,
+        }, { // r1
+          x: 6.0,
+          y: 0.4,
+          xref: 'x',
+          yref: 'y',
+          showarrow: true,
+          arrowcolor: 'black',
+          arrowhead: 2,
+          arrowsize: 1,
+          ax: -30,
+          ay: 0,
+        }, { // r2
+          x: 5,
+          y: 1.5,
+          xref: 'x',
+          yref: 'y',
+          showarrow: true,
+          arrowcolor: 'black',
+          arrowhead: 2,
+          arrowsize: 1,
+          ax: 0,
+          ay: 40,
+        }, { // r3
+          x: 1.4,
+          y: 0.5+5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          text: "$\\rho_3$",
+          font: {color: "black", size: 20},
+          showarrow: true,
+          arrowcolor: 'transparent',
+          arrowhead: 2,
+          arrowsize: 0,
+          ax: 0,
+          ay: 0,
+        }, { // r4
+          x: -0.5,
+          y: 1.1+5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          text: "$\\rho_4$",
+          font: {color: "black", size: 20},
+          showarrow: true,
+          arrowcolor: 'transparent',
+          arrowhead: 2,
+          arrowsize: 0,
+          ax: 0,
+          ay: 0,
+        }, { // r1
+          x: 6.4,
+          y: 0.5,
+          xref: 'x',
+          yref: 'y',
+          text: "$\\rho_1$",
+          font: {color: "black", size: 20},
+          showarrow: true,
+          arrowcolor: 'transparent',
+          arrowhead: 2,
+          arrowsize: 0,
+          ax: 0,
+          ay: 0,
+        }, { // r2
+          x: 5,
+          y: 2,
+          xref: 'x',
+          yref: 'y',
+          text: "$\\rho_2$",
+          font: {color: "black", size: 20},
+          showarrow: true,
+          arrowcolor: 'transparent',
+          arrowhead: 2,
+          arrowsize: 0,
+          ax: 0,
+          ay: 0,
+        }, ];
+        Plotly.relayout(plot2, {
+          annotations: annotations,
+        });
+        Plotly.restyle(plot2, {
+          x: [[0, 5]],
+          y: [[5/math.sqrt(3), 0]],
+        });
 
-      $("#smallMatrix1").hide();
-      $("#smallMatrix2").hide();
-      $("#smallMatrix3").show();
-      $("#mapping1").hide();
-      $("#mapping2").hide();
-      $("#mapping3").show();
-      $("#bigMatrix1").hide();
-      $("#bigMatrix2").hide();
-      $("#bigMatrix3").show();
-    } else {
-      console.log(0);
-      newData.splice(1, 0, { // horizontal
-            x: [0, 5],
-            y: [0, 0],
-            type: 'scatter',
-            mode: 'lines',
-            hoverinfo: 'none',
-            line: {
-              color: 'red',
-              width: 5,
-          },
-            connectgaps: false,
-      },);
-      Plotly.react(plot1, newData, layout);
-      var annotations = [{ // r1
-        x: 1.0,
-        y: 0.4+2.5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        showarrow: true,
-        arrowcolor: 'black',
-        arrowhead: 2,
-        arrowsize: 1,
-        ax: -30,
-        ay: 0,
-      }, { // r2
-        x: 0,
-        y: 1.5+2.5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        showarrow: true,
-        arrowcolor: 'black',
-        arrowhead: 2,
-        arrowsize: 1,
-        ax: 0,
-        ay: 40,
-      }, { // r3
-        x: 6.0,
-        y: 0.4+2.5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        showarrow: true,
-        arrowcolor: 'black',
-        arrowhead: 2,
-        arrowsize: 1,
-        ax: -30,
-        ay: 0,
-      }, { // r4
-        x: 5,
-        y: 1.5+2.5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        showarrow: true,
-        arrowcolor: 'black',
-        arrowhead: 2,
-        arrowsize: 1,
-        ax: 0,
-        ay: 40,
-      }, { // r1
-        x: 1.4,
-        y: 0.5+2.5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        text: "$\\rho_1$",
-        font: {color: "black", size: 20},
-        showarrow: true,
-        arrowcolor: 'transparent',
-        arrowhead: 2,
-        arrowsize: 0,
-        ax: 0,
-        ay: 0,
-      }, { // r2
-        x: 0,
-        y: 2+2.5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        text: "$\\rho_2$",
-        font: {color: "black", size: 20},
-        showarrow: true,
-        arrowcolor: 'transparent',
-        arrowhead: 2,
-        arrowsize: 0,
-        ax: 0,
-        ay: 0,
-      }, { // r3
-        x: 6.4,
-        y: 0.5+2.5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        text: "$\\rho_3$",
-        font: {color: "black", size: 20},
-        showarrow: true,
-        arrowcolor: 'transparent',
-        arrowhead: 2,
-        arrowsize: 0,
-        ax: 0,
-        ay: 0,
-      }, { // r4
-        x: 5,
-        y: 2+2.5/math.sqrt(3),
-        xref: 'x',
-        yref: 'y',
-        text: "$\\rho_4$",
-        font: {color: "black", size: 20},
-        showarrow: true,
-        arrowcolor: 'transparent',
-        arrowhead: 2,
-        arrowsize: 0,
-        ax: 0,
-        ay: 0,
-      }, ];
-      Plotly.relayout(plot2, {
-        annotations: annotations,
-      });
-      Plotly.restyle(plot2, {
-        x: [[0, 5]],
-        y: [[2.5/math.sqrt(3), 2.5/math.sqrt(3)]],
-      });
+        $("#smallMatrix1").hide();
+        $("#smallMatrix2").hide();
+        $("#smallMatrix3").show();
+        $("#mapping1").hide();
+        $("#mapping2").hide();
+        $("#mapping3").show();
+        $("#bigMatrix1").hide();
+        $("#bigMatrix2").hide();
+        $("#bigMatrix3").show();
+        break;
+      default:
+        console.log(0);
+        newData.splice(2, 0, { // horizontal
+              x: [0, 5],
+              y: [0, 0],
+              type: 'scatter',
+              mode: 'lines',
+              hoverinfo: 'none',
+              line: {
+                color: 'red',
+                width: 5,
+            },
+              connectgaps: false,
+        },);
+        Plotly.react(plot1, newData, layout);
+        var annotations = [{ // r1
+          x: 1.0,
+          y: 0.4+2.5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          showarrow: true,
+          arrowcolor: 'black',
+          arrowhead: 2,
+          arrowsize: 1,
+          ax: -30,
+          ay: 0,
+        }, { // r2
+          x: 0,
+          y: 1.5+2.5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          showarrow: true,
+          arrowcolor: 'black',
+          arrowhead: 2,
+          arrowsize: 1,
+          ax: 0,
+          ay: 40,
+        }, { // r3
+          x: 6.0,
+          y: 0.4+2.5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          showarrow: true,
+          arrowcolor: 'black',
+          arrowhead: 2,
+          arrowsize: 1,
+          ax: -30,
+          ay: 0,
+        }, { // r4
+          x: 5,
+          y: 1.5+2.5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          showarrow: true,
+          arrowcolor: 'black',
+          arrowhead: 2,
+          arrowsize: 1,
+          ax: 0,
+          ay: 40,
+        }, { // r1
+          x: 1.4,
+          y: 0.5+2.5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          text: "$\\rho_1$",
+          font: {color: "black", size: 20},
+          showarrow: true,
+          arrowcolor: 'transparent',
+          arrowhead: 2,
+          arrowsize: 0,
+          ax: 0,
+          ay: 0,
+        }, { // r2
+          x: 0,
+          y: 2+2.5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          text: "$\\rho_2$",
+          font: {color: "black", size: 20},
+          showarrow: true,
+          arrowcolor: 'transparent',
+          arrowhead: 2,
+          arrowsize: 0,
+          ax: 0,
+          ay: 0,
+        }, { // r3
+          x: 6.4,
+          y: 0.5+2.5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          text: "$\\rho_3$",
+          font: {color: "black", size: 20},
+          showarrow: true,
+          arrowcolor: 'transparent',
+          arrowhead: 2,
+          arrowsize: 0,
+          ax: 0,
+          ay: 0,
+        }, { // r4
+          x: 5,
+          y: 2+2.5/math.sqrt(3),
+          xref: 'x',
+          yref: 'y',
+          text: "$\\rho_4$",
+          font: {color: "black", size: 20},
+          showarrow: true,
+          arrowcolor: 'transparent',
+          arrowhead: 2,
+          arrowsize: 0,
+          ax: 0,
+          ay: 0,
+        }, ];
+        Plotly.relayout(plot2, {
+          annotations: annotations,
+        });
+        Plotly.restyle(plot2, {
+          x: [[0, 5]],
+          y: [[2.5/math.sqrt(3), 2.5/math.sqrt(3)]],
+        });
 
-      $("#smallMatrix1").show();
-      $("#smallMatrix2").hide();
-      $("#smallMatrix3").hide();
-      $("#mapping1").show();
-      $("#mapping2").hide();
-      $("#mapping3").hide();
-      $("#bigMatrix1").show();
-      $("#bigMatrix2").hide();
-      $("#bigMatrix3").hide();
-    };
+        $("#smallMatrix1").show();
+        $("#smallMatrix2").hide();
+        $("#smallMatrix3").hide();
+        $("#mapping1").show();
+        $("#mapping2").hide();
+        $("#mapping3").hide();
+        $("#bigMatrix1").show();
+        $("#bigMatrix2").hide();
+        $("#bigMatrix3").hide();
+        break;
+    }
     return;
   });
 
