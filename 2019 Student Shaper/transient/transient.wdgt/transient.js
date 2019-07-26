@@ -32,7 +32,7 @@ layout0 = {
       showticklabels: false
     },
     yaxis: {
-      range: [-20,40],
+      range: [-15,30],
       fixedrange: true,
       showgrid: false,
       zeroline: true,
