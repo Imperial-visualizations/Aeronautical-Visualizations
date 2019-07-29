@@ -361,7 +361,7 @@ function main() {
 // on ready
 $(document).ready(main()); */
 
-Plotly.newPlot('graph1', data, layout);
+Plotly.newPlot('graph1', data, layout, {displayModeBar: false, doubleClick: false,});
 document.getElementById('graph1').on('plotly_click', function(dataInput){
   var py = '', index = '';
   for (i=0;i<dataInput.points.length;i++) {
