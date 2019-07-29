@@ -18,6 +18,9 @@ const graphlen = 512;
 var rDeque = new Deque(maxlen);
 
 let startAnim;
+var graphContainer = document.getElementById("graph0");
+var d3 = Plotly.d3;
+var drag = d3.behavior.drag();
 
 // plot data
 function updateData (move) {
@@ -120,7 +123,15 @@ function updateData (move) {
         textfont: {color: 'black', size: 30, family: 'serif'},
         textposition: 'bottom',
         type: 'scatter',
-      },);
+      }, {
+        x: [3.25],
+        y: [1.3],
+        mode: 'text',
+        text: ['Drag the mass to displace it'],
+        textfont: {color: 'grey', size: 15, family: 'serif'},
+        textposition: 'top',
+        type: 'scatter',
+      });
     };
 
     return;
@@ -233,10 +244,6 @@ function updatePosition (move) {
 }
 
 function startDragBehavior () {
-  var startAnim;
-
-  var d3 = Plotly.d3;
-  var drag = d3.behavior.drag();
   drag.origin(function () {
     var transform = d3.select(this).attr("transform");
     var translate = transform.substring(10, transform.length-1).split(/,| /);
@@ -259,6 +266,7 @@ function startDragBehavior () {
   });
   drag.on("dragend", function() {
     d3.select(".scatterlayer .trace:last-of-type .points path:last-of-type").call(drag);
+    $("#pause").prop("value", "Pause");
     rDeque.push(massCoords[1], massCoords[1]);
     startAnim = setInterval(function () {
       drag.on("dragstart", function () {
@@ -277,8 +285,7 @@ function startDragBehavior () {
       updatePosition(true);
 
       if ((math.abs(nextR - origin[1]) <= eps) && (((math.abs(nextR-prevR[1]-origin[1]))/dt) <= eps)) {
-        console.log('end')
-        clearInterval(startAnim);
+        reset();
       }
     }, 15);
     return;
@@ -286,8 +293,18 @@ function startDragBehavior () {
   d3.selectAll(".scatterlayer .trace:last-of-type .points path").call(drag);
 }
 
+function reset () {
+  clearInterval(startAnim);
+  rDeque.push(origin[1], origin[1]);
+  massCoords = [origin[0], origin[1]];
+  updatePosition(false);
+  startDragBehavior();
+  $("#pause").prop('value', 'Start');
+  return;
+};
+
 // when page ready
-function main () {
+$(document).ready(function main () {
 
   // typeset math
   MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
@@ -297,8 +314,6 @@ function main () {
   updateData(false);
   updateLayout();
 
-  var graphContainer = document.getElementById("graph0");
-
   Plotly.newPlot(graphContainer, data, layout, {displayModeBar: false});
 
   var massContainer = graphContainer.querySelector(".scatterlayer .trace:last-of-type .points");
@@ -306,16 +321,54 @@ function main () {
 
   startDragBehavior();
 
-  $("#zeta").on("change", function () {
-    c = $("#zeta").val();
-    console.log(c)
+  $(":input").on("change", function () {
+    m = $("#m").val();
+    c = $("#c").val();
+    k = $("#k").val();
+    reset();
+    return;
   })
 
-}
+  $("#pause").on("click", function () {
+    switch ($("#pause").attr('value')) {
+      case "Pause":
+        clearInterval(startAnim);
+        $("#pause").prop('value', 'Start');
+        break;
+      case "Start":
+        $("#pause").prop('value', 'Pause');
+        if (rDeque.length<2||(rDeque.get(-1)===0&&rDeque.get(-2)===0)) {
+          rDeque.push(0,0.15);
+        }
+        startAnim = setInterval(function () {
+          prevR = [
+            rDeque.get(-2) - origin[1],
+            rDeque.get(-1) - origin[1],
+          ];
 
-$(document).ready(function () {
-  main();
-})
+          nextR = math.eval('(2*m*(2*b-a) + c*t*a - 2*t*t*b)/(2*m + c*t)', {m: m, c: c, k: k, a: prevR[0], b: prevR[1], t: dt}) + origin[1];
+
+          rDeque.push(nextR);
+          massCoords = [origin[0], nextR];
+          updatePosition(true);
+
+          if ((math.abs(nextR - origin[1]) <= eps) && (((math.abs(nextR-prevR[1]-origin[1]))/dt) <= eps)) {
+            reset();
+          }
+        }, 15);
+        break;
+      default:
+        break;
+    }
+    return;
+  });
+
+  $("#reset").on("click", function () {
+    reset();
+    return;
+  });
+
+});
 
 
 

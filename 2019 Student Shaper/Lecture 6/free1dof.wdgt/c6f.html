@@ -33,25 +33,75 @@
 <body style="background-color: #F4F4F4">
   <!--Graph-->
   <div id="graph0"></div>
-  <div class="twelve columns" style="text-align: center; margin-left: 0; width: 100%">
     <div class="row">
-        <p style="font-weight: bold">Damping ratio $\zeta$</p>
+      <div class="one-half column" style="text-align: center; margin-left: 0; width: 50%">
+        <br>
+        <div class="two columns" style="text-align: center; margin-left: 0; width: 16.66%">
+          <br>
+        </div>
+        <div class="one-third column" style="text-align: center; margin-left: 0; width: 33.33%">
+          <input type="button" class="button" value="Start" id="pause" style="font-weight: 700">
+        </div>
+        <div class="one-third column" style="text-align: center; margin-left: 0; width: 33.33%">
+          <input type="button" class="button" value="Reset" id="reset" style="font-weight: 700">
+        </div>
+        <div class="two columns" style="text-align: center; margin-left: 0; width: 16.66%">
+          <br>
+        </div>
+      </div>
+      <div class="one-half column" style="text-align: center; margin-left: 0; width: 50%">
+        <span style="font-weight: bold">Mass $m$</span>
         <div class="slideWrap" style="text-align: center">
           <span class="sliderMin">small</span>
           <input
-          id="zeta"
-          style="width: 70%"
+          id="m"
+          style="width: 60%"
           class="inputs"
           type="range"
-          value="0.3"
+          value="1"
           min="0.1"
+          max="1.9"
+          step="0.1"/>
+          <span class="sliderMax">large </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="one-half column" style="text-align: center; margin-left: 0; width: 50%">
+        <span style="font-weight: bold">Damping coefficient $c$</span>
+        <div class="slideWrap" style="text-align: center">
+          <span class="sliderMin">&nbsp; zero</span>
+          <input
+          id="c"
+          style="width: 60%"
+          class="inputs"
+          type="range"
+          value="0.5"
+          min="0"
           max="3.9"
           step="0.1"/>
           <span class="sliderMax">large </span>
         </div>
-        <p>$1$ &nbsp; &nbsp; &nbsp;</p>
+      </div>
+      <div class="one-half column" style="text-align: center; margin-left: 0; width: 50%">
+        <span style="font-weight: bold">Spring constant $k$</span>
+        <div class="slideWrap" style="text-align: center">
+          <span class="sliderMin">small</span>
+          <input
+          id="k"
+          style="width: 60%"
+          class="inputs"
+          type="range"
+          value="1"
+          min="0.1"
+          max="1.9"
+          step="0.1"/>
+          <span class="sliderMax">large </span>
+        </div>
       </div>
     </div>
+
   <!-- here is the code -->
   <script src="c6f_1.js"></script>
 </body>
