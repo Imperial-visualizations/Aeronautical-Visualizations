@@ -6,7 +6,14 @@ math.config({
 // convenience
 var graphstart = 0, graphend = 20, step = 0.02;
 var linrange = math.range(graphstart, graphend, step, true);
-let data0, layout0, data1, layout1;
+let plot0, data0, layout0, plot1, data1, layout1;
+
+var temprange = math.range(0,20,1,true).toArray();
+var colorx = temprange.reduce(function(arr, v, i) {
+  return arr.concat(v, temprange[i]);
+}, []);
+var colory1 = math.zeros(colorx.length).toArray();
+var colory0 = math.zeros(linrange._size[0]).toArray();
 
 layout0 = {
     autosize: true,
@@ -123,11 +130,53 @@ function findr (input, start, end) {
   return out;
 };
 
+function plotClick (dataInput) {
+  var newData1 = Array.from(data1);
+  var newData0 = Array.from(data0);
+  var i = math.floor(dataInput.points[0].y);
+  if (i>=20) {return;};
+  if (colory1[2*i+2]!=0) {
+    colory1[2*i+1] = 0;
+    colory1[2*i+2] = 0;
+    colory0 = math.subtract(colory0, findr(linrange, i, i+1));
+  } else {
+    colory1[2*i+1] = i+.5;
+    colory1[2*i+2] = i+.5;
+    colory0 = math.add(colory0,findr(linrange, i, i+1));
+  };
+  newData1.unshift({
+    x: colorx,
+    y: colory1,
+    fill: 'tozeroy',
+    type: 'scatter',
+    mode: 'none',
+    hoverinfo: 'none',
+    connectgaps: false,
+  });
+  newData0.unshift({
+    x: linrange.toArray(),
+    y: colory0.toArray(),
+    fill: 'tozeroy',
+    type: 'scatter',
+    mode: 'none',
+    hoverinfo: 'none',
+    connectgaps: false,
+  });
+
+  Plotly.react(plot1, data1, layout1); // refresh graph
+  Plotly.react(plot1, newData1, layout1);
+
+  Plotly.react(plot0, data0, layout0);
+  Plotly.react(plot0, newData0, layout0);
+
+  return;
+};
+
 $(document).ready(function () {
   findConsts();
   totaly = findr(linrange, graphstart, graphend);
 
-  var plot0 = document.getElementById('graph0');
+  plot0 = document.getElementById('graph0');
   data0 = [{ // first curve
       x: linrange.toArray(),
       y: totaly.toArray(),
@@ -146,7 +195,7 @@ $(document).ready(function () {
   }, ];
   Plotly.newPlot(plot0, data0, layout0, {displayModeBar: false, doubleClick: false,})
 
-  var plot1 = document.getElementById('graph1');
+  plot1 = document.getElementById('graph1');
   data1 = [{ // horizontal
       x: linrange.toArray(),
       y: linrange.toArray(),
@@ -166,52 +215,8 @@ $(document).ready(function () {
 
   Plotly.newPlot(plot1, data1, layout1, {displayModeBar: false, doubleClick: false,})
 
-  var temprange = math.range(0,20,1,true).toArray();
-  var colorx = temprange.reduce(function(arr, v, i) {
-    return arr.concat(v, temprange[i]);
-  }, []);
-  var colory1 = math.zeros(colorx.length).toArray();
-  var colory0 = math.zeros(linrange._size[0]).toArray();
-
   plot1.on('plotly_click', function (dataInput) {
-    var newData1 = Array.from(data1);
-    var newData0 = Array.from(data0);
-    var i = math.floor(dataInput.points[0].y);
-    if (i>=20) {return;};
-    if (colory1[2*i+2]!=0) {
-      colory1[2*i+1] = 0;
-      colory1[2*i+2] = 0;
-      colory0 = math.subtract(colory0, findr(linrange, i, i+1));
-    } else {
-      colory1[2*i+1] = i+.5;
-      colory1[2*i+2] = i+.5;
-      colory0 = math.add(colory0,findr(linrange, i, i+1));
-    };
-    newData1.unshift({
-      x: colorx,
-      y: colory1,
-      fill: 'tozeroy',
-      type: 'scatter',
-      mode: 'none',
-      hoverinfo: 'none',
-      connectgaps: false,
-    });
-    newData0.unshift({
-      x: linrange.toArray(),
-      y: colory0.toArray(),
-      fill: 'tozeroy',
-      type: 'scatter',
-      mode: 'none',
-      hoverinfo: 'none',
-      connectgaps: false,
-    });
-
-    Plotly.react(plot1, data1, layout1); // refresh graph
-    Plotly.react(plot1, newData1, layout1);
-
-    Plotly.react(plot0, data0, layout0);
-    Plotly.react(plot0, newData0, layout0);
-
+    plotClick(dataInput);
     return;
   });
 
