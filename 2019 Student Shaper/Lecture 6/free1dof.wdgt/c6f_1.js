@@ -20,7 +20,7 @@ var rDeque = new Deque(maxlen);
 let startAnim;
 
 // plot data
-function updateData () {
+function updateData (move) {
   plotData = rDeque.toArraySlice(graphlen);
   xrange = math.range(0, 2.5, 2.5/(graphlen-1))._data.slice(0, plotData.length);
 
@@ -86,30 +86,6 @@ function updateData () {
       mode: 'lines',
       line: {color: 'blue'},
       connectgaps: false,
-    }, { // text t
-      x: [2.65, 2.9],
-      y: [-0.3, massCoords[1]+0.2],
-      mode: 'text',
-      text: ['t', 'm'],
-      textfont: {color: 'grey', size: 30, family: 'serif'},
-      textposition: 'bottom',
-      type: 'scatter',
-    }, { // text k,c
-      x: [2.9],
-      y: [-1.3],
-      mode: 'text',
-      text: ['k, c'],
-      textfont: {color: 'grey', size: 30, family: 'serif'},
-      textposition: 'bottom',
-      type: 'scatter',
-    }, { // text r
-      x: [3.75],
-      y: [1.3],
-      mode: 'text',
-      text: ['r'],
-      textfont: {color: 'black', size: 30, family: 'serif'},
-      textposition: 'bottom',
-      type: 'scatter',
     }, {
       x: [massCoords[0]],
       y: [massCoords[1]],
@@ -118,6 +94,35 @@ function updateData () {
       marker: {color: 'black', size: 50, symbol: 'square'},
       connectgaps: false,
     }];
+
+    if (!move) {
+      data.splice(3, 0, { // text m
+        x: [2.9],
+        y: [massCoords[1]+0.2],
+        mode: 'text',
+        text: ['$m$'],
+        textfont: {color: 'grey', size: 30, family: 'serif'},
+        textposition: 'bottom',
+        type: 'scatter',
+      }, { // text k,c
+        x: [2.9],
+        y: [-1.3],
+        mode: 'text',
+        text: ['$k, c$'],
+        textfont: {color: 'grey', size: 30, family: 'serif'},
+        textposition: 'bottom',
+        type: 'scatter',
+      }, { // text r
+        x: [3.75],
+        y: [1.3],
+        mode: 'text',
+        text: ['$r$'],
+        textfont: {color: 'black', size: 30, family: 'serif'},
+        textposition: 'bottom',
+        type: 'scatter',
+      },);
+    };
+
     return;
   }
 
@@ -220,8 +225,8 @@ function clamp (x, xmin, xmax) {
   return math.max(xmin, math.min(x, xmax))
 }
 
-function updatePosition () {
-  updateData();
+function updatePosition (move) {
+  updateData(move);
   // updateLayout();
   Plotly.react(graphContainer, data, layout);
   return;
@@ -249,7 +254,7 @@ function startDragBehavior () {
     var yaxis = graphContainer._fullLayout.yaxis;
     massCoords[1] = clamp(yaxis.p2l(ymouse), -1, 1);
     rDeque.push(massCoords[1]);
-    updatePosition();
+    updatePosition(true);
     return;
   });
   drag.on("dragend", function() {
@@ -269,7 +274,7 @@ function startDragBehavior () {
 
       rDeque.push(nextR);
       massCoords = [origin[0], nextR];
-      updatePosition();
+      updatePosition(true);
 
       if ((math.abs(nextR - origin[1]) <= eps) && (((math.abs(nextR-prevR[1]-origin[1]))/dt) <= eps)) {
         console.log('end')
@@ -289,7 +294,7 @@ function main () {
 
   // connect sliders
   // plot graph
-  updateData();
+  updateData(false);
   updateLayout();
 
   var graphContainer = document.getElementById("graph0");
