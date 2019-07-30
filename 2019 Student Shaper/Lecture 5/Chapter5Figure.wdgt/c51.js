@@ -587,7 +587,7 @@ function update () {
 
   sliderInput = [
     $("#forceInput").val(),
-    $("#virtualInput").val()*ratio*-1, // -1 due to slider
+    $("#virtualInput").val()*ratio, // -1 due to slider
   ];
 
   updateData();
