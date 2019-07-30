@@ -48,7 +48,7 @@ layout = {
     pad: 4,
   },
   xaxis: {
-    range: [-1,6],
+    range: [0,6],
     showgrid: false,
     zeroline: false,
     showline: false,
@@ -307,41 +307,24 @@ function updatePosition () {
 
 
 function buttonPress (hitButton) {
-  switch (hitButton.attr('id')) {
-    case "page1b":
-      $(":button").css('font-weight','400');
-      hitButton.css('font-weight','700');
-      $("#plotbox").hide();
-      $("#sliders").show();
-      break;
-    case "page2b":
-      $(":button").css('font-weight','400');
-      hitButton.css('font-weight','700');
-      $("#sliders").hide();
-      $("#plotbox").show();
-      break;
-    case "resetb":
-      if (hitButton.attr('value') == "Start") {
-        hitButton.prop('value', 'Reset');
-        //clear var theta1, theta2
-        compute();
-
-      } else {
-        hitButton.prop('value', 'Start');
-        clearInterval(startAnim);
-        massCoordx = [origin[0][0]-0.5, origin[1][0]-0.5];
-        massCoordy = [origin[0][1], origin[1][1]];
-        updateSpring();
-        updateLine();
-        Plotly.restyle(graphContainer, {x: [springx, massCoordx], y: [springy, massCoordy]}, [0, 1]);
-        Plotly.relayout(graphContainer, {annotations: [], shapes: shapes});
-        document.getElementById("zeta").value = "0";
-        k = 1;
-      }
-      break;
-    default:
-      //
-      break;
+  if (hitButton.attr('value') == "Start") {
+    hitButton.prop('value', 'Reset');
+    //clear var theta1, theta2
+    compute();
+  } else {
+    hitButton.prop('value', 'Start');
+    clearInterval(startAnim);
+    massCoordx = [origin[0][0]-0.5, origin[1][0]-0.5];
+    massCoordy = [origin[0][1], origin[1][1]];
+    rDeque = [new Deque(maxlen), new Deque(maxlen)];
+    updateSpring();
+    updateLine();
+    pushDeques();
+    updatePosition();
+    Plotly.restyle(graphContainer, {x: [springx, massCoordx], y: [springy, massCoordy]}, [0, 1]);
+    Plotly.relayout(graphContainer, {annotations: [], shapes: shapes});
+    document.getElementById("zeta").value = "0";
+    k = 1;
   }
   return;
 }
@@ -353,13 +336,8 @@ $(document).ready(function () {
   Plotly.newPlot("plot", data1, layout1, {displayModeBar: false});
   Plotly.relayout(graphContainer, {annotations: [], shapes: shapes});
 
-  $("#page1b").css('font-weight','700');
-  $("#plotbox").hide();
-  $("#sliders").show();
-
   $("input").on("change", function () {
     k = 1-$("#zeta").val();
-    rDeque = [new Deque(maxlen), new Deque(maxlen)];
     massCoordx = [origin[0][0]-0.5, origin[1][0]-0.5];
     updatePosition();
   })
