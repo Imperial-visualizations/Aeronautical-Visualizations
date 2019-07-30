@@ -30,15 +30,6 @@
 </head>
 <body style="background-color: #F4F4F4">
   <div class="row">
-    <div class="two-thirds column" style="text-align: center; margin-left: 0; width: 66.6%">
-      <h3 style="margin-bottom: 0px">Forced Response</h3>
-      <span>
-        $$
-          r(t) = \int_{0}^{t} \frac{e^{-\alpha(t-\tau)}\sin{\beta (t-\tau)}}{\beta m} R(\tau) d\tau
-        $$
-      </span>
-      <div id="graph0"></div>
-    </div>
     <div class="one-thirds column" style="text-align: center; margin-left: 0; width: 33.3%">
       <h3 style="margin-bottom: 0px">Forcing Function</h3>
       <span>$$R(t) = t$$</span>
@@ -95,6 +86,15 @@
           <span class="sliderMax">large </span>
         </div>
       </div>
+    </div>
+    <div class="two-thirds column" style="text-align: center; margin-left: 0; width: 66.6%">
+      <h3 style="margin-bottom: 0px">Forced Response</h3>
+      <span>
+        $$
+          r(t) = \int_{0}^{t} \frac{e^{-\alpha(t-\tau)}\sin{\beta (t-\tau)}}{\beta m} R(\tau) \mathrm{d} \tau
+        $$
+      </span>
+      <div id="graph0"></div>
     </div>
   </div>
   <script src="transient.js"></script>
