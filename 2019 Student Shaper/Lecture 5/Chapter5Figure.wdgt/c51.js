@@ -642,10 +642,10 @@ function main () {
   updateData();
   updateLayout();
 
-  Plotly.newPlot('graph0', data[0], layout[0], {displayModeBar: false});
-  Plotly.newPlot('graph1', data[1], layout[1], {displayModeBar: false});
-  Plotly.newPlot('graph2', data[2], layout[2], {displayModeBar: false});
-  Plotly.newPlot('graph3', data[3], layout[3], {displayModeBar: false});
+  Plotly.newPlot('graph0', data[0], layout[0], {displayModeBar: false, doubleClick: false,});
+  Plotly.newPlot('graph1', data[1], layout[1], {displayModeBar: false, doubleClick: false,});
+  Plotly.newPlot('graph2', data[2], layout[2], {displayModeBar: false, doubleClick: false,});
+  Plotly.newPlot('graph3', data[3], layout[3], {displayModeBar: false, doubleClick: false,});
 
   update();
 }
