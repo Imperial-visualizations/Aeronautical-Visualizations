@@ -79,14 +79,42 @@ function updateData () {
       line: {color: 'black'},
       connectgaps: false,
     };
-  }).concat({ // nodes
+  }).concat([{ // red bar
+      x: [newData[1][0][0],newData[1][3][0]*cutConst*math.sqrt(2)/math.sqrt((newData[1][3][0]-newData[1][0][0])**2+(newData[1][3][1]-newData[1][0][1])**2),],
+      y: [newData[1][0][1],newData[1][3][1]*cutConst*math.sqrt(2)/math.sqrt((newData[1][3][0]-newData[1][0][0])**2+(newData[1][3][1]-newData[1][0][1])**2),],
+      type: 'scatter',
+      mode: 'lines',
+      line: {color: 'red'},
+      connectgaps: false,
+    }, { // green bar
+      x: [newData[1][3][0]*(1-((1-cutConst)*math.sqrt(2)/math.sqrt((newData[1][3][0]-newData[1][0][0])**2+(newData[1][3][1]-newData[1][0][1])**2))), newData[1][3][0],],
+      y: [newData[1][3][1]*(1-((1-cutConst)*math.sqrt(2)/math.sqrt((newData[1][3][0]-newData[1][0][0])**2+(newData[1][3][1]-newData[1][0][1])**2))), newData[1][3][1],],
+      type: 'scatter',
+      mode: 'lines',
+      line: {color: 'green'},
+      connectgaps: false,
+    }, { // red dot
+      x: [newData[1][3][0]*cutConst*math.sqrt(2)/math.sqrt((newData[1][3][0]-newData[1][0][0])**2+(newData[1][3][1]-newData[1][0][1])**2),],
+      y: [newData[1][3][1]*cutConst*math.sqrt(2)/math.sqrt((newData[1][3][0]-newData[1][0][0])**2+(newData[1][3][1]-newData[1][0][1])**2),],
+      type: 'scatter',
+      mode: 'markers',
+      marker: {color: 'transparent', size: 15, line: {color: 'red', width: 1}},
+      connectgaps: false,
+    }, { // green dot
+      x: [newData[1][3][0]*(1-((1-cutConst)*math.sqrt(2)/math.sqrt((newData[1][3][0]-newData[1][0][0])**2+(newData[1][3][1]-newData[1][0][1])**2))),],
+      y: [newData[1][3][1]*(1-((1-cutConst)*math.sqrt(2)/math.sqrt((newData[1][3][0]-newData[1][0][0])**2+(newData[1][3][1]-newData[1][0][1])**2))),],
+      type: 'scatter',
+      mode: 'markers',
+      marker: {color: 'green', size: 10, line: {color: 'green'}},
+      connectgaps: false,
+    }, { // nodes
     x: [newData[1][1][0], newData[1][3][0], newData[1][4][0]],
     y: [newData[1][1][1], newData[1][3][1], newData[1][4][1]],
     type: 'scatter',
     mode: 'markers',
     marker: {color: 'black', size: 10},
     connectgaps: false,
-  }), bars2.map(function (n) {
+  }]), bars2.map(function (n) {
     return {
       x: [newData[2][n[0]][0], newData[2][n[1]][0],],
       y: [newData[2][n[0]][1], newData[2][n[1]][1],],
