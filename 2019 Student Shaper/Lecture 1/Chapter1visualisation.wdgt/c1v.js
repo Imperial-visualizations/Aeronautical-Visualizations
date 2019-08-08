@@ -234,7 +234,7 @@ function refreshLayout () {
 
 // plot graph
 refreshLayout();
-Plotly.newPlot('graph1', [], layout);
+Plotly.newPlot('graph1', [], layout, {displayModeBar: false, doubleClick: false,});
 Plotly.react('graph1', data, layout);
 
 function update () {
