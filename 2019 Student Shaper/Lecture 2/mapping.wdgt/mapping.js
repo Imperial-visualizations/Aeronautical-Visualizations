@@ -436,7 +436,6 @@ $(document).ready(function () {
   var pointNo = -1;
 
   plot1.on('plotly_click', function(dataOutput) {
-    console.log(dataOutput);
 
     var newData = Array.from(data); // create shallow copy
     for (var i = 0; i<dataOutput.points.length; i++) {
@@ -447,7 +446,6 @@ $(document).ready(function () {
           var yaxis = plot1._fullLayout.yaxis;
           var mousex = xaxis.p2l(dataOutput.event.x - xaxis._offset);
           var mousey = yaxis.p2l(dataOutput.event.y - yaxis._offset);
-          console.log(mousey)
           if (mousey*math.sqrt(3)+mousex>=3.5) {
             pointNo = 2;
           } else {
@@ -462,7 +460,6 @@ $(document).ready(function () {
 
     switch (pointNo) {
       case 0:
-        console.log(1);
         newData.splice(2, 0, { // horizontal
               x: [0, 5],
               y: [0, 0],
@@ -592,7 +589,6 @@ $(document).ready(function () {
         $("#bigMatrix3").hide();
         break;
       case 1:
-        console.log(2);
         newData.splice(2, 0, { // vertical
               x: [0, 0],
               y: [0, 5/math.sqrt(3)],
@@ -722,7 +718,6 @@ $(document).ready(function () {
         $("#bigMatrix3").hide();
         break;
       case 2:
-        console.log(3);
         newData.splice(2, 0, { // horizontal
               x: [0, 5],
               y: [5/math.sqrt(3), 0],
@@ -852,7 +847,6 @@ $(document).ready(function () {
         $("#bigMatrix3").show();
         break;
       default:
-        console.log(0);
         newData.splice(2, 0, { // horizontal
               x: [0, 5],
               y: [0, 0],

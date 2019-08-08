@@ -61,8 +61,6 @@ data.push({
     connectgaps: false,
 });
 
-console.log(data)
-
 let layout;
 function refreshLayout () {
   layout = {
