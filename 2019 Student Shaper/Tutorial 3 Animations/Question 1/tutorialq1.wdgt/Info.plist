@@ -4,14 +4,14 @@
 <plist version="1.0">
 <dict>
   <key>CFBundleDisplayName</key>
-  <string>Continuous Beam</string>
+  <string>T3Q1</string>
   <key>CFBundleIdentifier</key>
-  <string>com.apple.widget.ContinuousBeam</string>
+  <string>com.apple.widget.T3Q1</string>
   <key>MainHTML</key>
-  <string>continuous.html</string>
+  <string>q1.html</string>
   <key>Height</key>
-  <string>600</string>
+  <string>630</string>
   <key>Width</key>
-  <string>900</string>
+  <string>1150</string>
 </dict>
 </plist>
