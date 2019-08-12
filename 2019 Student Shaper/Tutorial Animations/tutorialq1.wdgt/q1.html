@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+  <title>Tutorial 3 Q1</title>
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/plotly-1.47.4.min.js"></script>
+  <script src="js/math.min.js"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true
+      },
+    });
+  </script>
+  <script src="js/MathJax-min/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+ -->
+
+  <!--
+  <script src="http://www.numericjs.com/lib/numeric-1.2.6.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  -->
+</head>
+<body style="background-color: #F4F4F4">
+  <div class="row">
+        <!-- *Animation and trail of the MSD system* -->
+        <div class="seven columns" style="margin-left: 0; width: 58.33%">
+
+            <div class="row">
+                <div class="eleven columns">
+                    <!-- Slideshow container -->
+                    <div class="slideshow-container">
+                        <!-- Full-width images with number and caption text -->
+                        <div class="mySlides fade">
+                            <!-- <div class="numbertext">1 / 2</div> -->
+                            <br>
+                            <div style="text-align:center;" >
+                                <canvas width="500" height="500" ></canvas>
+                            </div>
+                            <br>
+                            <div style="text-align:center;">
+                                <button id="playPauseButton" onclick="calcu_resp(); plot_resp2(); plot_resp(); startAnime()">Start</button>
+                                <button id="resetButton" onclick="stopAnime(); slider();">Reset</button>
+                            </div>
+                        </div>
+
+                        <div class="mySlides fade">
+                            <!-- <div class="numbertext">2 / 2</div> -->
+                            <div id="plot_r"  style="height: 45vh; width: 75vh"></div>
+                            <div id="plot_theta" style="height: 45vh; width: 75vh;"></div>
+                        </div>
+
+                        <!-- Next and previous buttons -->
+                        &emsp;&emsp;&emsp;&emsp;
+                        <a id="prev1" class="prev" onmouseenter="arrowShow1()" onmouseleave="arrowHide1()" onclick="plusSlides(-1); calcu_resp(); plot_resp2(); plot_resp();">&#10094;</a>
+                        <a id="prev2" class="next" onmouseenter="arrowShow2()" onmouseleave="arrowHide2()" onclick="plusSlides(1); calcu_resp(); plot_resp2(); plot_resp();">&#10095;</a>
+                        <br>
+
+                        <!-- The dots/circles -->
+                        <div style="text-align:center">
+                            <span class="dot" onclick="currentSlide(1); calcu_resp(); plot_resp2(); plot_resp();"></span>
+                            <span class="dot" onclick="currentSlide(2); calcu_resp(); plot_resp2(); plot_resp();"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- *user inputs page* -->
+        <div class="five columns" style="margin-left: 0; width: 41.66%">
+
+            <br>
+            <h4>Parameters</h4>
+            <div class="row">
+                <div class="row">
+                    <div class="six columns">
+                        <label class="label">m :
+                            <span id="mDisplay"></span>
+                            kg
+                        </label>
+                        <input type="range" min="1" max="7" step="0.1" value="4" style="width: 17em" id="m" oninput="calcu_resp(); plot_resp(); slider();" onmousemove="plot_resp2()" onchange="plot_resp2()">
+                    </div>
+
+                    <div class="six columns">
+                        <label class="label">ℓ :
+                            <span id="LDisplay"></span>
+                            m
+                        </label>
+                        <input type="range" min="1" max="2" value="1.5" step="0.1" style="width: 17em" id="L" oninput="calcu_resp(); plot_resp(); slider();" onmousemove="plot_resp2()" onchange="plot_resp2()">
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="six columns">
+                        <label class="label">k :
+                            <span id="kDisplay"></span>
+                            N/m
+                        </label>
+                        <input type="range" min="6" max="10" value="8" step="0.1" style="width: 17em" id="k" oninput="calcu_resp(); plot_resp(); slider();" onmousemove="plot_resp2()" onchange="plot_resp2()">
+                    </div>
+
+                    <div class="six columns">
+                        <label class="label">k <sub>&theta;</sub> :
+                            <span id="k_thetaDisplay"></span>
+                            N&middot;m/rad
+                        </label>
+                        <input type="range" min="5" max="11" value="8" step="0.1" style="width: 17em" id="k_theta" oninput="calcu_resp(); plot_resp(); slider();" onmousemove="plot_resp2()" onchange="plot_resp2()">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="six columns">
+                        <label class="label">I :
+                            <span id="IDisplay"></span>
+                            kg&middot;m<sup>2</sup>
+                        </label>
+                        <input type="range" min="6" max="7" value="6.5" step="0.1" style="width: 17em" id="I" oninput="calcu_resp(); plot_resp(); slider();" onmousemove="plot_resp2()" onchange="plot_resp2()">
+                    </div>
+                </div>
+
+                <div class="twelve columns">
+                    <br>
+                    <h4>Mode Shapes</h4>
+                    <p>
+                    <div class="row">
+                        <div class="seven columns" style="font-size: large">
+                            <label class="label">1<sup>st</sup> Mode</label>
+                        </div>
+
+                        <div class="three columns" style="font-size: large">
+                            <label class="label">2<sup>nd</sup> Mode</label>
+                        </div>
+
+                        <input type="range" min="0" max="1" step = "0.01" value="0" id="mode1" oninput="calcu_resp(); plot_resp();" onmousemove="plot_resp2()" onchange="plot_resp2()">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+  <!-- the brains -->
+  <script src="Q1_graphics1.js"></script>
+  <script src="Q1_canvas.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--end-->
