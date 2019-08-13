@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+  <title>Tutorial 3 Q3</title>
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/plotly-1.47.4.min.js"></script>
+  <script src="js/math.min.js"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true
+      },
+    });
+  </script>
+  <script src="js/MathJax-min/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+ -->
+
+  <!--
+  <script src="http://www.numericjs.com/lib/numeric-1.2.6.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  -->
+</head>
+<body style="background-color: #F4F4F4">
+  <div class="row">
+
+        <!-- *Animation and trail of the MSD system* -->
+        <div class="seven columns" style="margin-left: 0; width: 58.33%">
+          <div class="row">
+                          <div class="eleven columns">
+                              <!-- Slideshow container -->
+                              <div class="slideshow-container">
+                                  <!-- Full-width images with number and caption text -->
+                                  <div class="mySlides fade">
+                                      <br>
+                                      <div style="text-align:center;" >
+                                          <canvas width="500" height="500" ></canvas>
+                                      </div>
+                                      <br>
+                                      <div style="text-align:center;">
+                                          <button id="playPauseButton" onclick="calcu_resp(); plot_resp(); startAnime()">Start</button>
+                                          <button id="resetButton" onclick="stopAnime(); slider();">Reset</button>
+                                      </div>
+                                  </div>
+
+                                  <div class="mySlides fade">
+                                      <br>
+                                      <div style="text-align:center;" >
+                                          <div id="plot_r"  style="height: 50vh; width: 70vh"></div>
+                                      </div>
+                                  </div>
+
+                                  <!-- Next and previous buttons -->
+                                  &emsp;&emsp;&emsp;&emsp;
+                                  <a id="prev1" class="prev" onmouseenter="arrowShow1()" onmouseleave="arrowHide1()" onclick="plusSlides(-1); calcu_resp(); plot_resp();">&#10094;</a>
+                                  <a id="prev2" class="next" onmouseenter="arrowShow2()" onmouseleave="arrowHide2()" onclick="plusSlides(1); calcu_resp(); plot_resp();">&#10095;</a>
+                                  <br>
+
+                                  <!-- The dots/circles -->
+                                  <div style="text-align:center">
+                                      <span class="dot" onclick="currentSlide(1); calcu_resp(); plot_resp();"></span>
+                                      <span class="dot" onclick="currentSlide(2); calcu_resp(); plot_resp();"></span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+        </div>
+
+
+        <!-- *user inputs page* -->
+        <div class="five columns" style="margin-left: 0; width: 41.66%">
+
+                      <br>
+                      <h4>Parameters</h4>
+                      <div class="row">
+                          <div class="row">
+                              <div class="six columns">
+                                  <label class="label">m :
+                                      <span id="mDisplay"></span>
+                                      kg
+                                  </label>
+                                  <input type="range" min="1" max="7" step="0.1" value="4" style="width: 17em" id="m" oninput="calcu_resp(); plot_resp(); slider();">
+                              </div>
+
+                              <div class="six columns">
+                                  <label class="label">k :
+                                      <span id="kDisplay"></span>
+                                      N/m
+                                  </label>
+                                  <input type="range" min="7" max="10" value="8.5" step="0.1" style="width: 17em" id="k" oninput="calcu_resp(); plot_resp(); slider();">
+                              </div>
+
+                          </div>
+
+                          <div class="row">
+
+                              <div class="six columns">
+                                  <label class="label">R <sub>0</sub> :
+                                      <span id="R0Display"></span>
+                                      N
+                                  </label>
+                                  <input type="range" min="0" max="3" value="1.5" step="0.1" style="width: 17em" id="R0" oninput="calcu_resp(); plot_resp(); slider();">
+                              </div>
+
+                          </div>
+
+                          <div class="twelve columns">
+
+                              <br>
+                              <h4>Forcing Frequency</h4>
+
+                              <label class="label">&Omega; :
+                                  <span id="OmegaDisplay"></span>
+                                  &omega;
+                              </label>
+                              <input type="range" min="0.6" max="1.3" value="0.95" step="0.01" id="Omega" oninput="calcu_resp(); plot_resp(); slider();">
+
+                              <br>
+                              <br>
+
+                              <img src="Q3_1_exp.png" alt="Forcing frequency Omega and Natural frequency omega">
+
+                              <!-- <p>
+                                  $\Omega$ is the forcing frequency where the forcing function is $R = R_0 \cos(\Omega t)$.
+                                  $\omega$ is the natural frequency and is given by $\omega = \sqrt{k/m}$.
+                              </p> -->
+
+                          </div>
+
+                      </div>
+                    </div>
+
+
+
+
+  <!-- the brains -->
+  <script src="Q3_graphics1_1.js"></script>
+  <script src="Q3_canvas_1.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--end-->
