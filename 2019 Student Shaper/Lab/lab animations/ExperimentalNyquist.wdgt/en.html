@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+  <title>Lab Mode Shape</title>
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/plotly-1.47.4.min.js"></script>
+  <script src="js/math.min.js"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true
+      },
+    });
+  </script>
+  <script src="js/MathJax-min/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body style="background-color: #F4F4F4">
+
+  <h1 style="text-align: center">Experimental data</h1>
+        <div class="row">
+                <div class="four columns" style="text-align: center; margin-left: 0; width: 30%">
+                    <div id='graph1' style="width:300px; height:300px;"></div>
+                </div>
+                <div class="four columns" style="text-align: center; margin-left: 0; width: 30%">
+                    <div id='graph2' style="width:300px; height:300px;"></div>
+                </div>
+                <div class="four columns" style="text-align: center; margin-left: 0; width: 40%">
+                    <div id='graph3' style="width:420px; height:300px;"></div>
+        </div>
+        </div>
+        <div class="row">
+            <div class="four columns" style="text-align: center; margin-left: 0; width: 30%">
+                    <h4>Import the acquired data in the following cells:</h4>
+                        <form>
+                            Frequency (Hz)&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= <input type="number" id="frequency" style="width:120px";><br>
+                            Acceleration amplitude (V) = <input type="number" id="amplitude" style="width:120px"><br>
+                            Phase angle (Rad)&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;= <input type="number" id="phase" style="width:120px"><br>
+                            Load Amplitude Factor &nbsp; &nbsp;&nbsp;&nbsp; = <input type="number" id="load" style="width:120px"><br>
+                            <input type="button" value="submit" id="submit" style="width:154px">
+                            <input type="button" id="reset" value="reset"  style="width:154px">
+                            <input type="button" value="Show PREVIOUS Experimental Data" id="previous" style="width:312px; color:rgb(33, 97, 140)">
+                        </form>
+            </div>
+            <div class="three columns offset-by-one column" style="text-align: center; width: 30%">
+                <h4>Choose the desired data points:</h4>
+                        <table style="width:70%">
+                            <tr>
+                                <th class = "tooltip"><span class = "tooltiptext"> Select two points by inputing the index of the point (1,2,...).</span>Point</th>
+                                <th>$\omega (\frac{\mathrm{rad}}{\mathrm{s}} \hspace{0.08cm})$</th>
+                                <th>$\theta (\mathrm{rad})$</th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" style="width:80px" id="PointA" ></td>
+                                <td><p id="omega1"></p></td>
+                                <td><p id="theta1"></p></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" style="width:80px" id="PointB"></td>
+                                <td><p id="omega2"></p></td>
+                                <td><p id="theta2"></p></td>
+                            </tr>
+                        </table>
+            </div>
+            <div class="three columns" style="text-align: center">
+                        <h4>The values of interest are:</h4>
+                            <p> $ \omega_u = $<span id="omegau"></span> $\frac{\mathrm{rad}}{\mathrm{s}}$ </p>
+                            <p> $ \xi = $<span id="xi"></span></p>
+                            <p> $ \frac{k}{m} = \omega_u^2 = $<span id="koverm"></span>$\left(\frac{\mathrm{1}}{\mathrm{s}}\right)^2$</p>
+                            <p> $ \frac{c}{m} = 2\xi\omega_u = $<span id="coverm"></span>$\frac{\mathrm{1}}{\mathrm{s}}$</p>
+
+            </div>
+
+  <!--script for animation-->
+  <script src=freqetdamp2.js></script>
+
+</body>
+</html>

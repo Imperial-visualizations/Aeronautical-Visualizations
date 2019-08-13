@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+"http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleDisplayName</key>
+  <string>LabMS</string>
+  <key>CFBundleIdentifier</key>
+  <string>com.apple.widget.LabMS</string>
+  <key>MainHTML</key>
+  <string>plane.html</string>
+  <key>Height</key>
+  <string>640</string>
+  <key>Width</key>
+  <string>1000</string>
+</dict>
+</plist>

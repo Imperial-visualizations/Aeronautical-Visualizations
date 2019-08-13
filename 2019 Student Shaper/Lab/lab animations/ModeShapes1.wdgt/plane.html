@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+  <title>Lab Mode Shape</title>
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/plotly-1.47.4.min.js"></script>
+  <script src="js/math.min.js"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true
+      },
+    });
+  </script>
+  <script src="js/MathJax-min/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body style="background-color: #F4F4F4">
+  <h1 style="text-align: center">Aircraft Mode Shapes</h1>
+  <div class="row">
+    <div class="one-half column" style="text-align: center; margin-left: 0; width: 50%">
+      <h2 style="text-align: center">3D</h2>
+      <div id="graph3D"></div>
+    </div>
+    <div class="one-half column" style="text-align: center; margin-left: 0; width: 50%">
+      <div class="row">
+        <div class="one-half column" style="text-align: center; margin-left: 0; width: 50%">
+          <h2 style="text-align: center">Lateral</h2>
+          <div id="graphLat"></div>
+        </div>
+        <div class="one-half column" style="text-align: center; margin-left: 0; width: 50%">
+          <h2 style="text-align: center">Longitudinal</h2>
+          <div id="graphLong"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="one-half column" style="text-align: center; margin: 0 auto; width: 50%">
+          <input type="button" class="button" value="Start" id="start">
+
+        </div>
+        <div class="one-half column" style="text-align: center; margin: 0 auto; width: 50%">
+          <strong>Mode Shape:</strong>
+          <select id="modeInput">
+            <option value="1">1st</option>
+            <option value="2">2nd</option>
+            <option value="3">3rd</option>
+            <option value="4">4th</option>
+            <option value="5">5th</option>
+            <option value="6">6th</option>
+            <option value="7">7th</option>
+            <option value="8">8th</option>
+            <option value="9">9th</option>
+            <option value="10">10th</option>
+            <option value="11">11th</option>
+            <option value="12">12th</option>
+            <option value="13">13th</option>
+          </select>
+        </div>
+      </div>
+
+      <span class="sliderMin">Slower</span>
+      <input
+      id="speedInput"
+      style="width: 40%"
+      class="inputs"
+      type="range"
+      value="500"
+      min="25"
+      max="500"
+      step="5"/>
+      <span class="sliderMax">Slow</span>
+
+      <div style="text-align: center; margin: 0 auto;">
+        <strong>
+          Eigenvalue (undamped natural frequency $\omega$) :
+        </strong><br>
+        <span id="eigenvalue">$98.33$</span> $\mathrm{rad/s}$
+      </div>
+    </div>
+
+
+  <!--script for animation-->
+  <script src="plane.js"></script>
+
+</body>
+</html>
