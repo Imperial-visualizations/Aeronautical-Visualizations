@@ -163,9 +163,13 @@ let trace_theta2 = {
 /* general layout */
 let resp_layout = {
     autosize: true,
+    width: 500,
+    height: 275,
+    plot_bgcolor:"#F4F4F4",
+    paper_bgcolor:"#F4F4F4",
     legend: {x: 0, y: 6, "orientation": "h"},
-    margin: {l:100 ,r:5 ,t:50 , b:100 },
-    yaxis: {nticks: 8},
+    margin: {l:100 ,r:5 ,t:50 , b:50 },
+    yaxis: {range: [-2, 2], nticks: 8},
     xaxis: {range: [0.01, 15],
         nticks: 8,
         title: "Time (s)", titlefont: {size: 14} }
@@ -176,7 +180,6 @@ let resp_layout = {
 Plotly.newPlot('plot_r', [trace_r, trace_r1, trace_r2], resp_layout, {displayModeBar: false});
 //plot theta response
 Plotly.newPlot('plot_theta', [trace_theta, trace_theta1, trace_theta2], resp_layout, {displayModeBar: false});
-
 
 
 /** ---------------------------------- Function to hide and display ------------------------------------- **/
@@ -473,6 +476,7 @@ function showSlides(n) {
 }
 
 showSlides(slideIndex);
+
 
 
 
