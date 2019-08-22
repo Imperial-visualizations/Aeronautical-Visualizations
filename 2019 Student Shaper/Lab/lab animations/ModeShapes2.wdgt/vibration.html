@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/plotly-1.47.4.min.js"></script>
+    <script src="js/math.min.js"></script>
+    <script src="js/numeric-master/src/numeric.js"></script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true
+      }
+    });
+    </script>
+    <script src="js/MathJax-min/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  </head>
+
+<title>Free Vibrations</title>
+
+<body style="text-align: center; background-color: #F4F4F4">
+  <div class="row">
+    <div class="seven columns" style="margin-left: 0; width: 58.33%">
+
+      <div class="grid-container" id="mainStuff">
+        <div class="plotSlides" id="plotSlidesBox">
+
+          <div class="mySlides" id="slide1">
+              <h5>Full Aircraft Animation</h5>
+              <br><br>
+          <div id="fullAircraft"></div> <!--- id used in JS for the full aircraft plot --->
+          </div>
+
+          <div class="mySlides slide2" id="slidetwo">
+
+            <div class="row">
+              <div class="six columns" style="margin-left: 0; width: 50%">
+                <div id="fusbox">
+                    <h5>Wing 2D Projection</h5> <!--- Fuselage plot title --->
+                    <br><br>
+                  <div id="fuselage"></div>
+                </div>
+              </div>
+              <div class="six columns" style="margin-left: 0; width: 50%">
+                <div id="wibox">
+                    <h5>Fuselage 2D Projection</h5> <!--- Wing plot title --->
+                    <br><br>
+                  <div id="wing"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mySlides" id="slide3">
+            <div class ="tooltip">
+            <h5>Convergence Plot</h5> <!--- Fuselage plot title --->
+            <span class="tooltiptext">For the selected vibration mode, this graph shows the error in modal frequency decreases as you increase the number of elements.</span>
+          </div>
+            <div id="freqPlot"></div>
+          </div>
+        </div>
+
+        <div style="text-align:left">
+          <a id="prev1" class="prev" onmouseenter="arrowShow1()" onmouseleave="arrowHide1()" onclick="plusSlides(-1)" >&#10094;</a>
+          <a id="prev2" class="next" onmouseenter="arrowShow2()" onmouseleave="arrowHide2()" onclick="plusSlides(1)" >&#10095;</a>
+        </div>
+    </div>
+  </div>
+    <div class="five columns" style="margin-left: 0; width: 40%">
+      <br><br><br><br>
+      <div class="userInputs" id="numberOfElementsBox">
+        <div id="elemSlider"> <!--- slider for the number of elements --->
+          <div class="tooltip">
+            <label for="nElem" class="sliderTitle"> <!--- slider title --->
+              Number of Elements:
+              <span id="elementDisplay">8</span>
+            </label>
+
+          </div>
+          <br>
+          <span class="sliderMin">4</span>
+          <input type="range" id="nElem" name="elemSlider" min="0" max="7" Value="1">
+          <span class="sliderMax">512</span>
+          </div>
+      </div>
+
+      <div class="userInputs" id="modalShapeBox">
+        <div id="modeSlider"> <!--- slider for the modal shape --->
+          <div class="tooltip">
+            <label for="nMode" class="sliderTitle"> <!--- slider title --->
+              Mode Shape:
+              <span id="modeDisplay">1</span>
+
+            </label>
+
+          </div>
+          <br>
+          <span class="sliderMin">1</span>
+          <input type="range" id="nMode" name="modeSlider" min="1" max="8" value="1">
+          <span class="sliderMax" id="modeSliderMax">8</span>
+        </div>
+      </div>
+
+
+      <div class="userInputs" id="startBox">
+        <input type="button" class="button" value="Start" id="start">
+      </div>
+
+      <div id="freqDisplayBox">
+        <h5>Modal Frequency:
+        <span id="freqDisp"><span>
+          </h5>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+  </div>
+
+
+
+  <!--- Body Scripts  below here--->
+  <script>
+  let pages=["1Free-Vibrations.html","2Free-Vibrations-Theory.html","3Linear-Combinations.html"];
+  </script>
+  <script src="scripts/labFreeVibrationsFE.js"></script>
+</body>
+
+
+
+</html>
