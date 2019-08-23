@@ -189,7 +189,10 @@ var layout = {
       scaleanchor: "x",
       range:[-1,1],
       title:'Eigenvector (normalised)',
-    }
+    },
+
+    plot_bgcolor:"#F4F4F4",
+    paper_bgcolor:"#F4F4F4",
 }
 
 var layout2 = {
@@ -201,7 +204,10 @@ var layout2 = {
       scaleanchor: "x",
       range:[-1,1],
       title:'Eigenvector (normalised)'
-    }
+    },
+
+    plot_bgcolor:"#F4F4F4",
+    paper_bgcolor:"#F4F4F4",
 }
             // generate the plots
             Plotly.newPlot('graphAircraftV', [traceAircraftV, traceAircraftVmeasured], layout, {displayModeBar:false});
