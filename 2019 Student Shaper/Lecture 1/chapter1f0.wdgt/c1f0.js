@@ -98,10 +98,22 @@ function updateLayout () {
       y: newData[0][4][1]+0.08,
       xref: "x",
       yref: "y",
-      text: "R",
-      font: {size:15*(1+(parseFloat(sliderInput[0]))), color: 'grey'},
       showarrow: true,
       arrowcolor: "grey",
+      arrowhead: 1,
+      arrowwidth: 2*(1+(parseFloat(sliderInput[0]))),
+      arrowsize: 1,
+      ax: 0,
+      ay: -40*(1+(parseFloat(sliderInput[0]))),
+    }, { // R text
+      x: newData[0][4][0],
+      y: newData[0][4][1]+0.1,
+      xref: "x",
+      yref: "y",
+      text: "$R$",
+      font: {size:15*(1+(parseFloat(sliderInput[0]))), color: 'grey'},
+      showarrow: true,
+      arrowcolor: "transparent",
       arrowhead: 1,
       arrowwidth: 2*(1+(parseFloat(sliderInput[0]))),
       arrowsize: 1,
@@ -341,6 +353,7 @@ function update () {
   updateLayout();
 
   Plotly.react('graph0', data[0], layout[0]);
+  MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 
   return;
 }
