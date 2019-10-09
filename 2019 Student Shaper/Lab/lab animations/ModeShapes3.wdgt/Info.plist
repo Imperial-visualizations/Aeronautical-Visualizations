@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+"http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleDisplayName</key>
+  <string>ModeShape3</string>
+  <key>CFBundleIdentifier</key>
+  <string>com.apple.widget.MS3</string>
+  <key>MainHTML</key>
+  <string>ms3.html</string>
+  <key>Height</key>
+  <string>700</string>
+  <key>Width</key>
+  <string>1040</string>
+</dict>
+</plist>
