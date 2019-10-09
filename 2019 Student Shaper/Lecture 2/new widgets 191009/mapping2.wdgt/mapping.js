@@ -308,13 +308,16 @@ var layout2 = {
 
 function change(pointNo) {
 
-  $(":button").css('font-weight','400');
+
 
   newData = Array.from(data); // create shallow copy
   switch (pointNo) {
     case 0:
 
+      $(":button").css('font-weight','400');
       $("#buttonbar1").css('font-weight','700');
+
+
 
       newData.splice(2, 0, { // horizontal
             x: [0, 5],
@@ -445,7 +448,8 @@ function change(pointNo) {
       $("#bigMatrix3").hide();
       break;
     case 1:
-      $("#buttonbar2").css('font-weight','700');
+    $(":button").css('font-weight','400');
+    $("#buttonbar3").css('font-weight','700');
       newData.splice(2, 0, { // vertical
             x: [0, 0],
             y: [0, 5/math.sqrt(3)],
@@ -575,7 +579,8 @@ function change(pointNo) {
       $("#bigMatrix3").hide();
       break;
     case 2:
-      $("#buttonbar3").css('font-weight','700');
+      $(":button").css('font-weight','400');
+      $("#buttonbar2").css('font-weight','700');
       newData.splice(2, 0, { // horizontal
             x: [0, 5],
             y: [5/math.sqrt(3), 0],
@@ -1005,12 +1010,18 @@ $(document).ready(function () {
     switch ($(this).attr('id')) {
       case "buttonbar1":
         change(0);
+        $(":button").css('font-weight','400');
+        $("#buttonbar1").css('font-weight','700');
         break;
       case "buttonbar2":
-        change(1);
+        change(2);
+        $(":button").css('font-weight','400');
+        $("#buttonbar2").css('font-weight','700');
         break;
       case "buttonbar3":
-        change(2);
+        change(1);
+        $(":button").css('font-weight','400');
+        $("#buttonbar3").css('font-weight','700');
         break;
       default:
         change(0);
